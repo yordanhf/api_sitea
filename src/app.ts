@@ -7,7 +7,6 @@ import pacienteRoutes from './routes/paciente.routes';
 import antecedentesPPPRoutes from './routes/antecedentesPPP.routes';
 import paciente_antecedenteRoutes from './routes/paciente_antecedente.routes';
 import alergiaRoutes from './routes/alergias.routes';
-import caracteristicaRoutes from './routes/caracteristica.routes';
 import cclinicaRoutes from './routes/cclinica.routes';
 import comorbilidadRoutes from './routes/comorbilidad.routes';
 import diagnosticoRoutes from './routes/diagnostico.routes';
@@ -34,12 +33,29 @@ import swaggerOptions from './config/swagger.config';
 
 
 const app = express();
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:3001', 
+  'http://localhost:3002', 
+  'http://localhost:3003',   
+  'http://localhost:4000',  
+];
+
+// Configuración de CORS
 app.use(cors({
-  origin: 'http://localhost:3002', // Dirección del cliente React
+  origin: (origin, callback) => {
+    // Permitir solicitudes sin origen (por ejemplo, para Postman)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-})); // Habilitar CORS para todas las peticiones
-
+}));
 
 app.use(bodyParser.json());
 
@@ -57,7 +73,6 @@ sequelize.sync().then(() => {
 app.use('/api/antecedentesPPP', antecedentesPPPRoutes);
 app.use('/api/Alergias', alergiaRoutes);
 app.use('/api/pacientes', pacienteRoutes);
-app.use('/api/caracteristicas', caracteristicaRoutes);
 app.use('/api/cclinicas', cclinicaRoutes);
 app.use('/api/comorbilidades', comorbilidadRoutes);
 app.use('/api/Paciente_Antecedente', paciente_antecedenteRoutes);
