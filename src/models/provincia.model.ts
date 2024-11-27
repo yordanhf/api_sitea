@@ -1,4 +1,4 @@
-// src/models/fortaleza.model.ts
+
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/db.config';
 

@@ -32,7 +32,7 @@ Consulta.init(
         onUpdate: 'CASCADE',
       },
       fecha: {
-        type: DataTypes.STRING(10),
+        type: DataTypes.DATEONLY,
         allowNull: false,
       },
       peso: {

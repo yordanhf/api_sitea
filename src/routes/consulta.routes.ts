@@ -17,13 +17,13 @@ const router = Router();
  *           type: integer
  *           description: ID del paciente consultado
  *         fecha:
- *           type: string
+ *           type: DATEONLY
  *           description: fecha de la consulta
  *         peso:
- *           type: string
+ *           type: number
  *           description: peso del paciente consultado
  *         talla:
- *           type: string
+ *           type: number
  *           description: talla del paciente consultado
  *         examenFisicoPositivo:
  *           type: string

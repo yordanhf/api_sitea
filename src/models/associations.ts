@@ -31,13 +31,10 @@ import VinculoInstitucional from './vinculo_institucional.model';
   Consulta.belongsTo(Paciente, { foreignKey: 'pacienteId' });
 
   Provincia.hasMany(Municipio, { foreignKey: 'provinciaId' });
-  Municipio.belongsTo(Provincia, { foreignKey: 'provinciaId' });
-
-  Provincia.hasMany(Paciente, { foreignKey: 'provinciaId' });
-  Paciente.belongsTo(Provincia, { foreignKey: 'provinciaId' });
+  Municipio.belongsTo(Provincia, {as: 'provincia', foreignKey: 'provinciaId' });
 
   Municipio.hasMany(Paciente, { foreignKey: 'municipioId' });
-  Paciente.belongsTo(Municipio, { foreignKey: 'municipioId' });
+  Paciente.belongsTo(Municipio, {as:'municipio', foreignKey: 'municipioId' });
 
   Diagnostico.hasMany(Paciente, { foreignKey: 'diagnosticoId' });
   Paciente.belongsTo(Diagnostico, { foreignKey: 'diagnosticoId' });

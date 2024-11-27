@@ -56,9 +56,6 @@ const router = Router();
  *         telefono:
  *           type: string
  *           description: telefono del paciente
- *         provinciaId:
- *           type: number
- *           description: id de la provincia del paciente
  *         vinculoInstitucionalId:
  *           type: number
  *           description: id del vinculo institucional del paciente
@@ -78,9 +75,8 @@ const router = Router();
  *         - sexo
  *         - raza
  *         - direccion
- *         - municipio
+ *         - municipioId
  *         - verbal
- *         - provincia
  *         - diagnosticoId
  *         - vinculoInstitucionalId
  * 

@@ -1,5 +1,7 @@
 // 1. Paciente Repository (paciente.repository.ts)
+import Municipio from '../models/municipio.model';
 import Paciente from '../models/paciente.model';
+import Provincia from '../models/provincia.model';
 
 class PacienteRepository {
   public async createPaciente(data: Partial<Paciente>) {
@@ -11,8 +13,14 @@ class PacienteRepository {
   }
 
   public async findPacienteById(id: number) {
-    return await Paciente.findByPk(id);
-  }
+    return await Paciente.findByPk(id, {      
+      include: [ 
+        { model: Municipio, attributes: ['nombre'], as: 'municipio',
+          include: [{ model: Provincia, attributes: ['nombre'], as: 'provincia' }]
+         },        
+      ],
+    });
+  } 
 
   public async updatePaciente(id: number, data: Partial<Paciente>) {
     const paciente = await Paciente.findByPk(id);

@@ -14,8 +14,7 @@ class Paciente extends Model {
   public sexo!: string;
   public raza!: string;
   public direccion!: string;
-  public municipioId!: number;
-  public provinciaId!: number;
+  public municipioId!: number;  
   public verbal!: string;
   public diagnosticoId!: number;
   public vinculoInstitucionalId!: number;
@@ -65,16 +64,6 @@ Paciente.init(
       allowNull: false,
       references: {
         model: Municipio,
-        key: 'id',
-      },
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-    },
-    provinciaId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: Provincia,
         key: 'id',
       },
       onDelete: 'CASCADE',
