@@ -2,7 +2,6 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-
 import pacienteRoutes from './routes/paciente.routes';
 import antecedentesPPPRoutes from './routes/antecedentesPPP.routes';
 import paciente_antecedenteRoutes from './routes/paciente_antecedente.routes';
@@ -15,13 +14,11 @@ import examenes_complementariosRoutes from './routes/examenes_complementarios.ro
 import fortalezaRoutes from './routes/fortaleza.routes';
 import vinculo_institucionalRoutes from './routes/vinculo_institucional.routes';
 import provinciaRoutes from './routes/provincia.routes';
-import lista_fortalezasRoutes from './routes/lista_fortalezas.routes';
 import interconsultaRoutes from './routes/interconsulta.routes';
 import consultaRoutes from './routes/consulta.routes';
 import interconsultasRoutes from './routes/interconsultas.routes';
 import medicamentoRoutes from './routes/medicamento.routes';
 import municipioRoutes from './routes/municipio.routes';
-import medicamentosRoutes from './routes/medicamentos.routes';
 import paciente_cclinicasRoutes from './routes/paciente_cclinicas.routes';
 import paciente_fortalezaRoutes from './routes/paciente_fortaleza.routes';
 import tratamientoRoutes from './routes/tratamiento.routes';
@@ -82,12 +79,10 @@ app.use('/api/examenes', examenRoutes);
 app.use('/api/examenes_complementarios', examenes_complementariosRoutes);
 app.use('/api/fortaleza', fortalezaRoutes);
 app.use('/api/provincia', provinciaRoutes);
-app.use('/api/lista_fortaleza', lista_fortalezasRoutes);
 app.use('/api/Interconsulta', interconsultaRoutes);
 app.use('/api/Interconsultas', interconsultasRoutes);
 app.use('/api/medicamento', medicamentoRoutes);
 app.use('/api/municipio', municipioRoutes);
-app.use('/api/medicamentos', medicamentosRoutes);
 app.use('/api/Paciente_cclinicas', paciente_cclinicasRoutes);
 app.use('/api/Paciente_Fortaleza', paciente_fortalezaRoutes);
 app.use('/api/Tratamiento', tratamientoRoutes);
