@@ -33,6 +33,8 @@ Alergias.init(
         model: Medicamento,
         key: 'id',
       },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     },   
   },
   {

@@ -23,7 +23,13 @@ Diagnostico.init(
     sequelize,
     modelName: 'Diagnostico',
     tableName: 'Diagnostico',
-    timestamps: false,
+    timestamps: false,    
+    indexes: [
+      {
+        unique: true,
+        fields: ['nombre'],
+      },
+    ],
   }
 );
 

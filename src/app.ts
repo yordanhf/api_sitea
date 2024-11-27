@@ -21,6 +21,7 @@ import medicamentoRoutes from './routes/medicamento.routes';
 import municipioRoutes from './routes/municipio.routes';
 import paciente_cclinicasRoutes from './routes/paciente_cclinicas.routes';
 import paciente_fortalezaRoutes from './routes/paciente_fortaleza.routes';
+import paciente_comorbilidadRoutes from './routes/paciente_comorbilidad.routes';
 import tratamientoRoutes from './routes/tratamiento.routes';
 import './models/associations';
 import sequelize from './config/db.config';
@@ -85,6 +86,7 @@ app.use('/api/medicamento', medicamentoRoutes);
 app.use('/api/municipio', municipioRoutes);
 app.use('/api/Paciente_cclinicas', paciente_cclinicasRoutes);
 app.use('/api/Paciente_Fortaleza', paciente_fortalezaRoutes);
+app.use('/api/Paciente_comorbilidad', paciente_comorbilidadRoutes);
 app.use('/api/Tratamiento', tratamientoRoutes);
 app.use('/api/vinculo_institucional', vinculo_institucionalRoutes);
 

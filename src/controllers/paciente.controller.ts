@@ -34,8 +34,8 @@ class PacienteController {
 
   public async getAllPacientesByMunicipios(req: Request, res: Response) {
     try {
-      const { municipio } = req.params;
-      const pacientes = await PacienteService.getAllPacientesByMunicipio(municipio);
+      const {municipioId} = req.params;
+      const pacientes = await PacienteService.getAllPacientesByMunicipio(Number(municipioId));
       res.status(200).json(pacientes);
     } catch (error) {
       res.status(500).json((error as Error).message);

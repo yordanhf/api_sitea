@@ -13,13 +13,39 @@ import Municipio from './municipio.model';
 import Alergias from './alergias.model';
 import Paciente_Antecedente from './paciente_antecedente.model';
 import AntecedentesPPP from './antecedentesPPP.model';
+import PacienteComorbilidad from './paciente_comorbilidad.model';
+import Comorbilidad from './comorbilidad.model';
+import Diagnostico from './diagnostico.model';
+import VinculoInstitucional from './vinculo_institucional.model';
 
 // Definir las relaciones
+
+//Uno a Muchos
   Paciente.hasMany(Interconsulta, { foreignKey: 'pacienteId' });
   Interconsulta.belongsTo(Paciente, { foreignKey: 'pacienteId' });
 
   Paciente.hasMany(ExamenComplementario, { foreignKey: 'pacienteId' });
   ExamenComplementario.belongsTo(Paciente, { foreignKey: 'pacienteId' });
+
+  Paciente.hasMany(Consulta, { foreignKey: 'pacienteId' });
+  Consulta.belongsTo(Paciente, { foreignKey: 'pacienteId' });
+
+  Provincia.hasMany(Municipio, { foreignKey: 'provinciaId' });
+  Municipio.belongsTo(Provincia, { foreignKey: 'provinciaId' });
+
+  Provincia.hasMany(Paciente, { foreignKey: 'provinciaId' });
+  Paciente.belongsTo(Provincia, { foreignKey: 'provinciaId' });
+
+  Municipio.hasMany(Paciente, { foreignKey: 'municipioId' });
+  Paciente.belongsTo(Municipio, { foreignKey: 'municipioId' });
+
+  Diagnostico.hasMany(Paciente, { foreignKey: 'diagnosticoId' });
+  Paciente.belongsTo(Diagnostico, { foreignKey: 'diagnosticoId' });
+
+  VinculoInstitucional.hasMany(Paciente, { foreignKey: 'vinculoInstitucionalId' });
+  Paciente.belongsTo(VinculoInstitucional, { foreignKey: 'vinculoInstitucionalId' });  
+
+  //Mucho a Muchos
 
   Paciente.hasMany(PacienteCClinica, { foreignKey: 'pacienteId' });
   PacienteCClinica.belongsTo(Paciente, { foreignKey: 'pacienteId' });
@@ -33,13 +59,11 @@ import AntecedentesPPP from './antecedentesPPP.model';
   Fortaleza.hasMany(PacienteFortaleza, { foreignKey: 'fortalezaId' });
   PacienteFortaleza.belongsTo(Fortaleza, { foreignKey: 'fortalezaId' });
 
-  
+  Paciente.hasMany(PacienteComorbilidad, { foreignKey: 'pacienteId' });
+  PacienteComorbilidad.belongsTo(Paciente, { foreignKey: 'pacienteId' });
 
-  Paciente.hasMany(Consulta, { foreignKey: 'pacienteId' });
-  Consulta.belongsTo(Paciente, { foreignKey: 'pacienteId' });
-
-  Provincia.hasMany(Municipio, { foreignKey: 'provinciaId' });
-  Municipio.belongsTo(Provincia, { foreignKey: 'provinciaId' });
+  Comorbilidad.hasMany(PacienteComorbilidad, { foreignKey: 'comorbilidadId' });
+  PacienteComorbilidad.belongsTo(Comorbilidad, { foreignKey: 'comorbilidadId' });  
 
   Paciente.hasMany(Tratamiento, { foreignKey: 'pacienteId' });
   Tratamiento.belongsTo(Paciente, { foreignKey: 'pacienteId' });
@@ -61,4 +85,4 @@ import AntecedentesPPP from './antecedentesPPP.model';
   
 
 
-export { Paciente, Interconsulta, ExamenComplementario, CClinica, Fortaleza, Medicamento, Tratamiento, Consulta, Provincia, Municipio, Alergias, AntecedentesPPP, Paciente_Antecedente };
+export { Paciente, Interconsulta, ExamenComplementario, CClinica, Fortaleza, Medicamento, Tratamiento, Consulta, Comorbilidad, Provincia, Municipio, Alergias, AntecedentesPPP, Paciente_Antecedente, PacienteComorbilidad, PacienteFortaleza, PacienteCClinica };

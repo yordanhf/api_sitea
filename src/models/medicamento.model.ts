@@ -23,7 +23,13 @@ Medicamento.init(
     sequelize,
     modelName: 'Medicamento',
     tableName: 'medicamentos',
-    timestamps: false, // Desactiva createdAt y updatedAt
+    timestamps: false, 
+    indexes: [
+      {
+        unique: true,
+        fields: ['nombre'],
+      },
+    ],
   }
 );
 

@@ -23,7 +23,13 @@ Fortaleza.init(
     sequelize,
     modelName: 'Fortaleza',
     tableName: 'Fortaleza',
-    timestamps: false,
+    timestamps: false,        
+    indexes: [
+      {
+        unique: true,
+        fields: ['nombre'],
+      },
+    ],
   }
 );
 

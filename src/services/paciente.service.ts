@@ -19,8 +19,8 @@ class PacienteService {
     return paciente;
   }
 
-  public async getAllPacientesByMunicipio(municipio: string) {
-    const pacientes = await PacienteRepository.findAllPacientesByMunicipio(municipio);
+  public async getAllPacientesByMunicipio(municipioId: number) {
+    const pacientes = await PacienteRepository.findAllPacientesByMunicipio(municipioId);
     return { cant: pacientes.length, data:pacientes }
   }
 

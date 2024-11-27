@@ -46,6 +46,13 @@ ExamenComplementario.init(
     modelName: 'ExamenComplementario',
     tableName: 'ExamenComplementario',
     timestamps: false,
+    
+    indexes: [
+      {
+        unique: true,
+        fields: ['pacienteId', 'nombre'],
+      },
+    ],
   }
 );
 

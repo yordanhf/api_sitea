@@ -1,6 +1,10 @@
 // src/models/paciente.model.ts
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/db.config';
+import Provincia from './provincia.model';
+import Municipio from './municipio.model';
+import Diagnostico from './diagnostico.model';
+import VinculoInstitucional from './vinculo_institucional.model';
 
 class Paciente extends Model {
   public id!: number; // Auto-incremental
@@ -10,17 +14,16 @@ class Paciente extends Model {
   public sexo!: string;
   public raza!: string;
   public direccion!: string;
-  public municipio!: string;
+  public municipioId!: number;
+  public provinciaId!: number;
   public verbal!: string;
-  public motivoConsulta?: string;
-  public diagnostico?: string;
-  public comorbilidad?: string;
+  public diagnosticoId!: number;
+  public vinculoInstitucionalId!: number;
+  public motivoConsulta?: string;  
   public terapia?: string;
   public descripcionTerapia?: string;
   public observaciones?: string;
-  public telefono?: string;
-  public provincia!: string;
-  public vinculoInstitucional?: string;
+  public telefono?: string;   
   public antecPatFam?: string;
   public historialTratamiento?: string;
   public historialAlergia?: string;
@@ -57,9 +60,25 @@ Paciente.init(
       type: DataTypes.STRING(200),
       allowNull: false,
     },
-    municipio: {
-      type: DataTypes.STRING(50),
+    municipioId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: Municipio,
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    },
+    provinciaId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Provincia,
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     },
     verbal: {
       type: DataTypes.STRING(10),
@@ -69,14 +88,16 @@ Paciente.init(
       type: DataTypes.TEXT,
       allowNull: true,
     },
-    diagnostico: {
-      type: DataTypes.STRING(50),
-      allowNull: true,
-    },
-    comorbilidad: {
-      type: DataTypes.STRING(50),
-      allowNull: true,
-    },
+    diagnosticoId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Diagnostico,
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    },   
     terapia: {
       type: DataTypes.STRING(20),
       allowNull: true,
@@ -92,14 +113,16 @@ Paciente.init(
     telefono: {
       type: DataTypes.STRING(20),
       allowNull: true,
-    },
-    provincia: {
-      type: DataTypes.STRING(20),
+    },   
+    vinculoInstitucionalId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-    },
-    vinculoInstitucional: {
-      type: DataTypes.TEXT,
-      allowNull: true,
+      references: {
+        model: VinculoInstitucional,
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     },
     antecPatFam: {
       type: DataTypes.TEXT,
@@ -119,6 +142,12 @@ Paciente.init(
     modelName: 'Paciente',
     tableName: 'Pacientes',
     timestamps: false,
+    indexes: [
+      {
+        unique: true,
+        fields: ['ci'],
+      },
+    ],
   }
 );
 

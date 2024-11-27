@@ -32,21 +32,18 @@ const router = Router();
  *         direccion:
  *           type: string
  *           description: Dirección del paciente
- *         municipio:
- *           type: string
- *           description: Municipio del paciente
+ *         municipioId:
+ *           type: number
+ *           description: id del Municipio del paciente
  *         verbal:
  *           type: string
  *           description: Verbal del paciente
  *         motivoConsulta:
  *           type: string
  *           description: Motivo de consulta del paciente
- *         diagnostico:
- *           type: string
- *           description: Diagnóstico del paciente
- *         comorbilidad:
- *           type: string
- *           description: Comorbilidad del paciente
+ *         diagnosticoId:
+ *           type: number
+ *           description: id del Diagnóstico del paciente
  *         terapia:
  *           type: string
  *           description: Terapia del paciente
@@ -59,12 +56,12 @@ const router = Router();
  *         telefono:
  *           type: string
  *           description: telefono del paciente
- *         provincia:
- *           type: string
- *           description: provincia del paciente
- *         vinculoInstitucional:
- *           type: string
- *           description: vinculo institucional del paciente
+ *         provinciaId:
+ *           type: number
+ *           description: id de la provincia del paciente
+ *         vinculoInstitucionalId:
+ *           type: number
+ *           description: id del vinculo institucional del paciente
  *         antecPatFam:
  *           type: string
  *           description: antecedentes patologicos familiares del paciente
@@ -84,6 +81,9 @@ const router = Router();
  *         - municipio
  *         - verbal
  *         - provincia
+ *         - diagnosticoId
+ *         - vinculoInstitucionalId
+ * 
  */
 
 /**
@@ -131,16 +131,16 @@ router.get('/:id', PacienteController.getPacienteById);
 
 /**
  * @swagger
- * /api/pacientes/municipio/{municipio}:
+ * /api/pacientes/municipio/{municipioId}:
  *   get:
  *     summary: Obtener todos los pacientes de un municipio
  *     tags: [Pacientes]
  *     parameters:
  *       - in: path
- *         name: municipio
+ *         name: municipioId
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *         description: municipio del paciente
  *     responses:
  *       200:
@@ -152,7 +152,7 @@ router.get('/:id', PacienteController.getPacienteById);
  *       404:
  *         description: No hay pacientes en ese municipio
  */
-router.get('/municipio/:municipio', PacienteController.getAllPacientesByMunicipios);
+router.get('/municipio/:municipioId', PacienteController.getAllPacientesByMunicipios);
 
 /**
  * @swagger

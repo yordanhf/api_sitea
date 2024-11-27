@@ -41,6 +41,13 @@ Interconsulta.init(
     modelName: 'Interconsulta',
     tableName: 'Interconsulta',
     timestamps: false,
+        
+    indexes: [
+      {
+        unique: true,
+        fields: ['pacienteId', 'nombre'],
+      },
+    ],
   }
 );
 

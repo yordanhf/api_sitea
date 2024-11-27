@@ -43,6 +43,12 @@ PacienteFortaleza.init(
     modelName: 'PacienteFortaleza',
     tableName: 'Paciente_Fortaleza',
     timestamps: false,
+    indexes: [
+      {
+        unique: true,
+        fields: ['pacienteId', 'fortalezaId'],
+      },
+    ],
   }
 );
 

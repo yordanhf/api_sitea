@@ -23,6 +23,12 @@ VinculoInstitucional.init(
     modelName: 'VinculoInstitucional',
     tableName: 'VinculoInstitucional',
     timestamps: false,
+    indexes: [
+      {
+        unique: true,
+        fields: ['nombre'],
+      },
+    ],
   }
 );
 

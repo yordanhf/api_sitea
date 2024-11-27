@@ -1,7 +1,6 @@
 // src/models/caracteristica.model.ts
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/db.config';
-import { kMaxLength } from 'buffer';
 
 class AntecedentesPPP extends Model {
   public id!: number; // Auto-incremental
@@ -25,6 +24,13 @@ AntecedentesPPP.init(
     modelName: 'AntecedentesPPP',
     tableName: 'AntecedentesPPPs',
     timestamps: false,
+    
+    indexes: [
+      {
+        unique: true,
+        fields: ['nombre'],
+      },
+    ],
   }
 );
 

@@ -24,6 +24,13 @@ Examen.init(
     modelName: 'Examen',
     tableName: 'Examenes',
     timestamps: false,
+    
+    indexes: [
+      {
+        unique: true,
+        fields: ['nombre'],
+      },
+    ],
   }
 );
 

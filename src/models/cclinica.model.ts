@@ -24,6 +24,13 @@ CClinica.init(
     modelName: 'CClinica',
     tableName: 'CClinicas',
     timestamps: false,
+    
+    indexes: [
+      {
+        unique: true,
+        fields: ['nombre'],
+      },
+    ],
   }
 );
 

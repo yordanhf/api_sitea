@@ -24,6 +24,12 @@ Provincia.init(
     modelName: 'Provincia',
     tableName: 'Provincia',
     timestamps: false,
+    indexes: [
+      {
+        unique: true,
+        fields: ['nombre'],
+      },
+    ],
   }
 );
 

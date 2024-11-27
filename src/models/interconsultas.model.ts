@@ -24,6 +24,12 @@ InterconsultaSimple.init(
     modelName: 'InterconsultaSimple',
     tableName: 'Interconsultas',
     timestamps: false,
+    indexes: [
+      {
+        unique: true,
+        fields: ['nombre'],
+      },
+    ],
   }
 );
 

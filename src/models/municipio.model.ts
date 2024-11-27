@@ -36,7 +36,13 @@ Municipio.init(
     sequelize,
     modelName: 'Municipio',
     tableName: 'Municipio',
-    timestamps: false, // Desactiva createdAt y updatedAt
+    timestamps: false,
+    indexes: [
+      {
+        unique: true,
+        fields: ['nombre'],
+      },
+    ],
   }
 );
 

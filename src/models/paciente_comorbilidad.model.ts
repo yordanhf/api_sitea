@@ -2,15 +2,15 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/db.config';
 import Paciente from './paciente.model';
-import CClinica from './cclinica.model';
+import Comorbilidad from './comorbilidad.model';
 
-class PacienteCClinica extends Model {
+class PacienteComorbilidad extends Model {
   public id!: number;
   public pacienteId!: number; // Foreign key
-  public cClinicaId!: number; // Foreign key
+  public comorbilidadId!: number; // Foreign key
 }
 
-PacienteCClinica.init(
+PacienteComorbilidad.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -27,11 +27,11 @@ PacienteCClinica.init(
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     },
-    cClinicaId: {
+    comorbilidadId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: CClinica,
+        model: Comorbilidad,
         key: 'id',
       },
       onDelete: 'CASCADE',
@@ -40,17 +40,17 @@ PacienteCClinica.init(
   },
   {
     sequelize,
-    modelName: 'PacienteCClinica',
-    tableName: 'Paciente_CClinicas',
+    modelName: 'PacienteComorbilidad',
+    tableName: 'Paciente_Comorbilidad',
     timestamps: false,
     indexes: [
       {
         unique: true,
-        fields: ['pacienteId', 'cClinicaId'],
+        fields: ['pacienteId', 'comorbilidadId'],
       },
     ],
   }
 );
 
 
-export default PacienteCClinica;
+export default PacienteComorbilidad;

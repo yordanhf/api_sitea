@@ -22,8 +22,8 @@ class PacienteRepository {
     throw new Error('Paciente no encontrado');
   }
 
-  public async findAllPacientesByMunicipio(municipio_: string) {
-    return await Paciente.findAll({ where: { municipio : municipio_ } });
+  public async findAllPacientesByMunicipio(municipio_: number) {
+    return await Paciente.findAll({ where: { municipioId : municipio_ } });
   }
 
   public async deletePaciente(id: number) {

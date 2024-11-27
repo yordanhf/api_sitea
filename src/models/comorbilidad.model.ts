@@ -24,6 +24,13 @@ Comorbilidad.init(
     modelName: 'Comorbilidad',
     tableName: 'Comorbilidad',
     timestamps: false,
+    
+    indexes: [
+      {
+        unique: true,
+        fields: ['nombre'],
+      },
+    ],
   }
 );
 
