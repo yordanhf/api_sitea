@@ -14,8 +14,8 @@ class Paciente_CClinicasRepository {
   public async findPaciente_CClinicasById(id: number) {
     return await Paciente_CClinicas.findByPk(id, {
       include: [ 
-        { model: Paciente, attributes: ['id', 'nombre', 'apellidos'], as: 'Paciente' },
-        { model: CClinica, attributes: ['nombre'], as: 'CClinica' },
+        { model: Paciente, attributes: ['id', 'nombre', 'apellidos'], as: 'paciente' },
+        { model: CClinica, attributes: ['nombre'], as: 'cClinica' },
       ],
     });
   }
@@ -23,8 +23,8 @@ class Paciente_CClinicasRepository {
   public async findPaciente_CClinicasByPacienteId(pacienteId: number) {
     return await Paciente_CClinicas.findAll({
       where: { pacienteId },
-      include: [{ model: CClinica, attributes: ['nombre'], as: 'CClinica' }, 
-                {model: Paciente, attributes: ['id','nombre', 'apellidos'] }]});
+      include: [{ model: CClinica, attributes: ['nombre'], as: 'cClinica' }, 
+                {model: Paciente, attributes: ['id','nombre', 'apellidos'], as: 'paciente' }]});
   }
 
   public async updatePaciente_CClinicas(id: number, data: Partial<Paciente_CClinicas>) {

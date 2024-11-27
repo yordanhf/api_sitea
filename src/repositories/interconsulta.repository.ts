@@ -1,5 +1,6 @@
 //Interconsulta Repository (interconsulta.repository.ts)
 import Interconsulta from '../models/interconsulta.model';
+import InterconsultaSimple from '../models/interconsultas.model';
 import Paciente from '../models/paciente.model';
 
 class InterconsultaRepository {
@@ -8,11 +9,21 @@ class InterconsultaRepository {
   }
 
   public async findAllInterconsultas() {
-    return await Interconsulta.findAll();
+    return await Interconsulta.findAll(
+      {      
+        include: [ 
+          { model: InterconsultaSimple, attributes: ['nombre'], as: 'interconsultaSimple'},                  
+        ],
+      }
+    );
   }
 
   public async findInterconsultaById(id: number) {
-    return await Interconsulta.findByPk(id);
+    return await Interconsulta.findByPk(id,  {      
+      include: [ 
+        { model: InterconsultaSimple, attributes: ['nombre'], as: 'interconsultaSimple'},                  
+      ],
+    });
   }
 
   public async updateInterconsulta(id: number, data: Partial<Interconsulta>) {
@@ -35,7 +46,10 @@ class InterconsultaRepository {
   public async findInterconsultasByPacienteId(pacienteId: number) {
     return await Interconsulta.findAll({
       where: { pacienteId },
-      include: [{model: Paciente, attributes: ['id','nombre', 'apellidos'] }]});
+      include: [
+        { model: InterconsultaSimple, attributes: ['nombre'], as: 'interconsultaSimple'},
+        {model: Paciente, attributes: ['id','nombre', 'apellidos'], as: 'paciente'  }
+      ]});
   }
 }
 

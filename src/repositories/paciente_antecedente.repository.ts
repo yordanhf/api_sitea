@@ -12,8 +12,8 @@ class Paciente_AntecedenteRepository {
   public async findAllPaciente_Antecedente() {
     return await Paciente_Antecedente.findAll({       
       include: [        
-        { model: Paciente, attributes: ['nombre', 'apellidos'], as: 'Paciente' },
-        { model: AntecedentesPPP, attributes: ['nombre'], as: 'AntecedentesPPP' },
+        { model: Paciente, attributes: ['nombre', 'apellidos'], as: 'paciente' },
+        { model: AntecedentesPPP, attributes: ['nombre'], as: 'antecedentesPPP' },
       ],
     });
   }
@@ -22,8 +22,8 @@ class Paciente_AntecedenteRepository {
   public async findPaciente_AntecedenteById(id: number) {
     return await Paciente_Antecedente.findByPk(id, {
       include: [ 
-        { model: Paciente, attributes: ['nombre', 'apellidos'], as: 'Paciente' },
-        { model: AntecedentesPPP, attributes: ['nombre'], as: 'AntecedentesPPP' },
+        { model: Paciente, attributes: ['nombre', 'apellidos'], as: 'paciente' },
+        { model: AntecedentesPPP, attributes: ['nombre'], as: 'antecedentesPPP' },
       ],
     });
   }
@@ -32,8 +32,8 @@ class Paciente_AntecedenteRepository {
   public async findPaciente_AntecedenteByPacienteId(pacienteId: number) {
     return await Paciente_Antecedente.findAll({
       where: { pacienteId },
-      include: [{ model: Paciente, attributes: ['nombre', 'apellidos'], as: 'Paciente' }, 
-                { model: AntecedentesPPP, as: 'AntecedentesPPP' }],
+      include: [{ model: Paciente, attributes: ['nombre', 'apellidos'], as: 'paciente' }, 
+                { model: AntecedentesPPP, as: 'antecedentesPPP' }],
     });
   }
 

@@ -12,8 +12,8 @@ class AlergiaRepository {
   public async findAllAlergias() {
     return await Alergias.findAll({       
       include: [        
-        { model: Paciente, attributes: ['nombre', 'apellidos'], as: 'Paciente' },
-        { model: Medicamento, attributes: ['nombre'], as: 'Medicamento' },
+        { model: Paciente, attributes: ['nombre', 'apellidos'], as: 'paciente' },
+        { model: Medicamento, attributes: ['nombre'], as: 'medicamento' },
       ],
     });
   }
@@ -22,8 +22,8 @@ class AlergiaRepository {
   public async findAlergiaById(id: number) {
     return await Alergias.findByPk(id, {
       include: [ 
-        { model: Paciente, attributes: ['nombre', 'apellidos'], as: 'Paciente' },
-        { model: Medicamento, attributes: ['nombre'], as: 'Medicamento' },
+        { model: Paciente, attributes: ['nombre', 'apellidos'], as: 'paciente' },
+        { model: Medicamento, attributes: ['nombre'], as: 'medicamento' },
       ],
     });
   }
@@ -32,7 +32,7 @@ class AlergiaRepository {
   public async findAlergiasByPacienteId(pacienteId: number) {
     return await Alergias.findAll({
       where: { pacienteId },
-      include: [{ model: Medicamento, as: 'Medicamento' }],
+      include: [{ model: Medicamento, attributes: ['nombre'], as: 'medicamento' }],
     });
   }
 

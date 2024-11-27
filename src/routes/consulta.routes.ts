@@ -17,8 +17,9 @@ const router = Router();
  *           type: integer
  *           description: ID del paciente consultado
  *         fecha:
- *           type: DATEONLY
- *           description: fecha de la consulta
+ *           type: string
+ *           format: date
+ *           description: Fecha de consulta en formato YYYY-MM-DD
  *         peso:
  *           type: number
  *           description: peso del paciente consultado

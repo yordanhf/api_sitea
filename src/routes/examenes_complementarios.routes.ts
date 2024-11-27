@@ -16,18 +16,19 @@ const router = Router();
  *         pacienteId:
  *           type: integer
  *           description: ID del paciente asociado al examen
- *         nombre:
- *           type: string
- *           description: nombre del examen complementario
+ *         examenId:
+ *           type: integer
+ *           description: ID del examen complementario asociado
  *         fecha:
  *           type: string
- *           description: fecha del examen complementario
+ *           format: date
+ *           description: Fecha del examen en formato YYYY-MM-DD
  *         resultado:
  *           type: string
  *           description: resultado del examen
  *       required:
  *         - pacienteId
- *         - nombre
+ *         - examenId
  *         - fecha
  *         
  */

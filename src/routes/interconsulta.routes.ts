@@ -17,9 +17,9 @@ const router = Router();
  *         pacienteId:
  *           type: integer
  *           description: ID del paciente asociado a la interconsulta
- *         nombre:
- *           type: string
- *           description: Nombre de la interconsulta
+ *         interconsultaId:
+ *           type: integer
+ *           description: ID de la interconsulta asociada
  *         diagnostico:
  *           type: string
  *           description: Diagnóstico de la interconsulta

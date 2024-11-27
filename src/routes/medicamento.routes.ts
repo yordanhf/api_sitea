@@ -82,7 +82,7 @@ router.get('/:id', MedicamentoController.getMedicamentoById);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Medicamentos'
+ *               $ref: '#/components/schemas/Medicamento'
  */
 router.post('/', MedicamentoController.createMedicamento);
 

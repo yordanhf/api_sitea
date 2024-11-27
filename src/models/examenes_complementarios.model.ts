@@ -2,11 +2,12 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/db.config';
 import Paciente from './paciente.model';
+import Examen from './examen.model';
 
 class ExamenComplementario extends Model {
   public id!: number; // Auto-incremental
   public pacienteId!: number; // Foreign key
-  public nombre!: string;
+  public examenId!: string;
   public fecha!: string;
   public resultado?: string;
 }
@@ -28,12 +29,18 @@ ExamenComplementario.init(
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     },
-    nombre: {
-      type: DataTypes.STRING(50),
+    examenId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: Examen,
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     },
     fecha: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
     resultado: {
@@ -50,7 +57,7 @@ ExamenComplementario.init(
     indexes: [
       {
         unique: true,
-        fields: ['pacienteId', 'nombre'],
+        fields: ['pacienteId', 'examenId', 'fecha'],
       },
     ],
   }
