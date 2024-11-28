@@ -19,6 +19,10 @@ class MunicipioService {
     return municipio;
   }
 
+  public async getMunicipioByProvinciaId(provinciaId: number) {
+    return await MunicipioRepository.findMunicipioByProvinciaId(provinciaId);
+  }
+
   public async updateMunicipio(id: number, data: Partial<Municipio>) {
     return await MunicipioRepository.updateMunicipio(id, data);
   }

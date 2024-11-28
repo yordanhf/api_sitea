@@ -6,7 +6,7 @@ import AntecedentesPPP from './antecedentesPPP.model';
 class Paciente_Antecedente extends Model {
   public id!: number;
   public pacienteId!: number;
-  public medicamentoId!: number;
+  public antecedenteId!: number;
   public descripcion?: string;
 }
 

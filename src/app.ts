@@ -28,6 +28,11 @@ import sequelize from './config/db.config';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import swaggerOptions from './config/swagger.config';
+// server.ts o app.ts
+import 'dotenv/config';
+import usuarioController from './controllers/usuario.controller';
+import usuarioRoutes from './routes/usuario.routes';
+
 
 
 const app = express();
@@ -89,6 +94,7 @@ app.use('/api/Paciente_Fortaleza', paciente_fortalezaRoutes);
 app.use('/api/Paciente_comorbilidad', paciente_comorbilidadRoutes);
 app.use('/api/Tratamiento', tratamientoRoutes);
 app.use('/api/vinculo_institucional', vinculo_institucionalRoutes);
+app.use('/api/usuarios', usuarioRoutes);
 
 
 

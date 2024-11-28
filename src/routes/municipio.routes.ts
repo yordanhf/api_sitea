@@ -70,6 +70,33 @@ router.get('/:id', MunicipioController.getMunicipioById);
 
 /**
  * @swagger
+ * /api/municipio/provincia/{provinciaId}:
+ *   get:
+ *     summary: Obtener todos los municipios de un provincia
+ *     tags: [Municipio]
+ *     parameters:
+ *       - in: path
+ *         name: provinciaId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID de la provincia
+ *     responses:
+ *       200:
+ *         description: Lista des municipio de la provincia
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Municipio'
+ *       404:
+ *         description: Provincia no encontrada
+ */
+router.get('/provincia/:provinciaId', MunicipioController.getMunicipioByProvinciaId);
+
+/**
+ * @swagger
  * /api/municipio:
  *   post:
  *     summary: Crear un nuevo municipio

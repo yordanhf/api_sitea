@@ -12,7 +12,8 @@ class InterconsultaRepository {
     return await Interconsulta.findAll(
       {      
         include: [ 
-          { model: InterconsultaSimple, attributes: ['nombre'], as: 'interconsultaSimple'},                  
+          { model: InterconsultaSimple, attributes: ['nombre'], as: 'interconsultaSimple'}, 
+          { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente'}                 
         ],
       }
     );
@@ -21,7 +22,9 @@ class InterconsultaRepository {
   public async findInterconsultaById(id: number) {
     return await Interconsulta.findByPk(id,  {      
       include: [ 
-        { model: InterconsultaSimple, attributes: ['nombre'], as: 'interconsultaSimple'},                  
+        { model: InterconsultaSimple, attributes: ['nombre'], as: 'interconsultaSimple'},
+        { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente'}
+
       ],
     });
   }
@@ -48,7 +51,7 @@ class InterconsultaRepository {
       where: { pacienteId },
       include: [
         { model: InterconsultaSimple, attributes: ['nombre'], as: 'interconsultaSimple'},
-        {model: Paciente, attributes: ['id','nombre', 'apellidos'], as: 'paciente'  }
+        {model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente'  }
       ]});
   }
 }

@@ -1,5 +1,7 @@
 // src/repositories/municipio.repository.ts
+import { where } from 'sequelize';
 import Municipio from '../models/municipio.model';
+import Provincia from '../models/provincia.model';
 
 class MunicipioRepository {
   public async createMunicipio(data: Partial<Municipio>) {
@@ -12,6 +14,14 @@ class MunicipioRepository {
 
   public async findMunicipioById(id: number) {
     return await Municipio.findByPk(id);
+  }
+
+  public async findMunicipioByProvinciaId(provinciaId: number) {
+    return await Municipio.findAll({
+      where: { provinciaId },
+      include: [ { model: Provincia, attributes: ['nombre', 'id'],  as: 'provincia' },
+      ],
+    });
   }
 
   public async updateMunicipio(id: number, data: Partial<Municipio>) {

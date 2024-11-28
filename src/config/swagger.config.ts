@@ -8,11 +8,22 @@ const swaggerDefinition: SwaggerDefinition = {
     version: '1.0.0',
     description: 'API para gestionar consulta de Autismo Matanzas',
   },
+  components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+    },
+  },
+  security: [{ bearerAuth: [] }],
   servers: [
     {
       url: 'http://localhost:4000',
       description: 'Servidor de desarrollo',
     },
+    
   ],
 };
 

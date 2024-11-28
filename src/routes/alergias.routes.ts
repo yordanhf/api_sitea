@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import AlergiaController from '../controllers/alergias.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 

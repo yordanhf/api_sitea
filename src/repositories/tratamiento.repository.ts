@@ -8,13 +8,18 @@ class TratamientoRepository {
   }
 
   public async findAllTratamiento() {
-    return await Tratamiento.findAll();
+    return await Tratamiento.findAll({
+      include: [ 
+        { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente' },
+        { model: Medicamento, attributes: ['nombre'], as: 'medicamento' },
+      ],
+    });
   }
 
   public async findTratamientoById(id: number) {
     return await Tratamiento.findByPk(id, {
       include: [ 
-        { model: Paciente, attributes: ['nombre', 'apellidos'], as: 'paciente' },
+        { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente' },
         { model: Medicamento, attributes: ['nombre'], as: 'medicamento' },
       ],
     });
@@ -23,7 +28,7 @@ class TratamientoRepository {
   public async findTratamientoByPacienteId(pacienteId: number) {
     return await Tratamiento.findAll({
       where: { pacienteId },
-      include: [{ model: Paciente, attributes: ['nombre', 'apellidos'], as: 'paciente' },
+      include: [{ model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente' },
                 { model: Medicamento, as: 'medicamento' }],
     });
   }

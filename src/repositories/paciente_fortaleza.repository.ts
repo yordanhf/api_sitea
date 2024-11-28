@@ -8,13 +8,18 @@ class Paciente_FortalezaRepository {
   }
 
   public async findAllPaciente_Fortaleza() {
-    return await Paciente_Fortaleza.findAll();
+    return await Paciente_Fortaleza.findAll({
+      include: [ 
+        { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente' },
+        { model: Fortaleza, attributes: ['nombre'], as: 'fortaleza' },
+      ],
+    });
   }
 
   public async findPaciente_FortalezaById(id: number) {
     return await Paciente_Fortaleza.findByPk(id, {
       include: [ 
-        { model: Paciente, attributes: ['id', 'nombre', 'apellidos'], as: 'paciente' },
+        { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente' },
         { model: Fortaleza, attributes: ['nombre'], as: 'fortaleza' },
       ],
     });
@@ -24,7 +29,7 @@ class Paciente_FortalezaRepository {
     return await Paciente_Fortaleza.findAll({
       where: { pacienteId },
       include: [{ model: Fortaleza, attributes: ['nombre'], as: 'fortaleza' }, 
-                { model: Paciente, attributes: ['id','nombre', 'apellidos'], as: 'paciente' }
+                { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente' }
     ]});
   }
 

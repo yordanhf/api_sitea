@@ -1,4 +1,6 @@
+import Examen from '../models/examen.model';
 import ExamenComplementario from '../models/examenes_complementarios.model';
+import Paciente from '../models/paciente.model';
 
 
 class ExamenComplementarioRepository {
@@ -7,17 +9,32 @@ class ExamenComplementarioRepository {
   }
 
   public async findAllExamenComplementario() {
-    return await ExamenComplementario.findAll();
+    return await ExamenComplementario.findAll({       
+      include: [        
+        { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'],  as: 'paciente' },
+        { model: Examen, attributes: ['nombre'], as: 'examen' },
+      ],
+    });
   }
 
   public async findExamenComplementarioById(id: number) {
-    return await ExamenComplementario.findByPk(id);
+    return await ExamenComplementario.findByPk(id, {       
+      include: [        
+        { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'],  as: 'paciente' },
+        { model: Examen, attributes: ['nombre'], as: 'examen' },
+      ],
+    });
   }
 
   public async findExamenComplementarioByPacienteId(pacienteId: number) {
     return await ExamenComplementario.findAll({
-      where: { pacienteId },
-    });}
+      where: { pacienteId },    
+        include: [    
+          { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'],  as: 'paciente' },    
+          { model: Examen, attributes: ['nombre'], as: 'examen' }
+        ],
+      
+    }, );}
 
 
   public async updateExamenComplementario(id: number, data: Partial<ExamenComplementario>) {

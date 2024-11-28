@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import AntecedentesPPPController from '../controllers/antecedentesPPP.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -83,7 +84,7 @@ router.get('/:id', AntecedentesPPPController.getAntecedentesPPPById);
  *             schema:
  *               $ref: '#/components/schemas/AntecedentesPPP'
  */
-router.post('/', AntecedentesPPPController.createAntecedentesPPP);
+router.post('/', authMiddleware,  AntecedentesPPPController.createAntecedentesPPP);
 
 /**
  * @swagger

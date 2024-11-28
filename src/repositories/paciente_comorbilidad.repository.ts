@@ -8,13 +8,18 @@ class Paciente_ComorbilidadRepository {
   }
 
   public async findAllPaciente_Comorbilidad() {
-    return await Paciente_Comorbilidad.findAll();
+    return await Paciente_Comorbilidad.findAll({
+      include: [ 
+        { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente' },
+        { model: Comorbilidad, attributes: ['nombre'], as: 'comorbilidad' },
+      ],
+    });
   }
 
   public async findPaciente_ComorbilidadById(id: number) {
     return await Paciente_Comorbilidad.findByPk(id, {
       include: [ 
-        { model: Paciente, attributes: ['id', 'nombre', 'apellidos'], as: 'paciente' },
+        { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente' },
         { model: Comorbilidad, attributes: ['nombre'], as: 'comorbilidad' },
       ],
     });
@@ -24,7 +29,7 @@ class Paciente_ComorbilidadRepository {
     return await Paciente_Comorbilidad.findAll({
       where: { pacienteId },
       include: [{ model: Comorbilidad, attributes: ['nombre'], as: 'comorbilidad' }, 
-                { model: Paciente, attributes: ['id','nombre', 'apellidos'], as: 'paciente' }
+                { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente' }
     ]});
   }
 

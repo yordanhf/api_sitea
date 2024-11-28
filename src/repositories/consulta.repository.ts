@@ -1,4 +1,5 @@
 import Consulta from '../models/consulta.model';
+import Paciente from '../models/paciente.model';
 
 class ConsultaRepository {
   public async createConsulta(data: Partial<Consulta>) {
@@ -6,16 +7,28 @@ class ConsultaRepository {
   }
 
   public async findAllConsultas() {
-    return await Consulta.findAll();
+    return await Consulta.findAll({       
+      include: [        
+        { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'],  as: 'paciente' },
+        
+      ],
+    });
   }
 
   public async findConsultaById(id: number) {
-    return await Consulta.findByPk(id);
+    return await Consulta.findByPk(id, {       
+      include: [        
+        { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'],  as: 'paciente' },
+      ],
+    });
   }
 
   public async findConsultaByPacienteId(pacienteId: number) {
     return await Consulta.findAll({
       where: { pacienteId },
+      include: [        
+        { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'],  as: 'paciente' },
+      ],
     });}
 
   public async updateConsulta(id: number, data: Partial<Consulta>) {

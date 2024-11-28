@@ -32,6 +32,16 @@ class MunicipioController {
     }
   }
 
+  public async getMunicipioByProvinciaId(req: Request, res: Response) {
+    try {
+      const { provinciaId } = req.params;
+      const municipio = await MunicipioService.getMunicipioByProvinciaId(Number(provinciaId));
+      res.status(200).json(municipio);
+    } catch (error) {
+      res.status(404).json((error as Error).message);
+    }
+  }
+
   public async updateMunicipio(req: Request, res: Response) {
     try {
       const { id } = req.params;
