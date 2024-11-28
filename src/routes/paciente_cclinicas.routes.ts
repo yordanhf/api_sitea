@@ -1,6 +1,7 @@
 // src/routes/Paciente_cclinica.routes.ts
 import { Router } from 'express';
 import Paciente_CClinicasController from '../controllers/paciente_cclinicas.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -115,7 +116,7 @@ router.get('/paciente/:pacienteId', Paciente_CClinicasController.getPaciente_CCl
  *             schema:
  *               $ref: '#/components/schemas/Paciente_CClinicas'
  */
-router.post('/', Paciente_CClinicasController.createPaciente_CClinicas);
+router.post('/', authMiddleware, Paciente_CClinicasController.createPaciente_CClinicas);
 
 /**
  * @swagger
@@ -146,7 +147,7 @@ router.post('/', Paciente_CClinicasController.createPaciente_CClinicas);
  *       404:
  *         description: Paciente_cclinica no encontrado
  */
-router.put('/:id',Paciente_CClinicasController.updatePaciente_CClinicas);
+router.put('/:id', authMiddleware, Paciente_CClinicasController.updatePaciente_CClinicas);
 
 /**
  * @swagger
@@ -167,6 +168,6 @@ router.put('/:id',Paciente_CClinicasController.updatePaciente_CClinicas);
  *       404:
  *         description: Paciente_cclinica no encontrado
  */
-router.delete('/:id', Paciente_CClinicasController.deletePaciente_CClinicas);
+router.delete('/:id', authMiddleware, Paciente_CClinicasController.deletePaciente_CClinicas);
 
 export default router;

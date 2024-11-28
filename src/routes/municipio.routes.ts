@@ -1,6 +1,7 @@
 // src/routes/municipio.routes.ts
 import { Router } from 'express';
 import MunicipioController from '../controllers/municipio.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -115,7 +116,7 @@ router.get('/provincia/:provinciaId', MunicipioController.getMunicipioByProvinci
  *             schema:
  *               $ref: '#/components/schemas/Municipio'
  */
-router.post('/', MunicipioController.createMunicipio);
+router.post('/', authMiddleware, MunicipioController.createMunicipio);
 
 /**
  * @swagger
@@ -146,7 +147,7 @@ router.post('/', MunicipioController.createMunicipio);
  *       404:
  *         description: Municipio no encontrado
  */
-router.put('/:id',MunicipioController.updateMunicipio);
+router.put('/:id', authMiddleware, MunicipioController.updateMunicipio);
 
 /**
  * @swagger
@@ -167,6 +168,6 @@ router.put('/:id',MunicipioController.updateMunicipio);
  *       404:
  *         description: Municipio no encontrado
  */
-router.delete('/:id', MunicipioController.deleteMunicipio);
+router.delete('/:id', authMiddleware, MunicipioController.deleteMunicipio);
 
 export default router;

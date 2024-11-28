@@ -1,6 +1,7 @@
 // 4. Definir las Rutas (paciente.routes.ts)
 import { Router } from 'express';
 import PacienteController from '../controllers/paciente.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -170,7 +171,7 @@ router.get('/municipio/:municipioId', PacienteController.getAllPacientesByMunici
  *             schema:
  *               $ref: '#/components/schemas/Paciente'
  */
-router.post('/', PacienteController.createPaciente);
+router.post('/', authMiddleware, PacienteController.createPaciente);
 
 /**
  * @swagger
@@ -201,7 +202,7 @@ router.post('/', PacienteController.createPaciente);
  *       404:
  *         description: Paciente no encontrado
  */
-router.put('/:id', PacienteController.updatePaciente);
+router.put('/:id', authMiddleware, PacienteController.updatePaciente);
 
 /**
  * @swagger
@@ -222,6 +223,6 @@ router.put('/:id', PacienteController.updatePaciente);
  *       404:
  *         description: Paciente no encontrado
  */
-router.delete('/:id', PacienteController.deletePaciente);
+router.delete('/:id', authMiddleware, PacienteController.deletePaciente);
 
 export default router;

@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import TratamientoController from '../controllers/tratamiento.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -113,7 +114,7 @@ router.get('/paciente/:pacienteId', TratamientoController.getTratamientoByPacien
  *             schema:
  *               $ref: '#/components/schemas/Tratamiento'
  */
-router.post('/', TratamientoController.createTratamiento);
+router.post('/', authMiddleware, TratamientoController.createTratamiento);
 
 /**
  * @swagger
@@ -144,7 +145,7 @@ router.post('/', TratamientoController.createTratamiento);
  *       404:
  *         description: tratamiento no encontrado
  */
-router.put('/:id',TratamientoController.updateTratamiento);
+router.put('/:id', authMiddleware, TratamientoController.updateTratamiento);
 
 /**
  * @swagger
@@ -165,6 +166,6 @@ router.put('/:id',TratamientoController.updateTratamiento);
  *       404:
  *         description: tratamiento no encontrado
  */
-router.delete('/:id', TratamientoController.deleteTratamiento);
+router.delete('/:id', authMiddleware, TratamientoController.deleteTratamiento);
 
 export default router;

@@ -1,6 +1,7 @@
 // src/routes/Paciente_cclinica.routes.ts
 import { Router } from 'express';
 import Paciente_FortalezaController from '../controllers/paciente_fortaleza.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -115,7 +116,7 @@ router.get('/paciente/:pacienteId', Paciente_FortalezaController.getPaciente_For
  *             schema:
  *               $ref: '#/components/schemas/Paciente_Fortaleza'
  */
-router.post('/', Paciente_FortalezaController.createPaciente_Fortaleza);
+router.post('/', authMiddleware, Paciente_FortalezaController.createPaciente_Fortaleza);
 
 /**
  * @swagger
@@ -146,7 +147,7 @@ router.post('/', Paciente_FortalezaController.createPaciente_Fortaleza);
  *       404:
  *         description: Paciente_fortaleza no encontrado
  */
-router.put('/:id',Paciente_FortalezaController.updatePaciente_Fortaleza);
+router.put('/:id', authMiddleware, Paciente_FortalezaController.updatePaciente_Fortaleza);
 
 /**
  * @swagger
@@ -167,6 +168,6 @@ router.put('/:id',Paciente_FortalezaController.updatePaciente_Fortaleza);
  *       404:
  *         description: Paciente_fortaleza no encontrado
  */
-router.delete('/:id', Paciente_FortalezaController.deletePaciente_Fortaleza);
+router.delete('/:id', authMiddleware, Paciente_FortalezaController.deletePaciente_Fortaleza);
 
 export default router;

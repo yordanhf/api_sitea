@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import Examenes_complementariosController from '../controllers/examenes_complementarios.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -123,7 +124,7 @@ router.get('/paciente/:pacienteId', Examenes_complementariosController.getExamen
  *             schema:
  *               $ref: '#/components/schemas/examenes_complementarios'
  */
-router.post('/', Examenes_complementariosController.createExamenes_complementarios);
+router.post('/', authMiddleware, Examenes_complementariosController.createExamenes_complementarios);
 
 /**
  * @swagger
@@ -154,7 +155,7 @@ router.post('/', Examenes_complementariosController.createExamenes_complementari
  *       404:
  *         description: examen complementario no encontrado
  */
-router.put('/:id',Examenes_complementariosController.updateExamenes_complementarios);
+router.put('/:id', authMiddleware, Examenes_complementariosController.updateExamenes_complementarios);
 
 /**
  * @swagger
@@ -175,6 +176,6 @@ router.put('/:id',Examenes_complementariosController.updateExamenes_complementar
  *       404:
  *         description: Examen complementario no encontrado
  */
-router.delete('/:id', Examenes_complementariosController.deleteExamenes_complementarios);
+router.delete('/:id', authMiddleware, Examenes_complementariosController.deleteExamenes_complementarios);
 
 export default router;

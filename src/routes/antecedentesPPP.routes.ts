@@ -84,7 +84,7 @@ router.get('/:id', AntecedentesPPPController.getAntecedentesPPPById);
  *             schema:
  *               $ref: '#/components/schemas/AntecedentesPPP'
  */
-router.post('/', authMiddleware,  AntecedentesPPPController.createAntecedentesPPP);
+router.post('/', authMiddleware, AntecedentesPPPController.createAntecedentesPPP);
 
 /**
  * @swagger
@@ -115,7 +115,7 @@ router.post('/', authMiddleware,  AntecedentesPPPController.createAntecedentesPP
  *       404:
  *         description: antecedente no encontrado
  */
-router.put('/:id',AntecedentesPPPController.updateAntecedentesPPP);
+router.put('/:id', authMiddleware, AntecedentesPPPController.updateAntecedentesPPP);
 
 /**
  * @swagger
@@ -136,6 +136,6 @@ router.put('/:id',AntecedentesPPPController.updateAntecedentesPPP);
  *       404:
  *         description: antecedente no encontrado
  */
-router.delete('/:id', AntecedentesPPPController.deleteAntecedentesPPP);
+router.delete('/:id', authMiddleware, AntecedentesPPPController.deleteAntecedentesPPP);
 
 export default router;

@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import ProvinciaController from '../controllers/provincia.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -83,7 +84,7 @@ router.get('/:id', ProvinciaController.getProvinciaById);
  *             schema:
  *               $ref: '#/components/schemas/Provincia'
  */
-router.post('/', ProvinciaController.createProvincia);
+router.post('/', authMiddleware, ProvinciaController.createProvincia);
 
 /**
  * @swagger
@@ -114,7 +115,7 @@ router.post('/', ProvinciaController.createProvincia);
  *       404:
  *         description: provincia no encontrada
  */
-router.put('/:id',ProvinciaController.updateProvincia);
+router.put('/:id', authMiddleware, ProvinciaController.updateProvincia);
 
 /**
  * @swagger
@@ -135,6 +136,6 @@ router.put('/:id',ProvinciaController.updateProvincia);
  *       404:
  *         description: Provincia no encontrada
  */
-router.delete('/:id', ProvinciaController.deleteProvincia);
+router.delete('/:id', authMiddleware, ProvinciaController.deleteProvincia);
 
 export default router;

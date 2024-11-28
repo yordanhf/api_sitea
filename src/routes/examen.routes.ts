@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import ExamenController from '../controllers/examen.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -83,7 +84,7 @@ router.get('/:id', ExamenController.getExamenById);
  *             schema:
  *               $ref: '#/components/schemas/examenes'
  */
-router.post('/', ExamenController.createExamen);
+router.post('/', authMiddleware, ExamenController.createExamen);
 
 /**
  * @swagger
@@ -114,7 +115,7 @@ router.post('/', ExamenController.createExamen);
  *       404:
  *         description: examen no encontrado
  */
-router.put('/:id',ExamenController.updateExamen);
+router.put('/:id', authMiddleware, ExamenController.updateExamen);
 
 /**
  * @swagger
@@ -135,6 +136,6 @@ router.put('/:id',ExamenController.updateExamen);
  *       404:
  *         description: Examen no encontrado
  */
-router.delete('/:id', ExamenController.deleteExamen);
+router.delete('/:id', authMiddleware, ExamenController.deleteExamen);
 
 export default router;

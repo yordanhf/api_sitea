@@ -1,6 +1,7 @@
 // src/routes/medicamento.routes.ts
 import { Router } from 'express';
 import MedicamentoController from '../controllers/medicamento.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -84,7 +85,7 @@ router.get('/:id', MedicamentoController.getMedicamentoById);
  *             schema:
  *               $ref: '#/components/schemas/Medicamento'
  */
-router.post('/', MedicamentoController.createMedicamento);
+router.post('/', authMiddleware, MedicamentoController.createMedicamento);
 
 /**
  * @swagger
@@ -115,7 +116,7 @@ router.post('/', MedicamentoController.createMedicamento);
  *       404:
  *         description: Medicamento no encontrado
  */
-router.put('/:id',MedicamentoController.updateMedicamento);
+router.put('/:id', authMiddleware, MedicamentoController.updateMedicamento);
 
 /**
  * @swagger
@@ -136,6 +137,6 @@ router.put('/:id',MedicamentoController.updateMedicamento);
  *       404:
  *         description: Medicamento no encontrado
  */
-router.delete('/:id', MedicamentoController.deleteMedicamento);
+router.delete('/:id', authMiddleware, MedicamentoController.deleteMedicamento);
 
 export default router;

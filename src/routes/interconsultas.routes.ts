@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import InterconsultasController from '../controllers/interconsultas.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -83,7 +84,7 @@ router.get('/:id', InterconsultasController.getInterconsultasById);
  *             schema:
  *               $ref: '#/components/schemas/Interconsultas'
  */
-router.post('/', InterconsultasController.createInterconsultas);
+router.post('/', authMiddleware, InterconsultasController.createInterconsultas);
 
 /**
  * @swagger
@@ -114,7 +115,7 @@ router.post('/', InterconsultasController.createInterconsultas);
  *       404:
  *         description: interconsulta no encontrada
  */
-router.put('/:id',InterconsultasController.updateInterconsultas);
+router.put('/:id', authMiddleware, InterconsultasController.updateInterconsultas);
 
 /**
  * @swagger
@@ -135,6 +136,6 @@ router.put('/:id',InterconsultasController.updateInterconsultas);
  *       404:
  *         description: interconsulta no encontrada
  */
-router.delete('/:id', InterconsultasController.deleteInterconsultas);
+router.delete('/:id', authMiddleware, InterconsultasController.deleteInterconsultas);
 
 export default router;

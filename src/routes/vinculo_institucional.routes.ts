@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import VinculoInstitucionalController from '../controllers/vinculo_institucional.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -83,7 +84,7 @@ router.get('/:id', VinculoInstitucionalController.getVinculoInstitucionalById);
  *             schema:
  *               $ref: '#/components/schemas/Vinculo Institucional'
  */
-router.post('/', VinculoInstitucionalController.createVinculoInstitucional);
+router.post('/', authMiddleware, VinculoInstitucionalController.createVinculoInstitucional);
 
 /**
  * @swagger
@@ -114,7 +115,7 @@ router.post('/', VinculoInstitucionalController.createVinculoInstitucional);
  *       404:
  *         description: VinculoInstitucional no encontrado
  */
-router.put('/:id',VinculoInstitucionalController.updateVinculoInstitucional);
+router.put('/:id', authMiddleware, VinculoInstitucionalController.updateVinculoInstitucional);
 
 /**
  * @swagger
@@ -135,6 +136,6 @@ router.put('/:id',VinculoInstitucionalController.updateVinculoInstitucional);
  *       404:
  *         description: Vinculo Institucional no encontrado
  */
-router.delete('/:id', VinculoInstitucionalController.deleteVinculoInstitucional);
+router.delete('/:id', authMiddleware, VinculoInstitucionalController.deleteVinculoInstitucional);
 
 export default router;

@@ -115,7 +115,7 @@ router.get('/paciente/:pacienteId', AlergiaController.getAlergiasByPacienteId);
  *             schema:
  *               $ref: '#/components/schemas/Alergia'
  */
-router.post('/', AlergiaController.createAlergia);
+router.post('/', authMiddleware, AlergiaController.createAlergia);
 
 /**
  * @swagger
@@ -146,7 +146,7 @@ router.post('/', AlergiaController.createAlergia);
  *       404:
  *         description: Alergia no encontrada
  */
-router.put('/:id', AlergiaController.updateAlergia);
+router.put('/:id', authMiddleware, AlergiaController.updateAlergia);
 
 /**
  * @swagger
@@ -167,7 +167,7 @@ router.put('/:id', AlergiaController.updateAlergia);
  *       404:
  *         description: Alergia no encontrada
  */
-router.delete('/:id', AlergiaController.deleteAlergia);
+router.delete('/:id', authMiddleware, AlergiaController.deleteAlergia);
 
 export default router;
 

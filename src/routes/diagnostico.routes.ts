@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import DiagnosticoController from '../controllers/diagnostico.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -83,7 +84,7 @@ router.get('/:id', DiagnosticoController.getDiagnosticoById);
  *             schema:
  *               $ref: '#/components/schemas/Diagnosticos'
  */
-router.post('/', DiagnosticoController.createDiagnostico);
+router.post('/', authMiddleware, DiagnosticoController.createDiagnostico);
 
 /**
  * @swagger
@@ -114,7 +115,7 @@ router.post('/', DiagnosticoController.createDiagnostico);
  *       404:
  *         description: Diagnostico no encontrado
  */
-router.put('/:id',DiagnosticoController.updateDiagnostico);
+router.put('/:id', authMiddleware, DiagnosticoController.updateDiagnostico);
 
 /**
  * @swagger
@@ -135,6 +136,6 @@ router.put('/:id',DiagnosticoController.updateDiagnostico);
  *       404:
  *         description: Diagnostico no encontrado
  */
-router.delete('/:id', DiagnosticoController.deleteDiagnostico);
+router.delete('/:id', authMiddleware, DiagnosticoController.deleteDiagnostico);
 
 export default router;

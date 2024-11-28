@@ -1,6 +1,7 @@
 // Definir las Rutas (interconsulta.routes.ts)
 import { Router } from 'express';
 import InterconsultaController from '../controllers/interconsulta.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -91,7 +92,7 @@ router.get('/:id', InterconsultaController.getInterconsultaById);
  *             schema:
  *               $ref: '#/components/schemas/Interconsulta'
  */
-router.post('/', InterconsultaController.createInterconsulta);
+router.post('/', authMiddleware, InterconsultaController.createInterconsulta);
 
 /**
  * @swagger
@@ -122,7 +123,7 @@ router.post('/', InterconsultaController.createInterconsulta);
  *       404:
  *         description: Interconsulta no encontrada
  */
-router.put('/:id', InterconsultaController.updateInterconsulta);
+router.put('/:id', authMiddleware, InterconsultaController.updateInterconsulta);
 
 /**
  * @swagger
@@ -143,7 +144,7 @@ router.put('/:id', InterconsultaController.updateInterconsulta);
  *       404:
  *         description: Interconsulta no encontrada
  */
-router.delete('/:id', InterconsultaController.deleteInterconsulta);
+router.delete('/:id', authMiddleware, InterconsultaController.deleteInterconsulta);
 
 //Otras rutas
 

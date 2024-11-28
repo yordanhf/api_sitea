@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import ComorbilidadController from '../controllers/comorbilidad.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -83,7 +84,7 @@ router.get('/:id', ComorbilidadController.getComorbilidadById);
  *             schema:
  *               $ref: '#/components/schemas/Comorbilidades'
  */
-router.post('/', ComorbilidadController.createComorbilidad);
+router.post('/', authMiddleware, ComorbilidadController.createComorbilidad);
 
 /**
  * @swagger
@@ -114,7 +115,7 @@ router.post('/', ComorbilidadController.createComorbilidad);
  *       404:
  *         description: comorbilidad no encontrada
  */
-router.put('/:id',ComorbilidadController.updateComorbilidad);
+router.put('/:id', authMiddleware, ComorbilidadController.updateComorbilidad);
 
 /**
  * @swagger
@@ -135,6 +136,6 @@ router.put('/:id',ComorbilidadController.updateComorbilidad);
  *       404:
  *         description: comorbilidad no encontrada
  */
-router.delete('/:id', ComorbilidadController.deleteComorbilidad);
+router.delete('/:id', authMiddleware, ComorbilidadController.deleteComorbilidad);
 
 export default router;

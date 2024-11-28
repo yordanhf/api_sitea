@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import CClinicaController from '../controllers/cclinica.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -83,7 +84,7 @@ router.get('/:id', CClinicaController.getCClinicaById);
  *             schema:
  *               $ref: '#/components/schemas/CClinicas'
  */
-router.post('/', CClinicaController.createCClinica);
+router.post('/', authMiddleware, CClinicaController.createCClinica);
 
 /**
  * @swagger
@@ -114,7 +115,7 @@ router.post('/', CClinicaController.createCClinica);
  *       404:
  *         description: CClinica no encontrada
  */
-router.put('/:id',CClinicaController.updateCClinica);
+router.put('/:id', authMiddleware, CClinicaController.updateCClinica);
 
 /**
  * @swagger
@@ -135,6 +136,6 @@ router.put('/:id',CClinicaController.updateCClinica);
  *       404:
  *         description: CClinica no encontrada
  */
-router.delete('/:id', CClinicaController.deleteCClinica);
+router.delete('/:id', authMiddleware, CClinicaController.deleteCClinica);
 
 export default router;

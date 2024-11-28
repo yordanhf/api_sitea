@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import ConsultaController from '../controllers/consulta.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -104,7 +105,7 @@ router.get('/:id', ConsultaController.getConsultaById);
  *             schema:
  *               $ref: '#/components/schemas/Consulta'
  */
-router.post('/', ConsultaController.createConsulta);
+router.post('/', authMiddleware, ConsultaController.createConsulta);
 
 /**
  * @swagger
@@ -162,7 +163,7 @@ router.get('/paciente/:pacienteId', ConsultaController.getConsultaByPacienteId);
  *       404:
  *         description: Consulta no encontrada
  */
-router.put('/:id',ConsultaController.updateConsulta);
+router.put('/:id', authMiddleware, ConsultaController.updateConsulta);
 
 /**
  * @swagger
@@ -183,6 +184,6 @@ router.put('/:id',ConsultaController.updateConsulta);
  *       404:
  *         description: Consulta no encontrada
  */
-router.delete('/:id', ConsultaController.deleteConsulta);
+router.delete('/:id', authMiddleware, ConsultaController.deleteConsulta);
 
 export default router;

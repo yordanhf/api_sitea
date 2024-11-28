@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import FortalezaController from '../controllers/fortaleza.controller';
+import authMiddleware from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -83,7 +84,7 @@ router.get('/:id', FortalezaController.getFortalezaById);
  *             schema:
  *               $ref: '#/components/schemas/Fortaleza'
  */
-router.post('/', FortalezaController.createFortaleza);
+router.post('/', authMiddleware, FortalezaController.createFortaleza);
 
 /**
  * @swagger
@@ -114,7 +115,7 @@ router.post('/', FortalezaController.createFortaleza);
  *       404:
  *         description: fortaleza no encontrada
  */
-router.put('/:id',FortalezaController.updateFortaleza);
+router.put('/:id', authMiddleware,  FortalezaController.updateFortaleza);
 
 /**
  * @swagger
@@ -135,6 +136,6 @@ router.put('/:id',FortalezaController.updateFortaleza);
  *       404:
  *         description: Fortaleza no encontrada
  */
-router.delete('/:id', FortalezaController.deleteFortaleza);
+router.delete('/:id', authMiddleware, FortalezaController.deleteFortaleza);
 
 export default router;
