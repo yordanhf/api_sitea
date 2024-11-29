@@ -61,6 +61,16 @@ class ConsultaController {
       res.status(404).json((error as Error).message);
     }
   }
+
+  public async getConsultasParametrizadas(req: Request, res: Response) {
+    try {
+      const filtros = req.query;
+      const consultas = await ConsultaService.getConsultas(filtros);
+      res.status(200).json(consultas);
+    } catch (error) {
+      res.status(500).json({ error: (error as Error).message });
+    }
+  }
 }
 
 export default new ConsultaController();

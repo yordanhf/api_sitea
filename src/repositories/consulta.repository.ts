@@ -31,6 +31,11 @@ class ConsultaRepository {
       ],
     });}
 
+    public async findAllConsultasPacienteIdRangoFechas(whereClause: any) {
+      // Realiza la consulta a la base de datos según el whereClause proporcionado
+      return await Consulta.findAll({ where: whereClause });
+    }
+
   public async updateConsulta(id: number, data: Partial<Consulta>) {
     const consulta = await Consulta.findByPk(id);
     if (consulta) {

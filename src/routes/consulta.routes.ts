@@ -44,7 +44,7 @@ const router = Router();
 
 /**
  * @swagger
- * /api/consultas:
+ * /api/consultas/all:
  *   get:
  *     summary: Obtener todas las consultas
  *     tags: [Consultas]
@@ -58,7 +58,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Consulta'
  */
-router.get('/', ConsultaController.getAllConsultas);
+router.get('/all', ConsultaController.getAllConsultas);
 
 /**
  * @swagger
@@ -185,5 +185,41 @@ router.put('/:id', authMiddleware, ConsultaController.updateConsulta);
  *         description: Consulta no encontrada
  */
 router.delete('/:id', authMiddleware, ConsultaController.deleteConsulta);
+
+/**
+ * @swagger
+ * /api/consultas:
+ *   get:
+ *     summary: Obtener una lista de consultas filtradas por paciente y rango de fechas
+ *     tags: [Consultas]
+ *     parameters:
+ *       - in: query
+ *         name: pacienteId
+ *         schema:
+ *           type: integer
+ *         description: ID del paciente para filtrar consultas
+ *       - in: query
+ *         name: fechaInicio
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: Fecha de inicio del rango en formato YYYY-MM-DD
+ *       - in: query
+ *         name: fechaFin
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: Fecha de fin del rango en formato YYYY-MM-DD
+ *     responses:
+ *       200:
+ *         description: Lista de consultas que coinciden con los filtros
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Consulta'
+ */
+router.get('/', ConsultaController.getConsultasParametrizadas);
 
 export default router;
