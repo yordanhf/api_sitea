@@ -22,6 +22,11 @@ const router = Router();
  *                 type: string
  *               password:
  *                 type: string
+ *               preguntaSeguridad:
+ *                 type: string
+ *               respuestaSeguridad:
+ *                 type: string
+ * 
  *     responses:
  *       201:
  *         description: Usuario creado correctamente
@@ -80,6 +85,75 @@ router.post('/login', UsuarioController.login);
  *         description: Usuario no autenticado
  */
 router.get('/perfil', authMiddleware, UsuarioController.perfil);
+
+/**
+ * @swagger
+ * /api/usuarios/recuperar-contrasena:
+ *   post:
+ *     summary: Permite recuperar la contraseña de un usuario
+ *     tags: [Usuarios]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nombre:
+ *                 type: string
+ *                 example: usuario1
+ *               preguntaSeguridad:
+ *                 type: string
+ *                 example: ¿Cuál es el nombre de tu primera mascota?
+ *               respuestaSeguridad:
+ *                 type: string
+ *                 example: Firulais
+ *               nuevaContrasena:
+ *                 type: string
+ *                 example: nuevaContrasenaSegura123
+ *     responses:
+ *       200:
+ *         description: Contraseña actualizada correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Contraseña actualizada correctamente
+ *       404:
+ *         description: Usuario no encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Usuario no encontrado
+ *       403:
+ *         description: Pregunta o respuesta de seguridad incorrecta
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Pregunta o respuesta de seguridad incorrecta
+ *       500:
+ *         description: Error en el servidor al intentar recuperar la contraseña
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Error en el servidor al intentar recuperar la contraseña
+ */
+router.post('/recuperar-contrasena', UsuarioController.recuperarContrasena);
 
 
 export default router;

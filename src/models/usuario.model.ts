@@ -7,6 +7,8 @@ class Usuario extends Model {
   public id!: number;
   public nombre!: string;  
   public password!: string;
+  public preguntaSeguridad!: string; 
+  public respuestaSeguridad!: string;
 }
 
 Usuario.init(
@@ -22,7 +24,15 @@ Usuario.init(
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false, // La contraseña encriptada se almacenará aquí
+      allowNull: false, 
+    },
+    preguntaSeguridad: {
+      type: DataTypes.STRING,
+      allowNull: false, 
+    },
+    respuestaSeguridad: {
+      type: DataTypes.STRING,
+      allowNull: false, 
     },
   },
   {
@@ -33,14 +43,17 @@ Usuario.init(
     hooks: {
         // Hook para encriptar la contraseña antes de guardar
         beforeCreate: async (usuario) => {
-          const salt = await bcrypt.genSalt(12);
+          const salt = await bcrypt.genSalt(10);
           usuario.password = await bcrypt.hash(usuario.password, salt);
+          usuario.preguntaSeguridad = await bcrypt.hash(usuario.preguntaSeguridad, salt);
+          usuario.respuestaSeguridad = await bcrypt.hash(usuario.respuestaSeguridad, salt);
         },
         // También se puede encriptar antes de actualizar si es necesario
+
         beforeUpdate: async (usuario) => {
           if (usuario.changed('password')) {
-            const salt = await bcrypt.genSalt(12);
-            usuario.password = await bcrypt.hash(usuario.password, salt);
+            const salt = await bcrypt.genSalt(10);
+            usuario.password = await bcrypt.hash(usuario.password, salt);            
           }
         },
       }, 

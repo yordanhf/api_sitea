@@ -1,16 +1,57 @@
 // Controlador para Usuario (usuario.controller.ts)
 import { Request, Response } from 'express';
 import UsuarioService from '../services/usuario.service';
-import Usuario from '../models/usuario.model';
+
 
 class UsuarioController {
   public async createUsuario(req: Request, res: Response) {
     try {
+      const usuarios = await  UsuarioService.getAllUsuarios();
       const data = req.body;
-      const usuario = await UsuarioService.createUsuario(data);
-      res.status(201).json(usuario);
+
+      // Si no hay usuarios, permitir la creación sin autenticación
+      if (usuarios.length === 0) {        
+        const usuario = await UsuarioService.createUsuario(data);
+        res.status(201).json(usuario);
+        return;
+      }
+
+      // Si no esta autenticado deniega el permiso
+      if (!(req as any)['usuario']) {
+        res.status(403).json({ message: 'Permiso denegado' });
+        return;
+      }
+
+      // Si esta autenticado puede crear el usuario nuevo       
+        const usuario = await UsuarioService.createUsuario(data);
+        res.status(201).json(usuario);
+        return;
+      
     } catch (error) {
-      res.status(500).json({ error: (error as Error).message });
+      res.status(500).json({error: (error as Error).message});
+      return;
+    }
+  }
+
+  public async recuperarContrasena(req: Request, res: Response) {
+    try {
+      const { nombre, preguntaSeguridad, respuestaSeguridad, nuevaContrasena } = req.body;  
+      await UsuarioService.recuperarContrasena(nombre, preguntaSeguridad, respuestaSeguridad, nuevaContrasena);  
+      res.status(200).json({ message: 'Contraseña actualizada correctamente' });
+      return;
+    } catch (error) {
+
+      if ((error as Error).message === 'Usuario no encontrado') {
+        res.status(404).json({error: (error as Error).message});
+        return;
+      }
+      if ((error as Error).message === 'Pregunta o respuesta de seguridad incorrecta') {
+        res.status(403).json({error: (error as Error).message});
+        return;
+      }
+      // Manejo general de errores
+      res.status(500).json({error: (error as Error).message});
+      return;
     }
   }
 
@@ -23,6 +64,7 @@ class UsuarioController {
       res.status(401).json({ error: (error as Error).message });
     }
   }
+
   public async perfil(req: Request, res: Response) {
     try {
       if (!(req as any)['usuario']) { // Utilizar notación de corchetes para evitar el error de tipo
@@ -30,6 +72,7 @@ class UsuarioController {
         return;
       }
       res.status(200).json({ message: `Bienvenido, usuario: ${(req as any)['usuario'].nombre}` });
+      return;
     } catch (error) {
       res.status(500).json({ error: (error as Error).message });
     }
