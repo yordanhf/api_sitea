@@ -58,11 +58,15 @@ import InterconsultaSimple from './interconsultas.model';
   CClinica.hasMany(PacienteCClinica, { foreignKey: 'cClinicaId' });
   PacienteCClinica.belongsTo(CClinica, { as: 'cClinica', foreignKey: 'cClinicaId' });
 
+
+
   Paciente.hasMany(PacienteFortaleza, { foreignKey: 'pacienteId' });
   PacienteFortaleza.belongsTo(Paciente, { as: 'paciente', foreignKey: 'pacienteId' });
 
   Fortaleza.hasMany(PacienteFortaleza, { foreignKey: 'fortalezaId' });
   PacienteFortaleza.belongsTo(Fortaleza, { as: 'fortaleza', foreignKey: 'fortalezaId' });
+
+
 
   Paciente.hasMany(PacienteComorbilidad, { foreignKey: 'pacienteId' });
   PacienteComorbilidad.belongsTo(Paciente, { as: 'paciente', foreignKey: 'pacienteId' });
@@ -70,17 +74,23 @@ import InterconsultaSimple from './interconsultas.model';
   Comorbilidad.hasMany(PacienteComorbilidad, { foreignKey: 'comorbilidadId' });
   PacienteComorbilidad.belongsTo(Comorbilidad, { as: 'comorbilidad', foreignKey: 'comorbilidadId' });  
 
+
+
   Paciente.hasMany(Tratamiento, { foreignKey: 'pacienteId' });
   Tratamiento.belongsTo(Paciente, { as: 'paciente', foreignKey: 'pacienteId' });
 
   Medicamento.hasMany(Tratamiento, { foreignKey: 'medicamentoId' });
   Tratamiento.belongsTo(Medicamento, { as: 'medicamento', foreignKey: 'medicamentoId' });
 
+
+
   Paciente.hasMany(Alergias, { foreignKey: 'pacienteId' });
   Alergias.belongsTo(Paciente, { as: 'paciente', foreignKey: 'pacienteId' });
 
   Medicamento.hasMany(Alergias, { foreignKey: 'medicamentoId' });
   Alergias.belongsTo(Medicamento, { as: 'medicamento', foreignKey: 'medicamentoId' });
+
+  
 
   Paciente.hasMany(Paciente_Antecedente, { foreignKey: 'pacienteId' });
   Paciente_Antecedente.belongsTo(Paciente, { as: 'paciente', foreignKey: 'pacienteId' });

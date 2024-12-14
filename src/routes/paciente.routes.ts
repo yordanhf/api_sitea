@@ -315,6 +315,21 @@ router.delete('/:id', authMiddleware, PacienteController.deletePaciente);
  *         schema:
  *           type: integer
  *         description: ID del medicamento para filtrar pacientes que hayan sido tratados con dicho medicamento
+ *       - in: query
+ *         name: fortalezaId
+ *         schema:
+ *           type: integer
+ *         description: ID de la fortaleza para filtrar pacientes que tengan dicha fortaleza
+ *       - in: query
+ *         name: comorbilidadId
+ *         schema:
+ *           type: integer
+ *         description: ID de la comorbilidad para filtrar pacientes que tengan dicha comorbilidad
+ *       - in: query
+ *         name: antecedenteId
+ *         schema:
+ *           type: integer
+ *         description: ID del antecedente para filtrar pacientes que tengan dicho antecedentePPP
  *     responses:
  *       200:
  *         description: Lista de pacientes que coinciden con los filtros
