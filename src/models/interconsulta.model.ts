@@ -7,7 +7,7 @@ import InterconsultaSimple from './interconsultas.model';
 class Interconsulta extends Model {
   public id!: number; // Auto-incremental
   public pacienteId!: number; // Foreign key
-  public interconsultaId!: string;
+  public interconsultaId!: number;
   public diagnostico?: string;
 }
 

@@ -18,6 +18,10 @@ class PacienteService {
     }
     return paciente;
   }
+  
+  public async getPacientesByParams(params: any) {
+    return await PacienteRepository.findPacientesByParams(params);
+  }
 
   public async getAllPacientesByMunicipio(municipioId: number) {
     const pacientes = await PacienteRepository.findAllPacientesByMunicipio(municipioId);

@@ -1,7 +1,6 @@
 // src/models/paciente.model.ts
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/db.config';
-import Provincia from './provincia.model';
 import Municipio from './municipio.model';
 import Diagnostico from './diagnostico.model';
 import VinculoInstitucional from './vinculo_institucional.model';
@@ -17,6 +16,8 @@ class Paciente extends Model {
   public municipioId!: number;  
   public verbal!: string;
   public diagnosticoId!: number;
+  public fechaDiagnostico?: string;
+  public edadDiagnostico?: number;
   public vinculoInstitucionalId!: number;
   public motivoConsulta?: string;  
   public terapia?: string;
@@ -77,6 +78,10 @@ Paciente.init(
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    edadDiagnostico: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     diagnosticoId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -87,6 +92,10 @@ Paciente.init(
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     },   
+    fechaDiagnostico: {
+      type: DataTypes.DATEONLY,
+      allowNull: true,
+    },
     terapia: {
       type: DataTypes.STRING(20),
       allowNull: true,

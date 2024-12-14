@@ -42,6 +42,16 @@ class PacienteController {
     }
   }
 
+  public async getPacientesByParams(req: Request, res: Response) {
+    try {
+      const params = req.query;
+      const pacientes = await PacienteService.getPacientesByParams(params);
+      res.status(200).json(pacientes);
+    } catch (error) {
+      res.status(500).json({ error: (error as Error).message });
+    }
+  }
+
   public async updatePaciente(req: Request, res: Response) {
     try {
       const { id } = req.params;

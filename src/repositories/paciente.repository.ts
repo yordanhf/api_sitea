@@ -4,6 +4,9 @@ import Municipio from '../models/municipio.model';
 import Paciente from '../models/paciente.model';
 import Provincia from '../models/provincia.model';
 import VinculoInstitucional from '../models/vinculo_institucional.model';
+import Tratamiento from '../models/tratamiento.model';
+import Medicamento from '../models/medicamento.model';
+import { Op } from 'sequelize';
 
 class PacienteRepository {
   public async createPaciente(data: Partial<Paciente>) {
@@ -33,6 +36,97 @@ class PacienteRepository {
       ],
     });
   } 
+
+  public async findPacientesByParams(params: any) {
+    const whereClause: any = {};
+    const include: any[] = [];
+
+    // Construcción del whereClause para los campos directamente del paciente
+    if (params.nombre) {
+      whereClause.nombre = { [Op.like]: `%${params.nombre}%` };
+    }
+    if (params.apellidos) {
+      whereClause.apellidos = { [Op.like]: `%${params.apellidos}%` };
+    }
+    if (params.ci) {
+      whereClause.ci = params.ci;
+    }
+    if (params.municipioId) {
+      whereClause.municipioId = params.municipioId;
+
+      // Incluir el nombre del municipio solo si se pasa municipioId
+      include.push({
+        model: Municipio,
+        attributes: ['nombre'], // Seleccionar solo el nombre del municipio
+        as: 'municipio',
+      });
+    }
+    if (params.sexo) {
+      whereClause.sexo = params.sexo;
+    }
+    if (params.raza) {
+      whereClause.raza = { [Op.like]: `%${params.raza}%` };
+    }
+    if (params.verbal) {
+      whereClause.verbal = params.verbal;
+    }
+    if (params.diagnosticoId) {
+      whereClause.diagnosticoId = params.diagnosticoId;
+
+      // Incluir el nombre del diagnóstico solo si se pasa diagnosticoId
+      include.push({
+        model: Diagnostico,
+        attributes: ['nombre'], // Seleccionar solo el nombre del diagnóstico
+        as: 'diagnostico',
+      });
+    }
+    if (params.vinculoInstitucionalId) {
+      whereClause.vinculoInstitucionalId = params.vinculoInstitucionalId;
+
+      // Incluir el nombre del vínculo institucional solo si se pasa vinculoInstitucionalId
+      include.push({
+        model: VinculoInstitucional,
+        attributes: ['nombre'], // Seleccionar solo el nombre del vínculo institucional
+        as: 'vinculoInstitucional',
+      });
+    }
+    if (params.terapia) {
+      whereClause.terapia = { [Op.like]: `%${params.terapia}%` };
+    }
+    if (params.fechaInicioDiagnostico && params.fechaFinDiagnostico) {
+      whereClause.fechaDiagnostico = {
+        [Op.between]: [params.fechaInicioDiagnostico, params.fechaFinDiagnostico],
+      };
+    }
+    if (params.edadMinDiagnostico && params.edadMaxDiagnostico) {
+      whereClause.edadDiagnostico = {
+        [Op.between]: [params.edadMinDiagnostico, params.edadMaxDiagnostico],
+      };
+    }
+
+    // Configuración de la relación si se incluye `medicamentoId`
+    if (params.medicamentoId) {
+      include.push({
+        model: Tratamiento,
+        required: true,
+        include: [
+          {
+            model: Medicamento,
+            where: { id: params.medicamentoId },
+            required: true,
+          },
+        ],
+      });
+    }
+
+    return await Paciente.findAll({ where: whereClause, include: [ 
+      { model: Diagnostico, attributes: ['nombre'], as: 'diagnostico'},
+      { model: VinculoInstitucional, attributes: ['nombre'], as: 'vinculoInstitucional'},
+      { model: Municipio, attributes: ['nombre'], as: 'municipio',
+        include: [{ model: Provincia, attributes: ['nombre'], as: 'provincia' }]
+       },        
+    ], });
+  }
 
   public async updatePaciente(id: number, data: Partial<Paciente>) {
     const paciente = await Paciente.findByPk(id);

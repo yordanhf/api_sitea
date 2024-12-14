@@ -61,7 +61,13 @@ Consulta.init(
     sequelize,
     modelName: 'Consulta',
     tableName: 'Consultas',
-    timestamps: false, // Desactiva createdAt y updatedAt
+    timestamps: false, 
+    indexes: [
+      {
+        unique: true,
+        fields: ['pacienteId', 'fecha'],
+      },
+    ],
   }
 );
 

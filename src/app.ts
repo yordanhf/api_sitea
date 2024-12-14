@@ -32,6 +32,7 @@ import swaggerOptions from './config/swagger.config';
 import 'dotenv/config';
 import usuarioController from './controllers/usuario.controller';
 import usuarioRoutes from './routes/usuario.routes';
+import backupRoutes from './routes/backup.routes';
 
 
 
@@ -95,6 +96,7 @@ app.use('/api/Paciente_comorbilidad', paciente_comorbilidadRoutes);
 app.use('/api/Tratamiento', tratamientoRoutes);
 app.use('/api/vinculo_institucional', vinculo_institucionalRoutes);
 app.use('/api/usuarios', usuarioRoutes);
+app.use('/api/backup', backupRoutes);
 
 
 

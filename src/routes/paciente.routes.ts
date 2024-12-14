@@ -44,7 +44,13 @@ const router = Router();
  *           description: Motivo de consulta del paciente
  *         diagnosticoId:
  *           type: number
- *           description: id del Diagnóstico del paciente
+ *           description: id del Diagnóstico del paciente 
+ *         edadDiagnostico:
+ *           type: number
+ *           description: edad a la que fue diagnosticado
+ *         fechaDiagnostico:
+ *           type: string
+ *           description: fecha del diagnostico TEA
  *         terapia:
  *           type: string
  *           description: Terapia del paciente
@@ -85,7 +91,7 @@ const router = Router();
 
 /**
  * @swagger
- * /api/pacientes:
+ * /api/pacientes/all:
  *   get:
  *     summary: Obtener todos los pacientes
  *     tags: [Pacientes]
@@ -99,7 +105,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Paciente'
  */
-router.get('/', PacienteController.getAllPacientes);
+router.get('/all', PacienteController.getAllPacientes);
 
 /**
  * @swagger
@@ -224,5 +230,131 @@ router.put('/:id', authMiddleware, PacienteController.updatePaciente);
  *         description: Paciente no encontrado
  */
 router.delete('/:id', authMiddleware, PacienteController.deletePaciente);
+
+/**
+ * @swagger
+ * /api/pacientes:
+ *   get:
+ *     summary: Filtrar pacientes según parámetros específicos
+ *     tags: [Pacientes]
+ *     parameters:
+ *       - in: query
+ *         name: nombre
+ *         schema:
+ *           type: string
+ *         description: Nombre del paciente
+ *       - in: query
+ *         name: apellidos
+ *         schema:
+ *           type: string
+ *         description: Apellidos del paciente
+ *       - in: query
+ *         name: ci
+ *         schema:
+ *           type: string
+ *         description: Carnet de identidad del paciente
+ *       - in: query
+ *         name: municipioId
+ *         schema:
+ *           type: integer
+ *         description: ID del municipio del paciente. Se devolverá el nombre del municipio asociado.
+ *       - in: query
+ *         name: sexo
+ *         schema:
+ *           type: string
+ *         description: Sexo del paciente Masculino o Femenino
+ *       - in: query
+ *         name: raza
+ *         schema:
+ *           type: string
+ *         description: Raza del paciente
+ *       - in: query
+ *         name: verbal
+ *         schema:
+ *           type: string
+ *         description: Estado verbal del paciente Verbal o No Verbal
+ *       - in: query
+ *         name: diagnosticoId
+ *         schema:
+ *           type: integer
+ *         description: ID del diagnóstico del paciente. Se devolverá el nombre del diagnóstico asociado.
+ *       - in: query
+ *         name: vinculoInstitucionalId
+ *         schema:
+ *           type: integer
+ *         description: ID del vínculo institucional del paciente. Se devolverá el nombre del vínculo institucional asociado.
+ *       - in: query
+ *         name: terapia
+ *         schema:
+ *           type: string
+ *         description: Terapia del paciente
+ *       - in: query
+ *         name: fechaInicioDiagnostico
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: Fecha de inicio para el rango de diagnóstico YYYY-MM-DD
+ *       - in: query
+ *         name: fechaFinDiagnostico
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: Fecha de fin para el rango de diagnóstico YYYY-MM-DD
+ *       - in: query
+ *         name: edadMinDiagnostico
+ *         schema:
+ *           type: integer
+ *         description: Edad mínima al momento del diagnóstico
+ *       - in: query
+ *         name: edadMaxDiagnostico
+ *         schema:
+ *           type: integer
+ *         description: Edad máxima al momento del diagnóstico
+ *       - in: query
+ *         name: medicamentoId
+ *         schema:
+ *           type: integer
+ *         description: ID del medicamento para filtrar pacientes que hayan sido tratados con dicho medicamento
+ *     responses:
+ *       200:
+ *         description: Lista de pacientes que coinciden con los filtros
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   nombre:
+ *                     type: string
+ *                   apellidos:
+ *                     type: string
+ *                   ci:
+ *                     type: string
+ *                   sexo:
+ *                     type: string
+ *                   municipio:
+ *                     type: object
+ *                     properties:
+ *                       nombre:
+ *                         type: string
+ *                   diagnostico:
+ *                     type: object
+ *                     properties:
+ *                       nombre:
+ *                         type: string
+ *                   vinculoInstitucional:
+ *                     type: object
+ *                     properties:
+ *                       nombre:
+ *                         type: string
+ *                   otrosCampos:
+ *                     type: string
+ *       500:
+ *         description: Error al filtrar pacientes
+ */
+router.get('/', PacienteController.getPacientesByParams);
 
 export default router;

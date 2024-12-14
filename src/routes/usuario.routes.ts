@@ -2,6 +2,7 @@
 import { Router } from 'express';
 import UsuarioController from '../controllers/usuario.controller';
 import authMiddleware from '../middlewares/auth.middleware';
+import pacienteController from '../controllers/paciente.controller';
 
 const router = Router();
 

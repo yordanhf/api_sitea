@@ -84,7 +84,7 @@ router.get('/:id', MunicipioController.getMunicipioById);
  *         description: ID de la provincia
  *     responses:
  *       200:
- *         description: Lista des municipio de la provincia
+ *         description: Lista de municipio de la provincia
  *         content:
  *           application/json:
  *             schema:
