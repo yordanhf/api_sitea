@@ -13,6 +13,9 @@ import PacienteComorbilidad from '../models/paciente_comorbilidad.model';
 import Comorbilidad from '../models/comorbilidad.model';
 import Paciente_Antecedente from '../models/paciente_antecedente.model';
 import AntecedentesPPP from '../models/antecedentesPPP.model';
+import PacienteCClinica from '../models/paciente_cclinicas.model';
+import CClinica from '../models/cclinica.model';
+import Alergias from '../models/alergias.model';
 
 class PacienteRepository {
   public async createPaciente(data: Partial<Paciente>) {
@@ -37,15 +40,33 @@ class PacienteRepository {
         { model: Diagnostico, attributes: ['nombre'], as: 'diagnostico'},
         { model: VinculoInstitucional, attributes: ['nombre'], as: 'vinculoInstitucional'},
         { model: Municipio, attributes: ['nombre'], as: 'municipio',
-          include: [{ model: Provincia, attributes: ['nombre'], as: 'provincia' }]
-         },        
+          include: [{ model: Provincia, attributes: ['nombre'], as: 'provincia' }]},  
+        {model: Tratamiento, attributes: ['medicamentoId'], as: 'tratamiento', 
+          include: [{ model: Medicamento, attributes: ['nombre'], as: 'medicamento'}]},     
+        {model: PacienteCClinica, attributes: ['cClinicaId'], as: 'pacientecclinica', 
+          include: [{ model: CClinica, attributes: ['nombre'], as: 'cClinica'}]},      
+        {model: PacienteFortaleza, attributes: ['fortalezaId'], as: 'pacientefortaleza', 
+          include: [{ model: Fortaleza, attributes: ['nombre'], as: 'fortaleza'}]},  
+        {model: PacienteComorbilidad, attributes: ['comorbilidadId'], as: 'pacientecomorbilidad', 
+          include: [{ model: Comorbilidad, attributes: ['nombre'], as: 'comorbilidad'}]},  
+        {model: Alergias, attributes: ['medicamentoId'], as: 'alergia', 
+          include: [{ model: Medicamento, attributes: ['nombre'], as: 'medicamento'}]}, 
+        {model: Paciente_Antecedente, attributes: ['antecedenteId'], as: 'pacienteantecedente', 
+          include: [{ model: AntecedentesPPP, attributes: ['nombre'], as: 'antecedentesPPP'}]},  
       ],
     });
   } 
 
   public async findPacientesByParams(params: any) {
     const whereClause: any = {};
-    const include: any[] = []; 
+    const include: any[] = [ 
+      { model: Diagnostico, attributes: ['nombre'], as: 'diagnostico'},
+      { model: VinculoInstitucional, attributes: ['nombre'], as: 'vinculoInstitucional'},
+      { model: Municipio, attributes: ['nombre'], as: 'municipio',
+        include: [{ model: Provincia, attributes: ['nombre'], as: 'provincia' }]},  
+      {model: Tratamiento, attributes: ['medicamentoId'], as: 'tratamiento', 
+        include: { model: Medicamento, attributes: ['nombre'], as: 'medicamento'}}      
+    ]; 
 
     // Construcción del whereClause para los campos directamente del paciente
     if (params.nombre) {
@@ -58,12 +79,8 @@ class PacienteRepository {
       whereClause.ci = params.ci;
     }
     if (params.municipioId) {
-      whereClause.municipioId = params.municipioId;
-
-      // Incluir el nombre del municipio solo si se pasa municipioId
-      include.push({ model: Municipio, attributes: ['nombre'], as: 'municipio',
-        include: [{ model: Provincia, attributes: ['nombre'], as: 'provincia' }]
-       });
+      whereClause.municipioId = params.municipioId;    
+      
     }
     if (params.sexo) {
       whereClause.sexo = params.sexo;
@@ -75,24 +92,10 @@ class PacienteRepository {
       whereClause.verbal = params.verbal;
     }
     if (params.diagnosticoId) {
-      whereClause.diagnosticoId = params.diagnosticoId;
-
-      // Incluir el nombre del diagnóstico solo si se pasa diagnosticoId
-      include.push({
-        model: Diagnostico,
-        attributes: ['nombre'], // Seleccionar solo el nombre del diagnóstico
-        as: 'diagnostico',
-      });
+      whereClause.diagnosticoId = params.diagnosticoId;      
     }
     if (params.vinculoInstitucionalId) {
-      whereClause.vinculoInstitucionalId = params.vinculoInstitucionalId;
-
-      // Incluir el nombre del vínculo institucional solo si se pasa vinculoInstitucionalId
-      include.push({
-        model: VinculoInstitucional,
-        attributes: ['nombre'], // Seleccionar solo el nombre del vínculo institucional
-        as: 'vinculoInstitucional',
-      });
+      whereClause.vinculoInstitucionalId = params.vinculoInstitucionalId;     
     }
     if (params.terapia) {
       whereClause.terapia = { [Op.like]: `%${params.terapia}%` };
@@ -109,14 +112,14 @@ class PacienteRepository {
     }
 
     // Configuración de la relación si se incluye `medicamentoId`
-    if (params.medicamentoId) {  
+    if (params.medicamentoId) {
       include.push({
-        model: Tratamiento,   
-        attributes: [],      
+        model: Tratamiento,
+        as: 'tratamiento',     
         where: {medicamentoId: params.medicamentoId},
         include: {
           model: Medicamento,
-          attributes: [], 
+          attributes: ['nombre'], 
           as: 'medicamento',
         },        
       });

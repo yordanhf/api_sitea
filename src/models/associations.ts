@@ -52,52 +52,40 @@ import InterconsultaSimple from './interconsultas.model';
 
   //Mucho a Muchos
 
-  Paciente.hasMany(PacienteCClinica, { foreignKey: 'pacienteId' });
+  Paciente.hasMany(PacienteCClinica, { as: 'pacientecclinica', foreignKey: 'pacienteId' });
   PacienteCClinica.belongsTo(Paciente, { as: 'paciente', foreignKey: 'pacienteId' });
 
-  CClinica.hasMany(PacienteCClinica, { foreignKey: 'cClinicaId' });
+  CClinica.hasMany(PacienteCClinica, { as: 'pacientecclinica', foreignKey: 'cClinicaId' });
   PacienteCClinica.belongsTo(CClinica, { as: 'cClinica', foreignKey: 'cClinicaId' });
 
-
-
-  Paciente.hasMany(PacienteFortaleza, { foreignKey: 'pacienteId' });
+  Paciente.hasMany(PacienteFortaleza, { as: 'pacientefortaleza', foreignKey: 'pacienteId' });
   PacienteFortaleza.belongsTo(Paciente, { as: 'paciente', foreignKey: 'pacienteId' });
 
-  Fortaleza.hasMany(PacienteFortaleza, { foreignKey: 'fortalezaId' });
+  Fortaleza.hasMany(PacienteFortaleza, { as: 'pacientefortaleza', foreignKey: 'fortalezaId' });
   PacienteFortaleza.belongsTo(Fortaleza, { as: 'fortaleza', foreignKey: 'fortalezaId' });
 
-
-
-  Paciente.hasMany(PacienteComorbilidad, { foreignKey: 'pacienteId' });
+  Paciente.hasMany(PacienteComorbilidad, { as: 'pacientecomorbilidad', foreignKey: 'pacienteId' });
   PacienteComorbilidad.belongsTo(Paciente, { as: 'paciente', foreignKey: 'pacienteId' });
 
-  Comorbilidad.hasMany(PacienteComorbilidad, { foreignKey: 'comorbilidadId' });
+  Comorbilidad.hasMany(PacienteComorbilidad, { as: 'pacientecomorbilidad', foreignKey: 'comorbilidadId' });
   PacienteComorbilidad.belongsTo(Comorbilidad, { as: 'comorbilidad', foreignKey: 'comorbilidadId' });  
 
-
-
-  Paciente.hasMany(Tratamiento, { foreignKey: 'pacienteId' });
+  Paciente.hasMany(Tratamiento, { as: 'tratamiento', foreignKey: 'pacienteId' });
   Tratamiento.belongsTo(Paciente, { as: 'paciente', foreignKey: 'pacienteId' });
 
-  Medicamento.hasMany(Tratamiento, { foreignKey: 'medicamentoId' });
+  Medicamento.hasMany(Tratamiento, { as: 'tratamiento', foreignKey: 'medicamentoId' });
   Tratamiento.belongsTo(Medicamento, { as: 'medicamento', foreignKey: 'medicamentoId' });
 
-
-
-  Paciente.hasMany(Alergias, { foreignKey: 'pacienteId' });
+  Paciente.hasMany(Alergias, { as: 'alergia', foreignKey: 'pacienteId' });
   Alergias.belongsTo(Paciente, { as: 'paciente', foreignKey: 'pacienteId' });
 
-  Medicamento.hasMany(Alergias, { foreignKey: 'medicamentoId' });
+  Medicamento.hasMany(Alergias, { as: 'alergia', foreignKey: 'medicamentoId' });
   Alergias.belongsTo(Medicamento, { as: 'medicamento', foreignKey: 'medicamentoId' });
 
-  
-
-  Paciente.hasMany(Paciente_Antecedente, { foreignKey: 'pacienteId' });
+  Paciente.hasMany(Paciente_Antecedente, { as: 'pacienteantecedente', foreignKey: 'pacienteId' });
   Paciente_Antecedente.belongsTo(Paciente, { as: 'paciente', foreignKey: 'pacienteId' });
 
-  AntecedentesPPP.hasMany(Paciente_Antecedente, { foreignKey: 'antecedenteId' });
+  AntecedentesPPP.hasMany(Paciente_Antecedente, { as: 'pacienteantecedente', foreignKey: 'antecedenteId' });
   Paciente_Antecedente.belongsTo(AntecedentesPPP, { as: 'antecedentesPPP', foreignKey: 'antecedenteId' });
   
-
-
 export { Paciente, Interconsulta, ExamenComplementario, CClinica, Fortaleza, Medicamento, Tratamiento, Consulta, Comorbilidad, Provincia, Municipio, Alergias, AntecedentesPPP, Paciente_Antecedente, PacienteComorbilidad, PacienteFortaleza, PacienteCClinica };
