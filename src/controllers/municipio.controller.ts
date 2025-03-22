@@ -22,6 +22,20 @@ class MunicipioController {
     }
   }
 
+  public async getAllMunicipioNamesTest(req: Request, res: Response) {
+    console.log('Entró al endpoint /nombres'); // Depuración
+    res.json(['Municipio1', 'Municipio2', 'Municipio3']); // Respuesta estática
+  }
+
+  public async getAllMunicipioNames(req: Request, res: Response) {
+    try {
+      const municipios = await MunicipioService.getAllMunicipioNames();
+      res.status(200).json(municipios);
+    } catch (error) {
+      res.status(500).send('Error al obtener los nombres de los municipios');
+    }
+  }
+
   public async getMunicipioById(req: Request, res: Response) {
     try {
       const { id } = req.params;

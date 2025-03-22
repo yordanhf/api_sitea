@@ -26,7 +26,8 @@ const router = Router();
  *           description: Diagnóstico de la interconsulta
  *       required:
  *         - pacienteId
- *         - nombre
+ *         - interconsultaId
+ *         
  */
 
 /**

@@ -28,10 +28,20 @@ class PacienteService {
     return { cant: pacientes.length, data:pacientes }
   }
 
+  public async getPacientesCountByMunicipio() {
+    return await PacienteRepository.getPacientesCountByMunicipio();
+  }
+
 
   public async updatePaciente(id: number, data: Partial<Paciente>) {
     return await PacienteRepository.updatePaciente(id, data);
   }
+
+
+
+
+
+  
 
   public async deletePaciente(id: number) {
     const deleted = await PacienteRepository.deletePaciente(id);

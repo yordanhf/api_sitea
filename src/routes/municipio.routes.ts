@@ -28,6 +28,25 @@ const router = Router();
 
 /**
  * @swagger
+ * /api/municipio/nombres:
+ *   get:
+ *     summary: Obtener todos los nombres de los municipios
+ *     tags: [Municipio]
+ *     responses:
+ *       200:
+ *         description: Lista de nombres de los municipios
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *                 example: "Municipio1"
+ */
+router.get('/nombres', MunicipioController.getAllMunicipioNames);
+
+/**
+ * @swagger
  * /api/municipio:
  *   get:
  *     summary: Obtener todos los municipios
@@ -69,11 +88,13 @@ router.get('/', MunicipioController.getAllMunicipio);
  */
 router.get('/:id', MunicipioController.getMunicipioById);
 
+
+
 /**
  * @swagger
  * /api/municipio/provincia/{provinciaId}:
  *   get:
- *     summary: Obtener todos los municipios de un provincia
+ *     summary: Obtener todos los municipios de una provincia
  *     tags: [Municipio]
  *     parameters:
  *       - in: path

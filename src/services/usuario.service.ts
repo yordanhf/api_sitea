@@ -59,7 +59,7 @@ class UsuarioService {
     const token = jwt.sign(
       { id: usuario.id, nombre: usuario.nombre },
       process.env.JWT_SECRET ?? 'clave_predeterminada_muy_segura',
-      { expiresIn: '1d' }
+      { expiresIn: '30d' }
     );
 
     return { token };

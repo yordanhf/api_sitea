@@ -91,6 +91,33 @@ const router = Router();
 
 /**
  * @swagger
+ * /api/pacientes/countbymunicipio:
+ *   get:
+ *     summary: Obtiene la cantidad de pacientes por municipio
+ *     tags: [Pacientes]
+ *     responses:
+ *       200:
+ *         description: Un objeto con dos arreglos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 municipios:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                     example: "Municipio1"
+ *                 cantidades:
+ *                   type: array
+ *                   items:
+ *                     type: number
+ *                     example: 10
+ */
+router.get('/countbymunicipio', PacienteController.getPacientesCountByMunicipio);
+
+/**
+ * @swagger
  * /api/pacientes/all:
  *   get:
  *     summary: Obtener todos los pacientes

@@ -63,6 +63,15 @@ class PacienteController {
     }
   }
 
+  public async getPacientesCountByMunicipio(req: Request, res: Response) {
+    try {
+      const result = await PacienteService.getPacientesCountByMunicipio();
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json( (error as Error).message );
+    }
+  }
+
   public async deletePaciente(req: Request, res: Response) {
     try {
       const { id } = req.params;

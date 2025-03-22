@@ -19,6 +19,10 @@ class MunicipioService {
     return municipio;
   }
 
+  public async getAllMunicipioNames(): Promise<string[]> {
+    return await MunicipioRepository.findAllMunicipioNames(); 
+  }
+
   public async getMunicipioByProvinciaId(provinciaId: number) {
     return await MunicipioRepository.findMunicipioByProvinciaId(provinciaId);
   }

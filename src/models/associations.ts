@@ -23,10 +23,9 @@ import InterconsultaSimple from './interconsultas.model';
 // Definir las relaciones
 
 //Uno a Muchos
-  Paciente.hasMany(Interconsulta, { foreignKey: 'pacienteId' });
-  Interconsulta.belongsTo(Paciente, { as: 'paciente', foreignKey: 'pacienteId' });
+  
 
-  Paciente.hasMany(ExamenComplementario, { foreignKey: 'pacienteId' });
+  Paciente.hasMany(ExamenComplementario, {as:"pacienteexamen", foreignKey: 'pacienteId' });
   ExamenComplementario.belongsTo(Paciente, { as: 'paciente', foreignKey: 'pacienteId' });
 
   Paciente.hasMany(Consulta, { foreignKey: 'pacienteId' });
@@ -47,10 +46,14 @@ import InterconsultaSimple from './interconsultas.model';
   Examen.hasMany(ExamenComplementario, { foreignKey: 'examenId' });
   ExamenComplementario.belongsTo(Examen, { as: 'examen', foreignKey: 'examenId' });
 
-  InterconsultaSimple.hasMany(Interconsulta, { foreignKey: 'interconsultaId' });
-  Interconsulta.belongsTo(InterconsultaSimple, { as: 'interconsultaSimple', foreignKey: 'interconsultaId' });
-
+  
   //Mucho a Muchos
+
+  Paciente.hasMany(Interconsulta, { as:"pacienteinterconsulta", foreignKey: 'pacienteId' });
+  Interconsulta.belongsTo(Paciente, { as: 'paciente', foreignKey: 'pacienteId' });
+
+  InterconsultaSimple.hasMany(Interconsulta, { as:"pacienteinterconsulta", foreignKey: 'interconsultaId' });
+  Interconsulta.belongsTo(InterconsultaSimple, { as: 'interconsultasimple', foreignKey: 'interconsultaId' });
 
   Paciente.hasMany(PacienteCClinica, { as: 'pacientecclinica', foreignKey: 'pacienteId' });
   PacienteCClinica.belongsTo(Paciente, { as: 'paciente', foreignKey: 'pacienteId' });

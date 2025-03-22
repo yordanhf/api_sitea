@@ -12,9 +12,18 @@ class MunicipioRepository {
     return await Municipio.findAll();
   }
 
+  public async findAllMunicipioNames(): Promise<string[]> {
+    const municipios = await Municipio.findAll({
+      attributes: ['nombre']
+    });
+    return municipios.map(municipio => municipio.nombre); 
+  }
+
   public async findMunicipioById(id: number) {
     return await Municipio.findByPk(id);
   }
+
+  
 
   public async findMunicipioByProvinciaId(provinciaId: number) {
     return await Municipio.findAll({

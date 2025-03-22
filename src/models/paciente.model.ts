@@ -16,9 +16,9 @@ class Paciente extends Model {
   public municipioId!: number;  
   public verbal!: string;
   public diagnosticoId!: number;
+  public vinculoInstitucionalId!: number;
   public fechaDiagnostico?: string;
   public edadDiagnostico?: number;
-  public vinculoInstitucionalId!: number;
   public motivoConsulta?: string;  
   public terapia?: string;
   public descripcionTerapia?: string;
