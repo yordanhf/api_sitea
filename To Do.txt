@@ -1,7 +1,13 @@
-+ * !"·$%&/()=?¿¿_:;;{}}][a^
+- cambiar ID autoincrement por GUID
+
+- adicionar provincial a paciente
+
+- revisar la autenticacion y adicionar roles por provincias
+
+-  endpoint que faltan para las estadisticas
 
 
-pagina de estadisticas
+
 
 Endpoints:
 2 arrays, uno con el nombre de todos los medicamentos y otro 
