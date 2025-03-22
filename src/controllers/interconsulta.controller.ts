@@ -25,7 +25,7 @@ class InterconsultaController {
   public async getInterconsultaById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const interconsulta = await InterconsultaService.getInterconsultaById(Number(id));
+      const interconsulta = await InterconsultaService.getInterconsultaById(String(id));
       res.status(200).json(interconsulta);
     } catch (error) {
       res.status(404).json({ error: (error as Error).message });
@@ -36,7 +36,7 @@ class InterconsultaController {
     try {
       const { id } = req.params;
       const data = req.body;
-      const updatedInterconsulta = await InterconsultaService.updateInterconsulta(Number(id), data);
+      const updatedInterconsulta = await InterconsultaService.updateInterconsulta(String(id), data);
       res.status(200).json(updatedInterconsulta);
     } catch (error) {
       res.status(404).json({ error: (error as Error).message });
@@ -46,7 +46,7 @@ class InterconsultaController {
   public async deleteInterconsulta(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      await InterconsultaService.deleteInterconsulta(Number(id));
+      await InterconsultaService.deleteInterconsulta(String(id));
       res.status(200).json({ message: 'Interconsulta eliminada con éxito' });
     } catch (error) {
       res.status(404).json({ error: (error as Error).message });
@@ -57,7 +57,7 @@ class InterconsultaController {
   public async getInterconsultasByPacienteId(req: Request, res: Response) {
     try {
       const { pacienteId } = req.params;
-      const interconsultas = await InterconsultaService.getInterconsultasByPacienteId(Number(pacienteId));
+      const interconsultas = await InterconsultaService.getInterconsultasByPacienteId(String(pacienteId));
       res.status(200).json(interconsultas);
     } catch (error) {     
       res.status(404).json({ error: (error as Error).message });

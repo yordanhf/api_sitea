@@ -12,8 +12,16 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
- *           description: ID auto-incremental del vinculo institucional
+ *           type: string
+ *           description: ID del vinculo institucional
+ *         nombre:
+ *           type: string
+ *           description: Nombre del vinculo institucional
+ *       required:
+ *         - nombre
+ *      Vinculo Institucional Create:
+ *       type: object
+ *       properties:
  *         nombre:
  *           type: string
  *           description: Nombre del vinculo institucional
@@ -50,7 +58,7 @@ router.get('/', VinculoInstitucionalController.getAllVinculoInstitucional);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del vinculo institucional
  *     responses:
  *       200:
@@ -75,7 +83,7 @@ router.get('/:id', VinculoInstitucionalController.getVinculoInstitucionalById);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Vinculo Institucional'
+ *             $ref: '#/components/schemas/Vinculo Institucional Create'
  *     responses:
  *       201:
  *         description: Vinculo Institucional creado con éxito
@@ -97,7 +105,7 @@ router.post('/', authMiddleware, VinculoInstitucionalController.createVinculoIns
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del vinculo institucional
  *     requestBody:
  *       required: true
@@ -128,7 +136,7 @@ router.put('/:id', authMiddleware, VinculoInstitucionalController.updateVinculoI
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del vinculo institucional a eliminar
  *     responses:
  *       200:

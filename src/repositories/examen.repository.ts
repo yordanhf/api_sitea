@@ -9,11 +9,11 @@ class ExamenRepository {
     return await Examen.findAll();
   }
 
-  public async findExamenById(id: number) {
+  public async findExamenById(id: string) {
     return await Examen.findByPk(id);
   }
 
-  public async updateExamen(id: number, data: Partial<Examen>) {
+  public async updateExamen(id: string, data: Partial<Examen>) {
     const examen = await Examen.findByPk(id);
     if (examen) {
       return await examen.update(data);
@@ -22,7 +22,7 @@ class ExamenRepository {
   }
 
 
-  public async deleteExamen(id: number) {
+  public async deleteExamen(id: string) {
     const deleted = await Examen.destroy({ where: { id } });
     if (deleted) {
       return deleted;

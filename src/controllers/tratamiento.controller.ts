@@ -24,7 +24,7 @@ class TratamientoController {
   public async getTratamientoById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const tratamiento = await TratamientoService.getTratamientoById(Number(id));
+      const tratamiento = await TratamientoService.getTratamientoById(String(id));
       res.status(200).json(tratamiento);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -34,7 +34,7 @@ class TratamientoController {
   public async getTratamientoByPacienteId(req: Request, res: Response) {
     try {
       const { pacienteId } = req.params;
-      const tratamiento = await TratamientoService.getTratamientoByPacienteId(Number(pacienteId));
+      const tratamiento = await TratamientoService.getTratamientoByPacienteId(String(pacienteId));
       res.status(200).json(tratamiento);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -45,7 +45,7 @@ class TratamientoController {
     try {
       const { id } = req.params;
       const data = req.body;
-      const updatedTratamiento = await TratamientoService.updateTratamiento(Number(id), data);
+      const updatedTratamiento = await TratamientoService.updateTratamiento(String(id), data);
       res.status(200).json(updatedTratamiento);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -55,7 +55,7 @@ class TratamientoController {
   public async deleteTratamiento(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      await TratamientoService.deleteTratamiento(Number(id));
+      await TratamientoService.deleteTratamiento(String(id));
       res.status(200).send('Tratamiento eliminado');
     } catch (error) {
       const errorMessage = (error as Error).message;

@@ -10,7 +10,7 @@ class CClinicaService {
     return await CClinicaRepository.findAllCClinica();
   }
 
-  public async getCClinicaById(id: number) {
+  public async getCClinicaById(id: string) {
     const cclinica = await CClinicaRepository.findCClinicaById(id);
     if (!cclinica) {
       throw new Error('Caracteristica no encontrada');
@@ -18,11 +18,11 @@ class CClinicaService {
     return cclinica;
   }
 
-  public async updateCClinica(id: number, data: Partial<CClinica>) {
+  public async updateCClinica(id: string, data: Partial<CClinica>) {
     return await CClinicaRepository.updateCClinica(id, data);
   }
 
-  public async deleteCClinica(id: number) {
+  public async deleteCClinica(id: string) {
     const deleted = await CClinicaRepository.deleteCClinica(id);
     if (deleted === 0) {
       throw new Error('CClinica no encontrada');

@@ -10,7 +10,7 @@ class AlergiaService {
     return await AlergiaRepository.findAllAlergias();
   }
 
-  public async getAlergiaById(id: number) {
+  public async getAlergiaById(id: string) {
     const alergia = await AlergiaRepository.findAlergiaById(id);
     if (!alergia) {
       throw new Error('Alergia no encontrada');
@@ -18,15 +18,15 @@ class AlergiaService {
     return alergia;
   }
 
-  public async getAlergiasByPacienteId(pacienteId: number) {
+  public async getAlergiasByPacienteId(pacienteId: string) {
     return await AlergiaRepository.findAlergiasByPacienteId(pacienteId);
   }
 
-  public async updateAlergia(id: number, data: Partial<Alergias>) {
+  public async updateAlergia(id: string, data: Partial<Alergias>) {
     return await AlergiaRepository.updateAlergia(id, data);
   }
 
-  public async deleteAlergia(id: number) {
+  public async deleteAlergia(id: string) {
     return await AlergiaRepository.deleteAlergia(id);
   }
 }

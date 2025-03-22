@@ -8,8 +8,6 @@ import PacienteFortaleza from './paciente_fortaleza.model';
 import Tratamiento from './tratamiento.model';
 import Medicamento from './medicamento.model';
 import Consulta from './consulta.model';
-import Provincia from './provincia.model';
-import Municipio from './municipio.model';
 import Alergias from './alergias.model';
 import Paciente_Antecedente from './paciente_antecedente.model';
 import AntecedentesPPP from './antecedentesPPP.model';
@@ -30,12 +28,7 @@ import InterconsultaSimple from './interconsultas.model';
 
   Paciente.hasMany(Consulta, { foreignKey: 'pacienteId' });
   Consulta.belongsTo(Paciente, { as: 'paciente', foreignKey: 'pacienteId' });
-
-  Provincia.hasMany(Municipio, { foreignKey: 'provinciaId' });
-  Municipio.belongsTo(Provincia, {as: 'provincia', foreignKey: 'provinciaId' });
-
-  Municipio.hasMany(Paciente, { foreignKey: 'municipioId' });
-  Paciente.belongsTo(Municipio, {as:'municipio', foreignKey: 'municipioId' });
+  
 
   Diagnostico.hasMany(Paciente, { foreignKey: 'diagnosticoId' });
   Paciente.belongsTo(Diagnostico, { as: 'diagnostico', foreignKey: 'diagnosticoId' });
@@ -91,4 +84,4 @@ import InterconsultaSimple from './interconsultas.model';
   AntecedentesPPP.hasMany(Paciente_Antecedente, { as: 'pacienteantecedente', foreignKey: 'antecedenteId' });
   Paciente_Antecedente.belongsTo(AntecedentesPPP, { as: 'antecedentesPPP', foreignKey: 'antecedenteId' });
   
-export { Paciente, Interconsulta, ExamenComplementario, CClinica, Fortaleza, Medicamento, Tratamiento, Consulta, Comorbilidad, Provincia, Municipio, Alergias, AntecedentesPPP, Paciente_Antecedente, PacienteComorbilidad, PacienteFortaleza, PacienteCClinica };
+export { Paciente, Interconsulta, ExamenComplementario, CClinica, Fortaleza, Medicamento, Tratamiento, Consulta, Comorbilidad, Alergias, AntecedentesPPP, Paciente_Antecedente, PacienteComorbilidad, PacienteFortaleza, PacienteCClinica };

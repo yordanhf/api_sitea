@@ -12,10 +12,10 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
- *           description: ID auto-incremental de la consulta
+ *           type: string
+ *           description: ID de la consulta
  *         pacienteId:
- *           type: integer
+ *           type: string
  *           description: ID del paciente consultado
  *         fecha:
  *           type: string
@@ -71,7 +71,7 @@ router.get('/all', ConsultaController.getAllConsultas);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la Consulta
  *     responses:
  *       200:
@@ -118,7 +118,7 @@ router.post('/', authMiddleware, ConsultaController.createConsulta);
  *         name: pacienteId
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del paciente
  *     responses:
  *       200:
@@ -145,7 +145,7 @@ router.get('/paciente/:pacienteId', ConsultaController.getConsultaByPacienteId);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la Consulta
  *     requestBody:
  *       required: true
@@ -176,7 +176,7 @@ router.put('/:id', authMiddleware, ConsultaController.updateConsulta);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la Consulta a eliminar
  *     responses:
  *       200:
@@ -196,7 +196,7 @@ router.delete('/:id', authMiddleware, ConsultaController.deleteConsulta);
  *       - in: query
  *         name: pacienteId
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del paciente para filtrar consultas
  *       - in: query
  *         name: fechaInicio

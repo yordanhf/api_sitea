@@ -16,7 +16,7 @@ class TratamientoRepository {
     });
   }
 
-  public async findTratamientoById(id: number) {
+  public async findTratamientoById(id: string) {
     return await Tratamiento.findByPk(id, {
       include: [ 
         { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente' },
@@ -25,7 +25,7 @@ class TratamientoRepository {
     });
   }
 
-  public async findTratamientoByPacienteId(pacienteId: number) {
+  public async findTratamientoByPacienteId(pacienteId: string) {
     return await Tratamiento.findAll({
       where: { pacienteId },
       include: [{ model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente' },
@@ -33,7 +33,7 @@ class TratamientoRepository {
     });
   }
 
-  public async updateTratamiento(id: number, data: Partial<Tratamiento>) {
+  public async updateTratamiento(id: string, data: Partial<Tratamiento>) {
     const tratamiento = await Tratamiento.findByPk(id);
     if (tratamiento) {
       return await tratamiento.update(data);
@@ -42,7 +42,7 @@ class TratamientoRepository {
   }
 
 
-  public async deleteTratamiento(id: number) {
+  public async deleteTratamiento(id: string) {
     const deleted = await Tratamiento.destroy({ where: { id } });
     if (deleted) {
       return deleted;

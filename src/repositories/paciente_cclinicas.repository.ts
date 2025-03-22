@@ -18,7 +18,7 @@ class Paciente_CClinicasRepository {
     );
   }
 
-  public async findPaciente_CClinicasById(id: number) {
+  public async findPaciente_CClinicasById(id: string) {
     return await Paciente_CClinicas.findByPk(id, {
       include: [ 
         { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente' },
@@ -27,14 +27,14 @@ class Paciente_CClinicasRepository {
     });
   }
 
-  public async findPaciente_CClinicasByPacienteId(pacienteId: number) {
+  public async findPaciente_CClinicasByPacienteId(pacienteId: string) {
     return await Paciente_CClinicas.findAll({
       where: { pacienteId },
       include: [{ model: CClinica, attributes: ['nombre'], as: 'cClinica' }, 
                 {model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente' }]});
   }
 
-  public async updatePaciente_CClinicas(id: number, data: Partial<Paciente_CClinicas>) {
+  public async updatePaciente_CClinicas(id: string, data: Partial<Paciente_CClinicas>) {
     const paciente_cclinicas = await Paciente_CClinicas.findByPk(id);
     if (paciente_cclinicas) {
       return await paciente_cclinicas.update(data);
@@ -43,7 +43,7 @@ class Paciente_CClinicasRepository {
   }
 
 
-  public async deletePaciente_CClinicas(id: number) {
+  public async deletePaciente_CClinicas(id: string) {
     const deleted = await Paciente_CClinicas.destroy({ where: { id } });
     if (deleted) {
       return deleted;

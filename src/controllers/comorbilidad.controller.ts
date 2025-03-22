@@ -24,7 +24,7 @@ class ComorbilidadController {
   public async getComorbilidadById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const comorbilidad = await ComorbilidadService.getComorbilidadById(Number(id));
+      const comorbilidad = await ComorbilidadService.getComorbilidadById(String(id));
       res.status(200).json(comorbilidad);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -35,7 +35,7 @@ class ComorbilidadController {
     try {
       const { id } = req.params;
       const data = req.body;
-      const updatedComorbilidad = await ComorbilidadService.updateComorbilidad(Number(id), data);
+      const updatedComorbilidad = await ComorbilidadService.updateComorbilidad(String(id), data);
       res.status(200).json(updatedComorbilidad);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -45,7 +45,7 @@ class ComorbilidadController {
   public async deleteComorbilidad(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      await ComorbilidadService.deleteComorbilidad(Number(id));
+      await ComorbilidadService.deleteComorbilidad(String(id));
       res.status(200).send('Comorbilidad eliminada');
     } catch (error) {
       const errorMessage = (error as Error).message;

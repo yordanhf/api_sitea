@@ -11,7 +11,7 @@ class PacienteService {
     return await PacienteRepository.findAllPacientes();
   }
 
-  public async getPacienteById(id: number) {
+  public async getPacienteById(id: string) {
     const paciente = await PacienteRepository.findPacienteById(id);
     if (!paciente) {
       throw new Error('Paciente no encontrado');
@@ -23,8 +23,8 @@ class PacienteService {
     return await PacienteRepository.findPacientesByParams(params);
   }
 
-  public async getAllPacientesByMunicipio(municipioId: number) {
-    const pacientes = await PacienteRepository.findAllPacientesByMunicipio(municipioId);
+  public async getAllPacientesByMunicipio(municipio: string) {
+    const pacientes = await PacienteRepository.findAllPacientesByMunicipio(municipio);
     return { cant: pacientes.length, data:pacientes }
   }
 
@@ -32,18 +32,11 @@ class PacienteService {
     return await PacienteRepository.getPacientesCountByMunicipio();
   }
 
-
-  public async updatePaciente(id: number, data: Partial<Paciente>) {
+  public async updatePaciente(id: string, data: Partial<Paciente>) {
     return await PacienteRepository.updatePaciente(id, data);
-  }
+  }  
 
-
-
-
-
-  
-
-  public async deletePaciente(id: number) {
+  public async deletePaciente(id: string) {
     const deleted = await PacienteRepository.deletePaciente(id);
     if (deleted === 0) {
       throw new Error('Paciente no encontrado');

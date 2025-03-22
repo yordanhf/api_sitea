@@ -1,6 +1,12 @@
-- cambiar ID autoincrement por GUID
+- cambiar ID autoincrement por GUID   ---terminado
 
-- adicionar provincial a paciente
+- adicionar provincial a paciente     ---terminado
+
+- adicionar endpoint en usuario para chequear pregunta e seguridad   ---terminado
+
+-------terminar de chequear si todo esta terminado
+
+--- crear entidades para todo en el swagger...
 
 - revisar la autenticacion y adicionar roles por provincias
 

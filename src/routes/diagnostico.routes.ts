@@ -12,8 +12,8 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
- *           description: ID auto-incremental del diagnostico
+ *           type: string
+ *           description: ID del diagnostico
  *         nombre:
  *           type: string
  *           description: Nombre del diagnostico
@@ -50,7 +50,7 @@ router.get('/', DiagnosticoController.getAllDiagnostico);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del diagnostico
  *     responses:
  *       200:
@@ -97,7 +97,7 @@ router.post('/', authMiddleware, DiagnosticoController.createDiagnostico);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del diagnostico
  *     requestBody:
  *       required: true
@@ -128,7 +128,7 @@ router.put('/:id', authMiddleware, DiagnosticoController.updateDiagnostico);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del diagnostico a eliminar
  *     responses:
  *       200:

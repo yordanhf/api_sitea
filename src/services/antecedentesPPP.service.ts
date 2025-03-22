@@ -10,7 +10,7 @@ class AntecedentesPPPService {
     return await AntecedentesPPPRepository.findAllAntecedentesPPP();
   }
 
-  public async getAntecedentesPPPById(id: number) {
+  public async getAntecedentesPPPById(id: string) {
     const antecedentesPPP = await AntecedentesPPPRepository.findAntecedentesPPPById(id);
     if (!antecedentesPPP) {
       throw new Error('Antecedente no encontrado');
@@ -18,11 +18,11 @@ class AntecedentesPPPService {
     return antecedentesPPP;
   }
 
-  public async updateAntecedentesPPP(id: number, data: Partial<AntecedentesPPP>) {
+  public async updateAntecedentesPPP(id: string, data: Partial<AntecedentesPPP>) {
     return await AntecedentesPPPRepository.updateAntecedentesPPP(id, data);
   }
 
-  public async deleteAntecedentesPPP(id: number) {
+  public async deleteAntecedentesPPP(id: string) {
     const deleted = await AntecedentesPPPRepository.deleteAntecedentesPPP(id);
     if (deleted === 0) {
       throw new Error('Antecedente no encontrado');

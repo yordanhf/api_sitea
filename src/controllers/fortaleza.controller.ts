@@ -24,7 +24,7 @@ class FortalezaController {
   public async getFortalezaById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const fortaleza = await FortalezaService.getFortalezaById(Number(id));
+      const fortaleza = await FortalezaService.getFortalezaById(String(id));
       res.status(200).json(fortaleza);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -35,7 +35,7 @@ class FortalezaController {
     try {
       const { id } = req.params;
       const data = req.body;
-      const updatedFortaleza = await FortalezaService.updateFortaleza(Number(id), data);
+      const updatedFortaleza = await FortalezaService.updateFortaleza(String(id), data);
       res.status(200).json(updatedFortaleza);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -45,7 +45,7 @@ class FortalezaController {
   public async deleteFortaleza(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      await FortalezaService.deleteFortaleza(Number(id));
+      await FortalezaService.deleteFortaleza(String(id));
       res.status(200).send('Fortaleza eliminada');
     } catch (error) {
       const errorMessage = (error as Error).message;

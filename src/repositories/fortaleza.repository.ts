@@ -9,11 +9,11 @@ class FortalezaRepository {
     return await Fortaleza.findAll();
   }
 
-  public async findFortalezaById(id: number) {
+  public async findFortalezaById(id: string) {
     return await Fortaleza.findByPk(id);
   }
 
-  public async updateFortaleza(id: number, data: Partial<Fortaleza>) {
+  public async updateFortaleza(id: string, data: Partial<Fortaleza>) {
     const fortaleza = await Fortaleza.findByPk(id);
     if (fortaleza) {
       return await fortaleza.update(data);
@@ -22,7 +22,7 @@ class FortalezaRepository {
   }
 
 
-  public async deleteFortaleza(id: number) {
+  public async deleteFortaleza(id: string) {
     const deleted = await Fortaleza.destroy({ where: { id } });
     if (deleted) {
       return deleted;

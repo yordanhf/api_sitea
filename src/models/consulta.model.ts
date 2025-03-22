@@ -4,8 +4,8 @@ import sequelize from '../config/db.config';
 import Paciente from './paciente.model';
 
 class Consulta extends Model {
-  public id!: number;
-  public pacienteId!: number;
+  public id!: string;
+  public pacienteId!: string;
   public fecha!: string;
   public peso?: number;
   public talla?: number;
@@ -17,12 +17,12 @@ class Consulta extends Model {
 Consulta.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
-      autoIncrement: true, // ID auto-incremental
+      defaultValue: DataTypes.UUIDV4,
     },
     pacienteId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
           model: Paciente,

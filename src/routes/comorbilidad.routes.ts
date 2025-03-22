@@ -12,8 +12,8 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
- *           description: ID auto-incremental de la  comorbilidad
+ *           type: string
+ *           description: ID de la  comorbilidad
  *         nombre:
  *           type: string
  *           description: Nombre de la comorbilidad
@@ -50,7 +50,7 @@ router.get('/', ComorbilidadController.getAllComorbilidad);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la comorbilidad
  *     responses:
  *       200:
@@ -97,7 +97,7 @@ router.post('/', authMiddleware, ComorbilidadController.createComorbilidad);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la comorbilidad
  *     requestBody:
  *       required: true
@@ -128,7 +128,7 @@ router.put('/:id', authMiddleware, ComorbilidadController.updateComorbilidad);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la comorbilidad a eliminar
  *     responses:
  *       200:

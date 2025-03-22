@@ -12,8 +12,8 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
- *           description: ID auto-incremental de la interconsulta
+ *           type: string
+ *           description: ID de la interconsulta
  *         nombre:
  *           type: string
  *           description: Nombre de la interconsulta
@@ -50,7 +50,7 @@ router.get('/', InterconsultasController.getAllInterconsultas);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la Interconsulta
  *     responses:
  *       200:
@@ -97,7 +97,7 @@ router.post('/', authMiddleware, InterconsultasController.createInterconsultas);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la interconsulta
  *     requestBody:
  *       required: true
@@ -128,7 +128,7 @@ router.put('/:id', authMiddleware, InterconsultasController.updateInterconsultas
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la interconsulta a eliminar
  *     responses:
  *       200:

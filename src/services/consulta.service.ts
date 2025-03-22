@@ -2,7 +2,6 @@
 import { Op } from 'sequelize';
 import Consulta from '../models/consulta.model';
 import ConsultaRepository from '../repositories/consulta.repository';
-import consultaRepository from '../repositories/consulta.repository';
 
 class ConsultaService {
   public async createConsulta(data: Partial<Consulta>) {
@@ -13,7 +12,7 @@ class ConsultaService {
     return await ConsultaRepository.findAllConsultas();
   }
 
-  public async getConsultaById(id: number) {
+  public async getConsultaById(id: string) {
     const consulta = await ConsultaRepository.findConsultaById(id);
     if (!consulta) {
       throw new Error('Consulta no encontrada');
@@ -21,15 +20,15 @@ class ConsultaService {
     return consulta;
   }
 
-  public async getConsultaByPacienteId(pacienteId: number) {
+  public async getConsultaByPacienteId(pacienteId: string) {
     return await ConsultaRepository.findConsultaByPacienteId(pacienteId);
   }
 
-  public async updateConsulta(id: number, data: Partial<Consulta>) {
+  public async updateConsulta(id: string, data: Partial<Consulta>) {
     return await ConsultaRepository.updateConsulta(id, data);
   }
 
-  public async deleteConsulta(id: number) {
+  public async deleteConsulta(id: string) {
     const deleted = await ConsultaRepository.deleteConsulta(id);
     if (deleted === 0) {
       throw new Error('Consulta no encontrada');
@@ -61,7 +60,7 @@ class ConsultaService {
     }
 
     // Consultar la base de datos con el whereClause construido
-    return await consultaRepository.findAllConsultasPacienteIdRangoFechas( whereClause );
+    return await ConsultaRepository.findAllConsultasPacienteIdRangoFechas( whereClause );
   }
 }
 

@@ -19,7 +19,7 @@ class Paciente_AntecedenteRepository {
   }
 
   // Obtener una paciente_antecedente por ID
-  public async findPaciente_AntecedenteById(id: number) {
+  public async findPaciente_AntecedenteById(id: string) {
     return await Paciente_Antecedente.findByPk(id, {
       include: [ 
         { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente' },
@@ -29,7 +29,7 @@ class Paciente_AntecedenteRepository {
   }
 
   // Obtener todas las paciente_antecedentes de un paciente
-  public async findPaciente_AntecedenteByPacienteId(pacienteId: number) {
+  public async findPaciente_AntecedenteByPacienteId(pacienteId: string) {
     return await Paciente_Antecedente.findAll({
       where: { pacienteId },
       include: [{ model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente' }, 
@@ -38,7 +38,7 @@ class Paciente_AntecedenteRepository {
   }
 
   // Actualizar una paciente_antecedente por ID
-  public async updatePaciente_Antecedente(id: number, data: Partial<Paciente_Antecedente>) {
+  public async updatePaciente_Antecedente(id: string, data: Partial<Paciente_Antecedente>) {
     const paciente_antecedente = await Paciente_Antecedente.findByPk(id);
     if (paciente_antecedente) {
       return await paciente_antecedente.update(data);
@@ -47,7 +47,7 @@ class Paciente_AntecedenteRepository {
   }
 
   // Eliminar una paciente_antecedente (podría ser marcar como inactiva si lo prefieres)
-  public async deletePaciente_Antecedente(id: number) {
+  public async deletePaciente_Antecedente(id: string) {
     const paciente_antecedente = await Paciente_Antecedente.findByPk(id);
     if (paciente_antecedente) {
       return await paciente_antecedente.destroy();

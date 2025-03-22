@@ -13,13 +13,13 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
- *           description: ID auto-incremental de la interconsulta
+ *           type: string
+ *           description: ID de la interconsulta
  *         pacienteId:
- *           type: integer
+ *           type: string
  *           description: ID del paciente asociado a la interconsulta
  *         interconsultaId:
- *           type: integer
+ *           type: string
  *           description: ID de la interconsulta asociada
  *         diagnostico:
  *           type: string
@@ -59,7 +59,7 @@ router.get('/', InterconsultaController.getAllInterconsultas);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la interconsulta
  *     responses:
  *       200:
@@ -106,7 +106,7 @@ router.post('/', authMiddleware, InterconsultaController.createInterconsulta);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la interconsulta
  *     requestBody:
  *       required: true
@@ -137,7 +137,7 @@ router.put('/:id', authMiddleware, InterconsultaController.updateInterconsulta);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la interconsulta
  *     responses:
  *       200:
@@ -160,7 +160,7 @@ router.delete('/:id', authMiddleware, InterconsultaController.deleteInterconsult
  *         name: pacienteId
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del paciente
  *     responses:
  *       200:

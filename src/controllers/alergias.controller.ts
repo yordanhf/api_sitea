@@ -24,7 +24,7 @@ class AlergiaController {
   public async getAlergiaById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const alergia = await AlergiaService.getAlergiaById(Number(id));
+      const alergia = await AlergiaService.getAlergiaById(String(id));
       res.status(200).json(alergia);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -34,7 +34,7 @@ class AlergiaController {
   public async getAlergiasByPacienteId(req: Request, res: Response) {
     try {
       const { pacienteId } = req.params;
-      const alergias = await AlergiaService.getAlergiasByPacienteId(Number(pacienteId));
+      const alergias = await AlergiaService.getAlergiasByPacienteId(String(pacienteId));
       res.status(200).json(alergias);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -45,7 +45,7 @@ class AlergiaController {
     try {
       const { id } = req.params;
       const data = req.body;
-      const updatedAlergia = await AlergiaService.updateAlergia(Number(id), data);
+      const updatedAlergia = await AlergiaService.updateAlergia(String(id), data);
       res.status(200).json(updatedAlergia);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -55,7 +55,7 @@ class AlergiaController {
   public async deleteAlergia(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      await AlergiaService.deleteAlergia(Number(id));
+      await AlergiaService.deleteAlergia(String(id));
       res.status(200).json({ message: 'Alergia eliminada con éxito' });
     } catch (error) {
       res.status(404).json((error as Error).message);

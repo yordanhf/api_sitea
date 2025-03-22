@@ -9,11 +9,11 @@ class DiagnosticoRepository {
     return await Diagnostico.findAll();
   }
 
-  public async findDiagnosticoById(id: number) {
+  public async findDiagnosticoById(id: string) {
     return await Diagnostico.findByPk(id);
   }
 
-  public async updateDiagnostico(id: number, data: Partial<Diagnostico>) {
+  public async updateDiagnostico(id: string, data: Partial<Diagnostico>) {
     const diagnostico = await Diagnostico.findByPk(id);
     if (diagnostico) {
       return await diagnostico.update(data);
@@ -22,7 +22,7 @@ class DiagnosticoRepository {
   }
 
 
-  public async deleteDiagnostico(id: number) {
+  public async deleteDiagnostico(id: string) {
     const deleted = await Diagnostico.destroy({ where: { id } });
     if (deleted) {
       return deleted;

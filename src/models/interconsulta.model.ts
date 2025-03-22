@@ -5,21 +5,21 @@ import Paciente from './paciente.model';
 import InterconsultaSimple from './interconsultas.model';
 
 class Interconsulta extends Model {
-  public id!: number; // Auto-incremental
-  public pacienteId!: number; // Foreign key
-  public interconsultaId!: number;
+  public id!: string; // GUID
+  public pacienteId!: string; // Foreign key
+  public interconsultaId!: string;
   public diagnostico?: string;
 }
 
 Interconsulta.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     pacienteId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: Paciente,
@@ -29,7 +29,7 @@ Interconsulta.init(
       onUpdate: 'CASCADE',
     },
     interconsultaId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: InterconsultaSimple,

@@ -10,7 +10,7 @@ class InterconsultasService {
     return await InterconsultasRepository.findAllInterconsultas();
   }
 
-  public async getInterconsultasById(id: number) {
+  public async getInterconsultasById(id: string) {
     const interconsultas = await InterconsultasRepository.findInterconsultasById(id);
     if (!interconsultas) {
       throw new Error('Interconsultas no encontrada');
@@ -18,11 +18,11 @@ class InterconsultasService {
     return interconsultas;
   }
 
-  public async updateInterconsultas(id: number, data: Partial<Interconsultas>) {
+  public async updateInterconsultas(id: string, data: Partial<Interconsultas>) {
     return await InterconsultasRepository.updateInterconsultas(id, data);
   }
 
-  public async deleteInterconsultas(id: number) {
+  public async deleteInterconsultas(id: string) {
     const deleted = await InterconsultasRepository.deleteInterconsultas(id);
     if (deleted === 0) {
       throw new Error('Interconsultas no encontrada');

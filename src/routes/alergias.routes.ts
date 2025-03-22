@@ -12,13 +12,13 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
- *           description: ID auto-incremental de la alergia
+ *           type: string
+ *           description: ID de la alergia
  *         pacienteId:
- *           type: integer
+ *           type: string
  *           description: ID del paciente asociado
  *         medicamentoId:
- *           type: integer
+ *           type: string
  *           description: ID del medicamento asociado
  *       required:
  *         - pacienteId
@@ -54,7 +54,7 @@ router.get('/', AlergiaController.getAllAlergias);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la alergia
  *     responses:
  *       200:
@@ -79,7 +79,7 @@ router.get('/:id', AlergiaController.getAlergiaById);
  *         name: pacienteId
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del paciente
  *     responses:
  *       200:
@@ -128,7 +128,7 @@ router.post('/', authMiddleware, AlergiaController.createAlergia);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la alergia
  *     requestBody:
  *       required: true
@@ -159,7 +159,7 @@ router.put('/:id', authMiddleware, AlergiaController.updateAlergia);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la alergia
  *     responses:
  *       200:

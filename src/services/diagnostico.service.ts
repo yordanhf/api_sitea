@@ -10,7 +10,7 @@ class DiagnosticoService {
     return await DiagnosticoRepository.findAllDiagnostico();
   }
 
-  public async getDiagnosticoById(id: number) {
+  public async getDiagnosticoById(id: string) {
     const diagnostico = await DiagnosticoRepository.findDiagnosticoById(id);
     if (!diagnostico) {
       throw new Error('Diagnostico no encontrado');
@@ -18,11 +18,11 @@ class DiagnosticoService {
     return diagnostico;
   }
 
-  public async updateDiagnostico(id: number, data: Partial<Diagnostico>) {
+  public async updateDiagnostico(id: string, data: Partial<Diagnostico>) {
     return await DiagnosticoRepository.updateDiagnostico(id, data);
   }
 
-  public async deleteDiagnostico(id: number) {
+  public async deleteDiagnostico(id: string) {
     const deleted = await DiagnosticoRepository.deleteDiagnostico(id);
     if (deleted === 0) {
       throw new Error('Diagnostico no encontrado');

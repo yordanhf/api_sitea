@@ -15,7 +15,7 @@ class ConsultaRepository {
     });
   }
 
-  public async findConsultaById(id: number) {
+  public async findConsultaById(id: string) {
     return await Consulta.findByPk(id, {       
       include: [        
         { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'],  as: 'paciente' },
@@ -23,7 +23,7 @@ class ConsultaRepository {
     });
   }
 
-  public async findConsultaByPacienteId(pacienteId: number) {
+  public async findConsultaByPacienteId(pacienteId: string) {
     return await Consulta.findAll({
       where: { pacienteId },
       include: [        
@@ -36,7 +36,7 @@ class ConsultaRepository {
       return await Consulta.findAll({ where: whereClause });
     }
 
-  public async updateConsulta(id: number, data: Partial<Consulta>) {
+  public async updateConsulta(id: string, data: Partial<Consulta>) {
     const consulta = await Consulta.findByPk(id);
     if (consulta) {
       return await consulta.update(data);
@@ -44,7 +44,7 @@ class ConsultaRepository {
     throw new Error('Consulta no encontrada');
   }
 
-  public async deleteConsulta(id: number) {
+  public async deleteConsulta(id: string) {
     const deleted = await Consulta.destroy({ where: { id } });
     if (deleted) {
       return deleted;

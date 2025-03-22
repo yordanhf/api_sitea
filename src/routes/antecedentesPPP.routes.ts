@@ -12,8 +12,8 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
- *           description: ID auto-incremental del antecedente
+ *           type: string
+ *           description: ID del antecedente
  *         nombre:
  *           type: string
  *           description: Nombre del antecedente
@@ -50,7 +50,7 @@ router.get('/', AntecedentesPPPController.getAllAntecedentesPPP);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del antecedente
  *     responses:
  *       200:
@@ -97,7 +97,7 @@ router.post('/', authMiddleware, AntecedentesPPPController.createAntecedentesPPP
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del antecedente
  *     requestBody:
  *       required: true
@@ -128,7 +128,7 @@ router.put('/:id', authMiddleware, AntecedentesPPPController.updateAntecedentesP
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del antecedente a eliminar
  *     responses:
  *       200:
