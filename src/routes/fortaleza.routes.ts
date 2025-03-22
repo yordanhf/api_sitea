@@ -12,8 +12,8 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
- *           description: ID auto-incremental de la fortaleza
+ *           type: string
+ *           description: ID de la fortaleza
  *         nombre:
  *           type: string
  *           description: Nombre de la fortaleza
@@ -50,7 +50,7 @@ router.get('/', FortalezaController.getAllFortaleza);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la fortaleza
  *     responses:
  *       200:
@@ -97,7 +97,7 @@ router.post('/', authMiddleware, FortalezaController.createFortaleza);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la fortaleza
  *     requestBody:
  *       required: true
@@ -128,7 +128,7 @@ router.put('/:id', authMiddleware,  FortalezaController.updateFortaleza);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la fortaleza a eliminar
  *     responses:
  *       200:

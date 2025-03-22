@@ -24,7 +24,7 @@ class AntecedentesPPPController {
   public async getAntecedentesPPPById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const antecedentesPPP = await AntecedentesPPPService.getAntecedentesPPPById(Number(id));
+      const antecedentesPPP = await AntecedentesPPPService.getAntecedentesPPPById(String(id));
       res.status(200).json(antecedentesPPP);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -35,7 +35,7 @@ class AntecedentesPPPController {
     try {
       const { id } = req.params;
       const data = req.body;
-      const updatedAntecedentesPPP = await AntecedentesPPPService.updateAntecedentesPPP(Number(id), data);
+      const updatedAntecedentesPPP = await AntecedentesPPPService.updateAntecedentesPPP(String(id), data);
       res.status(200).json(updatedAntecedentesPPP);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -45,7 +45,7 @@ class AntecedentesPPPController {
   public async deleteAntecedentesPPP(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      await AntecedentesPPPService.deleteAntecedentesPPP(Number(id));
+      await AntecedentesPPPService.deleteAntecedentesPPP(String(id));
       res.status(200).send('Antecedente eliminado');
     } catch (error) {
       const errorMessage = (error as Error).message;

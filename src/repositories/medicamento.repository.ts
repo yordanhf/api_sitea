@@ -10,11 +10,11 @@ class MedicamentoRepository {
     return await Medicamento.findAll();
   }
 
-  public async findMedicamentoById(id: number) {
+  public async findMedicamentoById(id: string) {
     return await Medicamento.findByPk(id);
   }
 
-  public async updateMedicamento(id: number, data: Partial<Medicamento>) {
+  public async updateMedicamento(id: string, data: Partial<Medicamento>) {
     const medicamento = await Medicamento.findByPk(id);
     if (medicamento) {
       return await medicamento.update(data);
@@ -23,7 +23,7 @@ class MedicamentoRepository {
   }
 
 
-  public async deleteMedicamento(id: number) {
+  public async deleteMedicamento(id: string) {
     const deleted = await Medicamento.destroy({ where: { id } });
     if (deleted) {
       return deleted;

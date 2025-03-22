@@ -16,7 +16,7 @@ class Paciente_FortalezaRepository {
     });
   }
 
-  public async findPaciente_FortalezaById(id: number) {
+  public async findPaciente_FortalezaById(id: string) {
     return await Paciente_Fortaleza.findByPk(id, {
       include: [ 
         { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente' },
@@ -25,7 +25,7 @@ class Paciente_FortalezaRepository {
     });
   }
 
-  public async findPaciente_FortalezaByPacienteId(pacienteId: number) {
+  public async findPaciente_FortalezaByPacienteId(pacienteId: string) {
     return await Paciente_Fortaleza.findAll({
       where: { pacienteId },
       include: [{ model: Fortaleza, attributes: ['nombre'], as: 'fortaleza' }, 
@@ -33,7 +33,7 @@ class Paciente_FortalezaRepository {
     ]});
   }
 
-  public async updatePaciente_Fortaleza(id: number, data: Partial<Paciente_Fortaleza>) {
+  public async updatePaciente_Fortaleza(id: string, data: Partial<Paciente_Fortaleza>) {
     const paciente_fortaleza = await Paciente_Fortaleza.findByPk(id);
     if (paciente_fortaleza) {
       return await paciente_fortaleza.update(data);
@@ -42,7 +42,7 @@ class Paciente_FortalezaRepository {
   }
 
 
-  public async deletePaciente_Fortaleza(id: number) {
+  public async deletePaciente_Fortaleza(id: string) {
     const deleted = await Paciente_Fortaleza.destroy({ where: { id } });
     if (deleted) {
       return deleted;

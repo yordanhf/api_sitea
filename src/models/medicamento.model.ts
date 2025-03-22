@@ -3,16 +3,16 @@ import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/db.config';
 
 class Medicamento extends Model {
-  public id!: number;
+  public id!: string;
   public nombre!: string;
 }
 
 Medicamento.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
-      autoIncrement: true, // ID auto-incremental
+      defaultValue: DataTypes.UUIDV4,
     },
     nombre: {
       type: DataTypes.STRING(150),

@@ -3,16 +3,16 @@ import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/db.config';
 
 class Comorbilidad extends Model {
-  public id!: number; // Auto-incremental
+  public id!: string; // GUID
   public nombre!: string;
 }
 
 Comorbilidad.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     nombre: {
       type: DataTypes.STRING(100),

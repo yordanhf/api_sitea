@@ -5,20 +5,20 @@ import Paciente from './paciente.model';
 import Medicamento from './medicamento.model';
 
 class Tratamiento extends Model {
-  public id!: number;
-  public pacienteId!: number; // Foreign key
-  public medicamentoId!: number; // Foreign key  
+  public id!: string;
+  public pacienteId!: string; // Foreign key
+  public medicamentoId!: string; // Foreign key  
 }
 
 Tratamiento.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     pacienteId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: Paciente,
@@ -28,7 +28,7 @@ Tratamiento.init(
       onUpdate: 'CASCADE',
     },
     medicamentoId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: Medicamento,

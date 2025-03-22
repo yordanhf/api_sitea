@@ -10,7 +10,7 @@ class ExamenService {
     return await ExamenRepository.findAllExamen();
   }
 
-  public async getExamenById(id: number) {
+  public async getExamenById(id: string) {
     const examen = await ExamenRepository.findExamenById(id);
     if (!examen) {
       throw new Error('examen no encontrado');
@@ -18,11 +18,11 @@ class ExamenService {
     return examen;
   }
 
-  public async updateExamen(id: number, data: Partial<Examen>) {
+  public async updateExamen(id: string, data: Partial<Examen>) {
     return await ExamenRepository.updateExamen(id, data);
   }
 
-  public async deleteExamen(id: number) {
+  public async deleteExamen(id: string) {
     const deleted = await ExamenRepository.deleteExamen(id);
     if (deleted === 0) {
       throw new Error('Examen no encontrado');

@@ -12,13 +12,13 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
- *           description: ID auto-incremental del tratamiento
+ *           type: string
+ *           description: ID del tratamiento
  *         pacienteId:
- *           type: integer
+ *           type: string
  *           description: ID del paciente
  *         medicamentoId:
- *           type: integer
+ *           type: string
  *           description: ID del medicamento
  *       required:
  *         - pacienteId
@@ -53,7 +53,7 @@ router.get('/', TratamientoController.getAllTratamiento);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del tratamiento
  *     responses:
  *       200:
@@ -78,7 +78,7 @@ router.get('/:id', TratamientoController.getTratamientoById);
  *         name: pacienteId
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del paciente
  *     responses:
  *       200:
@@ -127,7 +127,7 @@ router.post('/', authMiddleware, TratamientoController.createTratamiento);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del tratamiento
  *     requestBody:
  *       required: true
@@ -158,7 +158,7 @@ router.put('/:id', authMiddleware, TratamientoController.updateTratamiento);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del tratamiento a eliminar
  *     responses:
  *       200:

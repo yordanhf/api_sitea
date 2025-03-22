@@ -10,7 +10,7 @@ class Paciente_AntecedenteService {
     return await Paciente_AntecedenteRepository.findAllPaciente_Antecedente();
   }
 
-  public async getPaciente_AntecedenteById(id: number) {
+  public async getPaciente_AntecedenteById(id: string) {
     const alergia = await Paciente_AntecedenteRepository.findPaciente_AntecedenteById(id);
     if (!alergia) {
       throw new Error('Paciente_Antecedente no encontrado');
@@ -18,15 +18,15 @@ class Paciente_AntecedenteService {
     return alergia;
   }
 
-  public async getPaciente_AntecedenteByPacienteId(pacienteId: number) {
+  public async getPaciente_AntecedenteByPacienteId(pacienteId: string) {
     return await Paciente_AntecedenteRepository.findPaciente_AntecedenteByPacienteId(pacienteId);
   }
 
-  public async updatePaciente_Antecedente(id: number, data: Partial<Paciente_Antecedente>) {
+  public async updatePaciente_Antecedente(id: string, data: Partial<Paciente_Antecedente>) {
     return await Paciente_AntecedenteRepository.updatePaciente_Antecedente(id, data);
   }
 
-  public async deletePaciente_Antecedente(id: number) {
+  public async deletePaciente_Antecedente(id: string) {
     return await Paciente_AntecedenteRepository.deletePaciente_Antecedente(id);
   }
 }

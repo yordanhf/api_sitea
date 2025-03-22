@@ -12,8 +12,8 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
- *           description: ID auto-incremental del examen
+ *           type: string
+ *           description: ID del examen
  *         nombre:
  *           type: string
  *           description: Nombre del examen
@@ -50,7 +50,7 @@ router.get('/', ExamenController.getAllExamen);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del examen
  *     responses:
  *       200:
@@ -97,7 +97,7 @@ router.post('/', authMiddleware, ExamenController.createExamen);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del examen
  *     requestBody:
  *       required: true
@@ -128,7 +128,7 @@ router.put('/:id', authMiddleware, ExamenController.updateExamen);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del examen a eliminar
  *     responses:
  *       200:

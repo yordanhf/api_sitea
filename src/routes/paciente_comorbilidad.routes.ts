@@ -13,13 +13,13 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
- *           description: ID autoincremental del paciente_comorbilidad
+ *           type: string
+ *           description: ID del paciente_comorbilidad
  *         pacienteId:
- *           type: integer
+ *           type: string
  *           description: ID del paciente
  *         comorbilidadId:
- *           type: integer
+ *           type: string
  *           description: ID de la comorbilidad
  *       required:
  *         - pacienteId
@@ -55,7 +55,7 @@ router.get('/', Paciente_ComorbilidadController.getAllPaciente_Comorbilidad);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del Paciente_comorbilidad
  *     responses:
  *       200:
@@ -80,7 +80,7 @@ router.get('/:id', Paciente_ComorbilidadController.getPaciente_ComorbilidadById)
  *         name: pacienteId
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del paciente
  *     responses:
  *       200:
@@ -129,7 +129,7 @@ router.post('/', authMiddleware, Paciente_ComorbilidadController.createPaciente_
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del Paciente_comorbilidad
  *     requestBody:
  *       required: true
@@ -160,7 +160,7 @@ router.put('/:id', authMiddleware, Paciente_ComorbilidadController.updatePacient
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del Paciente_comorbilidad a eliminar
  *     responses:
  *       200:

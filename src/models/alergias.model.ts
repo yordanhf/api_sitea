@@ -4,20 +4,20 @@ import Paciente from './paciente.model';
 import Medicamento from './medicamento.model';
 
 class Alergias extends Model {
-  public id!: number;
-  public pacienteId!: number;
-  public medicamentoId!: number; 
+  public id!: string;
+  public pacienteId!: string;
+  public medicamentoId!: string; 
 }
 
 Alergias.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     pacienteId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: Paciente,
@@ -27,7 +27,7 @@ Alergias.init(
       onUpdate: 'CASCADE',
     },
     medicamentoId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: Medicamento,

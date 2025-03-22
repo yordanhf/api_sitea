@@ -9,11 +9,11 @@ class InterconsultasRepository {
     return await Interconsultas.findAll();
   }
 
-  public async findInterconsultasById(id: number) {
+  public async findInterconsultasById(id: string) {
     return await Interconsultas.findByPk(id);
   }
 
-  public async updateInterconsultas(id: number, data: Partial<Interconsultas>) {
+  public async updateInterconsultas(id: string, data: Partial<Interconsultas>) {
     const interconsultas = await Interconsultas.findByPk(id);
     if (interconsultas) {
       return await interconsultas.update(data);
@@ -22,7 +22,7 @@ class InterconsultasRepository {
   }
 
 
-  public async deleteInterconsultas(id: number) {
+  public async deleteInterconsultas(id: string) {
     const deleted = await Interconsultas.destroy({ where: { id } });
     if (deleted) {
       return deleted;

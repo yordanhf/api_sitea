@@ -24,7 +24,7 @@ class Paciente_CClinicasController {
   public async getPaciente_CClinicasById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const Paciente_cclinicas = await Paciente_CClinicasService.getPaciente_CClinicasById(Number(id));
+      const Paciente_cclinicas = await Paciente_CClinicasService.getPaciente_CClinicasById(String(id));
       res.status(200).json(Paciente_cclinicas);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -34,7 +34,7 @@ class Paciente_CClinicasController {
   public async getPaciente_CClinicasByPacienteId(req: Request, res: Response) {
     try {
       const { pacienteId } = req.params;
-      const Paciente_cclinicas = await Paciente_CClinicasService.getPaciente_CClinicasByPacienteId(Number(pacienteId));
+      const Paciente_cclinicas = await Paciente_CClinicasService.getPaciente_CClinicasByPacienteId(String(pacienteId));
       res.status(200).json(Paciente_cclinicas);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -45,7 +45,7 @@ class Paciente_CClinicasController {
     try {
       const { id } = req.params;
       const data = req.body;
-      const updatedPaciente_cclinicas = await Paciente_CClinicasService.updatePaciente_CClinicas(Number(id), data);
+      const updatedPaciente_cclinicas = await Paciente_CClinicasService.updatePaciente_CClinicas(String(id), data);
       res.status(200).json(updatedPaciente_cclinicas);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -55,7 +55,7 @@ class Paciente_CClinicasController {
   public async deletePaciente_CClinicas(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      await Paciente_CClinicasService.deletePaciente_CClinicas(Number(id));
+      await Paciente_CClinicasService.deletePaciente_CClinicas(String(id));
       res.status(200).send('Paciente_cclinicas eliminado');
     } catch (error) {
       const errorMessage = (error as Error).message;

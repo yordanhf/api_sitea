@@ -24,7 +24,7 @@ class ConsultaController {
   public async getConsultaById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const consulta = await ConsultaService.getConsultaById(Number(id));
+      const consulta = await ConsultaService.getConsultaById(String(id));
       res.status(200).json(consulta);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -34,7 +34,7 @@ class ConsultaController {
   public async getConsultaByPacienteId(req: Request, res: Response) {
     try {
       const { pacienteId } = req.params;
-      const consulta = await ConsultaService.getConsultaByPacienteId(Number(pacienteId));
+      const consulta = await ConsultaService.getConsultaByPacienteId(String(pacienteId));
       res.status(200).json(consulta);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -45,7 +45,7 @@ class ConsultaController {
     try {
       const { id } = req.params;
       const data = req.body;
-      const updatedConsulta = await ConsultaService.updateConsulta(Number(id), data);
+      const updatedConsulta = await ConsultaService.updateConsulta(String(id), data);
       res.status(200).json(updatedConsulta);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -55,7 +55,7 @@ class ConsultaController {
   public async deleteConsulta(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      await ConsultaService.deleteConsulta(Number(id));
+      await ConsultaService.deleteConsulta(String(id));
       res.status(200).json({ message: 'Consulta eliminada con éxito' });
     } catch (error) {
       res.status(404).json((error as Error).message);

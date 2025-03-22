@@ -1,18 +1,17 @@
-// src/models/caracteristica.model.ts
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/db.config';
 
 class AntecedentesPPP extends Model {
-  public id!: number; // Auto-incremental
+  public id!: string; // GUID
   public nombre!: string;
 }
 
 AntecedentesPPP.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     nombre: {
       type: DataTypes.STRING(250),

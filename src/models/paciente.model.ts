@@ -1,22 +1,22 @@
 // src/models/paciente.model.ts
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/db.config';
-import Municipio from './municipio.model';
 import Diagnostico from './diagnostico.model';
 import VinculoInstitucional from './vinculo_institucional.model';
 
 class Paciente extends Model {
-  public id!: number; // Auto-incremental
+  public id!: string; // GUID
   public nombre!: string;
   public apellidos!: string;
   public ci!: string;
   public sexo!: string;
   public raza!: string;
   public direccion!: string;
-  public municipioId!: number;  
+  public provincia!: string;  
+  public municipio!: string;  
   public verbal!: string;
-  public diagnosticoId!: number;
-  public vinculoInstitucionalId!: number;
+  public diagnosticoId!: string;
+  public vinculoInstitucionalId!: string;
   public fechaDiagnostico?: string;
   public edadDiagnostico?: number;
   public motivoConsulta?: string;  
@@ -32,9 +32,9 @@ class Paciente extends Model {
 Paciente.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     nombre: {
       type: DataTypes.STRING(50),
@@ -60,15 +60,13 @@ Paciente.init(
       type: DataTypes.STRING(200),
       allowNull: false,
     },
-    municipioId: {
-      type: DataTypes.INTEGER,
+    provincia: {
+      type: DataTypes.STRING(50),
       allowNull: false,
-      references: {
-        model: Municipio,
-        key: 'id',
-      },
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
+    },
+    municipio: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
     },
     verbal: {
       type: DataTypes.STRING(10),
@@ -83,7 +81,7 @@ Paciente.init(
       allowNull: true,
     },
     diagnosticoId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: Diagnostico,
@@ -113,7 +111,7 @@ Paciente.init(
       allowNull: true,
     },   
     vinculoInstitucionalId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: VinculoInstitucional,

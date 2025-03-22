@@ -4,21 +4,21 @@ import Paciente from './paciente.model';
 import AntecedentesPPP from './antecedentesPPP.model';
 
 class Paciente_Antecedente extends Model {
-  public id!: number;
-  public pacienteId!: number;
-  public antecedenteId!: number;
+  public id!: string;
+  public pacienteId!: string;
+  public antecedenteId!: string;
   public descripcion?: string;
 }
 
 Paciente_Antecedente.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     pacienteId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: Paciente,
@@ -28,7 +28,7 @@ Paciente_Antecedente.init(
       onUpdate: 'CASCADE',
     },
     antecedenteId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: AntecedentesPPP,

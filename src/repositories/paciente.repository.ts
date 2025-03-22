@@ -1,8 +1,6 @@
 // 1. Paciente Repository (paciente.repository.ts)
 import Diagnostico from '../models/diagnostico.model';
-import Municipio from '../models/municipio.model';
 import Paciente from '../models/paciente.model';
-import Provincia from '../models/provincia.model';
 import VinculoInstitucional from '../models/vinculo_institucional.model';
 import Tratamiento from '../models/tratamiento.model';
 import Medicamento from '../models/medicamento.model';
@@ -30,21 +28,16 @@ class PacienteRepository {
     return await Paciente.findAll({      
       include: [ 
         { model: Diagnostico, attributes: ['nombre'], as: 'diagnostico'},
-        { model: VinculoInstitucional, attributes: ['nombre'], as: 'vinculoInstitucional'},
-        { model: Municipio, attributes: ['nombre'], as: 'municipio',
-          include: [{ model: Provincia, attributes: ['nombre'], as: 'provincia' }]
-         },        
+        { model: VinculoInstitucional, attributes: ['nombre'], as: 'vinculoInstitucional'}
       ],
     });
   }
 
-  public async findPacienteById(id: number) {
+  public async findPacienteById(id: string) {
     return await Paciente.findByPk(id, {      
       include: [ 
         { model: Diagnostico, attributes: ['nombre'], as: 'diagnostico'},
         { model: VinculoInstitucional, attributes: ['nombre'], as: 'vinculoInstitucional'},
-        { model: Municipio, attributes: ['nombre','provinciaId' ], as: 'municipio',
-          include: [{ model: Provincia, attributes: ['nombre'], as: 'provincia' }]},  
         {model: Tratamiento, attributes: ['id','medicamentoId'], as: 'tratamiento', 
           include: [{ model: Medicamento, attributes: ['nombre'], as: 'medicamento'}]},     
         {model: PacienteCClinica, attributes: ['id','cClinicaId'], as: 'pacientecclinica', 
@@ -70,8 +63,6 @@ class PacienteRepository {
     const include: any[] = [ 
       { model: Diagnostico, attributes: ['nombre'], as: 'diagnostico'},
       { model: VinculoInstitucional, attributes: ['nombre'], as: 'vinculoInstitucional'},
-      { model: Municipio, attributes: ['nombre'], as: 'municipio',
-        include: [{ model: Provincia, attributes: ['nombre'], as: 'provincia' }]},  
       {model: Tratamiento, attributes: ['medicamentoId'], as: 'tratamiento', 
         include: { model: Medicamento, attributes: ['nombre'], as: 'medicamento'}},
     ]; 
@@ -86,8 +77,12 @@ class PacienteRepository {
     if (params.ci) {
       whereClause.ci = { [Op.like]: `%${params.ci}%` };
     }
-    if (params.municipioId) {
-      whereClause.municipioId = params.municipioId;    
+    if (params.provincia) {
+      whereClause.provincia = params.provincia;  
+      
+    }
+    if (params.municipio) {
+      whereClause.municipio = params.municipio;  
       
     }
     if (params.sexo) {
@@ -206,7 +201,7 @@ class PacienteRepository {
     return await Paciente.findAll({ where: whereClause, include: include});
   }
 
-  public async updatePaciente(id: number, data: Partial<Paciente>) {
+  public async updatePaciente(id: string, data: Partial<Paciente>) {
     const paciente = await Paciente.findByPk(id);
     if (paciente) {
       return await paciente.update(data);
@@ -214,35 +209,28 @@ class PacienteRepository {
     throw new Error('Paciente no encontrado');
   }
 
-  public async findAllPacientesByMunicipio(municipio_: number) {
-    return await Paciente.findAll({ where: { municipioId : municipio_ } });
+  public async findAllPacientesByMunicipio(municipio_: string) {
+    return await Paciente.findAll({ where: { municipio : municipio_ } });
   }
 
   public async getPacientesCountByMunicipio(): Promise<{ municipios: string[]; cantidades: number[] }> {
     const result = await Paciente.findAll({
       attributes: [
-        [Sequelize.col('municipio.nombre'), 'municipioNombre'], // Nombre del municipio
-        [Sequelize.fn('COUNT', Sequelize.col('Paciente.id')), 'cantidadPacientes'], // Cantidad de pacientes
+        'municipio', // Nombre del municipio
+        [Sequelize.fn('COUNT', Sequelize.col('id')), 'cantidadPacientes'], // Cantidad de pacientes
       ],
-      include: [
-        {
-          model: Municipio,
-          attributes: [], // No necesitamos otros atributos del municipio
-          as: 'municipio',
-        },
-      ],
-      group: ['municipio.id'], // Agrupar por municipio
+      group: ['municipio'], // Agrupar por municipio
       raw: true, // Devuelve resultados en formato plano
     });
-
+  
     // Formatear los resultados
-    const municipios = result.map((item: any) => item.municipioNombre);
+    const municipios = result.map((item: any) => item.municipio);
     const cantidades = result.map((item: any) => item.cantidadPacientes);
-
+  
     return { municipios, cantidades };
-  }  
+  } 
 
-  public async deletePaciente(id: number) {
+  public async deletePaciente(id: string) {
     const deleted = await Paciente.destroy({ where: { id } });
     if (deleted) {
       return deleted;

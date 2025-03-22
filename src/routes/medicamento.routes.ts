@@ -13,8 +13,8 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
- *           description: ID auto-incremental del medicamento
+ *           type: string
+ *           description: ID del medicamento
  *         nombre:
  *           type: string
  *           description: Nombre del medicamento
@@ -51,7 +51,7 @@ router.get('/', MedicamentoController.getAllMedicamento);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del medicamento
  *     responses:
  *       200:
@@ -98,7 +98,7 @@ router.post('/', authMiddleware, MedicamentoController.createMedicamento);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del medicamento
  *     requestBody:
  *       required: true
@@ -129,7 +129,7 @@ router.put('/:id', authMiddleware, MedicamentoController.updateMedicamento);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del medicamento a eliminar
  *     responses:
  *       200:

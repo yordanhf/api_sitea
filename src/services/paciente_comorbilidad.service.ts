@@ -10,7 +10,7 @@ class Paciente_ComorbilidadService {
     return await Paciente_ComorbilidadRepository.findAllPaciente_Comorbilidad();
   }
 
-  public async getPaciente_ComorbilidadById(id: number) {
+  public async getPaciente_ComorbilidadById(id: string) {
     const paciente_comorbilidad = await Paciente_ComorbilidadRepository.findPaciente_ComorbilidadById(id);
     if (!paciente_comorbilidad) {
       throw new Error('paciente_comorbilidad no encontrado');
@@ -18,15 +18,15 @@ class Paciente_ComorbilidadService {
     return paciente_comorbilidad;
   }
 
-  public async getPaciente_ComorbilidadByPacienteId(pacienteId: number) {
+  public async getPaciente_ComorbilidadByPacienteId(pacienteId: string) {
     return await Paciente_ComorbilidadRepository.findPaciente_ComorbilidadByPacienteId(pacienteId);
   }
 
-  public async updatePaciente_Comorbilidad(id: number, data: Partial<Paciente_Comorbilidad>) {
+  public async updatePaciente_Comorbilidad(id: string, data: Partial<Paciente_Comorbilidad>) {
     return await Paciente_ComorbilidadRepository.updatePaciente_Comorbilidad(id, data);
   }
 
-  public async deletePaciente_Comorbilidad(id: number) {
+  public async deletePaciente_Comorbilidad(id: string) {
     const deleted = await Paciente_ComorbilidadRepository.deletePaciente_Comorbilidad(id);
     if (deleted === 0) {
       throw new Error('paciente_comorbilidad no encontrado');

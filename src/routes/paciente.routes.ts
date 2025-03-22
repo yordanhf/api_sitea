@@ -13,8 +13,8 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
- *           description: ID auto-incremental del paciente
+ *           type: string
+ *           description: ID del paciente
  *         nombre:
  *           type: string
  *           description: Nombre del paciente
@@ -33,9 +33,12 @@ const router = Router();
  *         direccion:
  *           type: string
  *           description: Dirección del paciente
- *         municipioId:
- *           type: number
- *           description: id del Municipio del paciente
+ *         provincia:
+ *           type: string
+ *           description: Provincia del paciente
+ *         municipio:
+ *           type: string
+ *           description: Municipio del paciente
  *         verbal:
  *           type: string
  *           description: Verbal del paciente
@@ -43,7 +46,7 @@ const router = Router();
  *           type: string
  *           description: Motivo de consulta del paciente
  *         diagnosticoId:
- *           type: number
+ *           type: string
  *           description: id del Diagnóstico del paciente 
  *         edadDiagnostico:
  *           type: number
@@ -64,7 +67,7 @@ const router = Router();
  *           type: string
  *           description: telefono del paciente
  *         vinculoInstitucionalId:
- *           type: number
+ *           type: string
  *           description: id del vinculo institucional del paciente
  *         antecPatFam:
  *           type: string
@@ -145,7 +148,7 @@ router.get('/all', PacienteController.getAllPacientes);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del paciente
  *     responses:
  *       200:
@@ -170,7 +173,7 @@ router.get('/:id', PacienteController.getPacienteById);
  *         name: municipioId
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: municipio del paciente
  *     responses:
  *       200:
@@ -217,7 +220,7 @@ router.post('/', authMiddleware, PacienteController.createPaciente);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del paciente
  *     requestBody:
  *       required: true
@@ -248,7 +251,7 @@ router.put('/:id', authMiddleware, PacienteController.updatePaciente);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del paciente
  *     responses:
  *       200:
@@ -281,10 +284,15 @@ router.delete('/:id', authMiddleware, PacienteController.deletePaciente);
  *           type: string
  *         description: Carnet de identidad del paciente
  *       - in: query
- *         name: municipioId
+ *         name: provincia
  *         schema:
- *           type: integer
- *         description: ID del municipio del paciente. Se devolverá el nombre del municipio asociado.
+ *           type: string
+ *         description: provincia del paciente
+ *       - in: query
+ *         name: municipio
+ *         schema:
+ *           type: string
+ *         description: municipio del paciente
  *       - in: query
  *         name: sexo
  *         schema:
@@ -303,12 +311,12 @@ router.delete('/:id', authMiddleware, PacienteController.deletePaciente);
  *       - in: query
  *         name: diagnosticoId
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del diagnóstico del paciente. Se devolverá el nombre del diagnóstico asociado.
  *       - in: query
  *         name: vinculoInstitucionalId
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del vínculo institucional del paciente. Se devolverá el nombre del vínculo institucional asociado.
  *       - in: query
  *         name: terapia
@@ -340,22 +348,22 @@ router.delete('/:id', authMiddleware, PacienteController.deletePaciente);
  *       - in: query
  *         name: medicamentoId
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del medicamento para filtrar pacientes que hayan sido tratados con dicho medicamento
  *       - in: query
  *         name: fortalezaId
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la fortaleza para filtrar pacientes que tengan dicha fortaleza
  *       - in: query
  *         name: comorbilidadId
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la comorbilidad para filtrar pacientes que tengan dicha comorbilidad
  *       - in: query
  *         name: antecedenteId
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del antecedente para filtrar pacientes que tengan dicho antecedentePPP
  *     responses:
  *       200:
@@ -368,7 +376,7 @@ router.delete('/:id', authMiddleware, PacienteController.deletePaciente);
  *                 type: object
  *                 properties:
  *                   id:
- *                     type: integer
+ *                     type: string
  *                   nombre:
  *                     type: string
  *                   apellidos:

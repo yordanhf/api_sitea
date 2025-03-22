@@ -24,7 +24,7 @@ class VinculoInstitucionalController {
   public async getVinculoInstitucionalById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const vinculo_institucional = await VinculoInstitucionalService.getVinculoInstitucionalById(Number(id));
+      const vinculo_institucional = await VinculoInstitucionalService.getVinculoInstitucionalById(String(id));
       res.status(200).json(vinculo_institucional);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -35,7 +35,7 @@ class VinculoInstitucionalController {
     try {
       const { id } = req.params;
       const data = req.body;
-      const updatedVinculoInstitucional = await VinculoInstitucionalService.updateVinculoInstitucional(Number(id), data);
+      const updatedVinculoInstitucional = await VinculoInstitucionalService.updateVinculoInstitucional(String(id), data);
       res.status(200).json(updatedVinculoInstitucional);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -45,7 +45,7 @@ class VinculoInstitucionalController {
   public async deleteVinculoInstitucional(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      await VinculoInstitucionalService.deleteVinculoInstitucional(Number(id));
+      await VinculoInstitucionalService.deleteVinculoInstitucional(String(id));
       res.status(200).send('Vinculo Institucional eliminado');
     } catch (error) {
       const errorMessage = (error as Error).message;

@@ -18,6 +18,26 @@ class UsuarioService {
     return await UsuarioRepository.findByName(nombre);
   }
 
+  public async chequearRespuesta(
+    nombre: string,
+    preguntaSeguridad: string,
+    respuestaSeguridad: string    
+  ) {
+      // Buscar el usuario por nombre
+      const usuario = await UsuarioRepository.findByName(nombre);
+      if (!usuario) {
+        throw new Error('Usuario no encontrado');
+      }  
+      // Verificar la pregunta y respuesta de seguridad
+      if (
+        !(await bcrypt.compare(preguntaSeguridad, usuario.preguntaSeguridad)) ||
+        !(await bcrypt.compare(respuestaSeguridad, usuario.respuestaSeguridad))
+      ) {
+        return false;
+      }      
+      return true;       
+  }
+
   public async recuperarContrasena(
     nombre: string,
     preguntaSeguridad: string,
