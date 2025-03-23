@@ -28,7 +28,6 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerOptions from './config/swagger.config';
 // server.ts o app.ts
 import 'dotenv/config';
-import usuarioController from './controllers/usuario.controller';
 import usuarioRoutes from './routes/usuario.routes';
 import backupRoutes from './routes/backup.routes';
 
