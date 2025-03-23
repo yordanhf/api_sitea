@@ -12,8 +12,8 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
- *           description: ID auto-incremental de la cclinica
+ *           type: string
+ *           description: ID de la cclinica
  *         nombre:
  *           type: string
  *           description: Nombre de la cclinica
@@ -50,7 +50,7 @@ router.get('/', CClinicaController.getAllCClinica);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la cclinica
  *     responses:
  *       200:
@@ -97,7 +97,7 @@ router.post('/', authMiddleware, CClinicaController.createCClinica);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la cclinica
  *     requestBody:
  *       required: true
@@ -128,7 +128,7 @@ router.put('/:id', authMiddleware, CClinicaController.updateCClinica);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID de la cclinica a eliminar
  *     responses:
  *       200:

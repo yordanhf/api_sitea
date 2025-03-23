@@ -10,7 +10,7 @@ class FortalezaService {
     return await FortalezaRepository.findAllFortaleza();
   }
 
-  public async getFortalezaById(id: number) {
+  public async getFortalezaById(id: string) {
     const fortaleza = await FortalezaRepository.findFortalezaById(id);
     if (!fortaleza) {
       throw new Error('Fortaleza no encontrada');
@@ -18,11 +18,11 @@ class FortalezaService {
     return fortaleza;
   }
 
-  public async updateFortaleza(id: number, data: Partial<Fortaleza>) {
+  public async updateFortaleza(id: string, data: Partial<Fortaleza>) {
     return await FortalezaRepository.updateFortaleza(id, data);
   }
 
-  public async deleteFortaleza(id: number) {
+  public async deleteFortaleza(id: string) {
     const deleted = await FortalezaRepository.deleteFortaleza(id);
     if (deleted === 0) {
       throw new Error('Fortaleza no encontrada');

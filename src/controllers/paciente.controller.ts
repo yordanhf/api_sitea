@@ -25,7 +25,7 @@ class PacienteController {
   public async getPacienteById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const paciente = await PacienteService.getPacienteById(Number(id));
+      const paciente = await PacienteService.getPacienteById(String(id));
       res.status(200).json(paciente);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -34,8 +34,8 @@ class PacienteController {
 
   public async getAllPacientesByMunicipios(req: Request, res: Response) {
     try {
-      const {municipioId} = req.params;
-      const pacientes = await PacienteService.getAllPacientesByMunicipio(Number(municipioId));
+      const { municipio } = req.params;
+      const pacientes = await PacienteService.getAllPacientesByMunicipio(String(municipio));
       res.status(200).json(pacientes);
     } catch (error) {
       res.status(500).json((error as Error).message);
@@ -56,7 +56,7 @@ class PacienteController {
     try {
       const { id } = req.params;
       const data = req.body;
-      const updatedPaciente = await PacienteService.updatePaciente(Number(id), data);
+      const updatedPaciente = await PacienteService.updatePaciente(String(id), data);
       res.status(200).json(updatedPaciente);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -75,7 +75,7 @@ class PacienteController {
   public async deletePaciente(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      await PacienteService.deletePaciente(Number(id));
+      await PacienteService.deletePaciente(String(id));
       res.status(200).json({ message: 'Paciente eliminado con éxito' });
     } catch (error) {
       res.status(404).json((error as Error).message);

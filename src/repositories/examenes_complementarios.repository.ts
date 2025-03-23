@@ -17,7 +17,7 @@ class ExamenComplementarioRepository {
     });
   }
 
-  public async findExamenComplementarioById(id: number) {
+  public async findExamenComplementarioById(id: string) {
     return await ExamenComplementario.findByPk(id, {       
       include: [        
         { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'],  as: 'paciente' },
@@ -26,7 +26,7 @@ class ExamenComplementarioRepository {
     });
   }
 
-  public async findExamenComplementarioByPacienteId(pacienteId: number) {
+  public async findExamenComplementarioByPacienteId(pacienteId: string) {
     return await ExamenComplementario.findAll({
       where: { pacienteId },    
         include: [    
@@ -37,7 +37,7 @@ class ExamenComplementarioRepository {
     }, );}
 
 
-  public async updateExamenComplementario(id: number, data: Partial<ExamenComplementario>) {
+  public async updateExamenComplementario(id: string, data: Partial<ExamenComplementario>) {
     const examenesComplementarios = await ExamenComplementario.findByPk(id);
     if (examenesComplementarios) {
       return await examenesComplementarios.update(data);
@@ -46,7 +46,7 @@ class ExamenComplementarioRepository {
   }
 
 
-  public async deleteExamenComplementario(id: number) {
+  public async deleteExamenComplementario(id: string) {
     const deleted = await ExamenComplementario.destroy({ where: { id } });
     if (deleted) {
       return deleted;

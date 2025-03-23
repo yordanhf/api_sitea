@@ -10,7 +10,7 @@ class Paciente_FortalezaService {
     return await Paciente_FortalezaRepository.findAllPaciente_Fortaleza();
   }
 
-  public async getPaciente_FortalezaById(id: number) {
+  public async getPaciente_FortalezaById(id: string) {
     const paciente_fortaleza = await Paciente_FortalezaRepository.findPaciente_FortalezaById(id);
     if (!paciente_fortaleza) {
       throw new Error('paciente_fortaleza no encontrado');
@@ -18,15 +18,15 @@ class Paciente_FortalezaService {
     return paciente_fortaleza;
   }
 
-  public async getPaciente_FortalezaByPacienteId(pacienteId: number) {
+  public async getPaciente_FortalezaByPacienteId(pacienteId: string) {
     return await Paciente_FortalezaRepository.findPaciente_FortalezaByPacienteId(pacienteId);
   }
 
-  public async updatePaciente_Fortaleza(id: number, data: Partial<Paciente_Fortaleza>) {
+  public async updatePaciente_Fortaleza(id: string, data: Partial<Paciente_Fortaleza>) {
     return await Paciente_FortalezaRepository.updatePaciente_Fortaleza(id, data);
   }
 
-  public async deletePaciente_Fortaleza(id: number) {
+  public async deletePaciente_Fortaleza(id: string) {
     const deleted = await Paciente_FortalezaRepository.deletePaciente_Fortaleza(id);
     if (deleted === 0) {
       throw new Error('paciente_fortaleza no encontrado');

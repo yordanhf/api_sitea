@@ -16,7 +16,7 @@ class InterconsultaRepository {
     );
   }
 
-  public async findInterconsultaById(id: number) {
+  public async findInterconsultaById(id: string) {
     return await Interconsulta.findByPk(id,  {      
       include: [ 
         { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente'},
@@ -26,7 +26,7 @@ class InterconsultaRepository {
     });
   }
 
-  public async updateInterconsulta(id: number, data: Partial<Interconsulta>) {
+  public async updateInterconsulta(id: string, data: Partial<Interconsulta>) {
     const interconsulta = await Interconsulta.findByPk(id);
     if (interconsulta) {
       return await interconsulta.update(data);
@@ -34,7 +34,7 @@ class InterconsultaRepository {
     throw new Error('Interconsulta no encontrada');
   }
 
-  public async deleteInterconsulta(id: number) {
+  public async deleteInterconsulta(id: string) {
     const deleted = await Interconsulta.destroy({ where: { id } });
     if (deleted) {
       return deleted;
@@ -43,7 +43,7 @@ class InterconsultaRepository {
   }
 
   //otras consultas
-  public async findInterconsultasByPacienteId(pacienteId: number) {
+  public async findInterconsultasByPacienteId(pacienteId: string) {
     return await Interconsulta.findAll({
       where: { pacienteId },
       include: [

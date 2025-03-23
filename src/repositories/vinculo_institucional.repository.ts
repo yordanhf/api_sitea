@@ -9,11 +9,11 @@ class VinculoInstitucionalRepository {
     return await VinculoInstitucional.findAll();
   }
 
-  public async findVinculoInstitucionalById(id: number) {
+  public async findVinculoInstitucionalById(id: string) {
     return await VinculoInstitucional.findByPk(id);
   }
 
-  public async updateVinculoInstitucional(id: number, data: Partial<VinculoInstitucional>) {
+  public async updateVinculoInstitucional(id: string, data: Partial<VinculoInstitucional>) {
     const vinculo_institucional = await VinculoInstitucional.findByPk(id);
     if (vinculo_institucional) {
       return await vinculo_institucional.update(data);
@@ -21,7 +21,7 @@ class VinculoInstitucionalRepository {
     throw new Error('Vinculo institucional no encontrado');
   }
 
-  public async deleteVinculoInstitucional(id: number) {
+  public async deleteVinculoInstitucional(id: string) {
     const deleted = await VinculoInstitucional.destroy({ where: { id } });
     if (deleted) {
       return deleted;

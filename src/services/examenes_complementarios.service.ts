@@ -11,7 +11,7 @@ class Examenes_complementariosService {
     return await Examenes_complementariosRepository.findAllExamenComplementario();
   }
 
-  public async getExamenes_complementariosById(id: number) {
+  public async getExamenes_complementariosById(id: string) {
     const examenes_complementarios = await Examenes_complementariosRepository.findExamenComplementarioById(id);
     if (!examenes_complementarios) {
       throw new Error('examenes complementarios no encontrados');
@@ -19,15 +19,15 @@ class Examenes_complementariosService {
     return examenes_complementarios;
   }
 
-  public async getExamenes_complementariosByPacienteId(pacienteId: number) {
+  public async getExamenes_complementariosByPacienteId(pacienteId: string) {
     return await Examenes_complementariosRepository.findExamenComplementarioByPacienteId(pacienteId);
   }
 
-  public async updateExamen(id: number, data: Partial<ExamenComplementario>) {
+  public async updateExamen(id: string, data: Partial<ExamenComplementario>) {
     return await Examenes_complementariosRepository.updateExamenComplementario(id, data);
   }
 
-  public async deleteExamenes_complementarios(id: number) {
+  public async deleteExamenes_complementarios(id: string) {
     const deleted = await Examenes_complementariosRepository.deleteExamenComplementario(id);
     if (deleted === 0) {
       throw new Error('Examenes complementarios no encontrados');

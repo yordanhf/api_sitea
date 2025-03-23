@@ -16,7 +16,7 @@ class Paciente_ComorbilidadRepository {
     });
   }
 
-  public async findPaciente_ComorbilidadById(id: number) {
+  public async findPaciente_ComorbilidadById(id: string) {
     return await Paciente_Comorbilidad.findByPk(id, {
       include: [ 
         { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente' },
@@ -25,7 +25,7 @@ class Paciente_ComorbilidadRepository {
     });
   }
 
-  public async findPaciente_ComorbilidadByPacienteId(pacienteId: number) {
+  public async findPaciente_ComorbilidadByPacienteId(pacienteId: string) {
     return await Paciente_Comorbilidad.findAll({
       where: { pacienteId },
       include: [{ model: Comorbilidad, attributes: ['nombre'], as: 'comorbilidad' }, 
@@ -33,7 +33,7 @@ class Paciente_ComorbilidadRepository {
     ]});
   }
 
-  public async updatePaciente_Comorbilidad(id: number, data: Partial<Paciente_Comorbilidad>) {
+  public async updatePaciente_Comorbilidad(id: string, data: Partial<Paciente_Comorbilidad>) {
     const paciente_comorbilidad = await Paciente_Comorbilidad.findByPk(id);
     if (paciente_comorbilidad) {
       return await paciente_comorbilidad.update(data);
@@ -42,7 +42,7 @@ class Paciente_ComorbilidadRepository {
   }
 
 
-  public async deletePaciente_Comorbilidad(id: number) {
+  public async deletePaciente_Comorbilidad(id: string) {
     const deleted = await Paciente_Comorbilidad.destroy({ where: { id } });
     if (deleted) {
       return deleted;

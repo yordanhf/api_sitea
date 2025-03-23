@@ -12,13 +12,13 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
- *           description: ID auto-incremental del paciente
+ *           type: string
+ *           description: ID del paciente
  *         pacienteId:
- *           type: integer
+ *           type: string
  *           description: ID del paciente asociado al examen
  *         examenId:
- *           type: integer
+ *           type: string
  *           description: ID del examen complementario asociado
  *         fecha:
  *           type: string
@@ -63,7 +63,7 @@ router.get('/', Examenes_complementariosController.getAllExamenes_complementario
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del examen
  *     responses:
  *       200:
@@ -88,7 +88,7 @@ router.get('/:id', Examenes_complementariosController.getExamenes_complementario
  *         name: pacienteId
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del paciente
  *     responses:
  *       200:
@@ -137,7 +137,7 @@ router.post('/', authMiddleware, Examenes_complementariosController.createExamen
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del examen complementario
  *     requestBody:
  *       required: true
@@ -168,7 +168,7 @@ router.put('/:id', authMiddleware, Examenes_complementariosController.updateExam
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del examen complementario a eliminar
  *     responses:
  *       200:

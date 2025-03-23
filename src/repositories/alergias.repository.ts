@@ -19,7 +19,7 @@ class AlergiaRepository {
   }
 
   // Obtener una alergia por ID
-  public async findAlergiaById(id: number) {
+  public async findAlergiaById(id: string) {
     return await Alergias.findByPk(id, {
       include: [ 
         { model: Paciente, attributes: ['nombre', 'apellidos', 'ci', 'id'], as: 'paciente' },
@@ -29,7 +29,7 @@ class AlergiaRepository {
   }
 
   // Obtener todas las alergias de un paciente
-  public async findAlergiasByPacienteId(pacienteId: number) {
+  public async findAlergiasByPacienteId(pacienteId: string) {
     return await Alergias.findAll({
       where: { pacienteId },
       include: [{ model: Medicamento, attributes: ['nombre'], as: 'medicamento' }],
@@ -37,7 +37,7 @@ class AlergiaRepository {
   }
 
   // Actualizar una alergia por ID
-  public async updateAlergia(id: number, data: Partial<Alergias>) {
+  public async updateAlergia(id: string, data: Partial<Alergias>) {
     const alergia = await Alergias.findByPk(id);
     if (alergia) {
       return await alergia.update(data);
@@ -46,7 +46,7 @@ class AlergiaRepository {
   }
 
   // Eliminar una alergia (podría ser marcar como inactiva si lo prefieres)
-  public async deleteAlergia(id: number) {
+  public async deleteAlergia(id: string) {
     const alergia = await Alergias.findByPk(id);
     if (alergia) {
       return await alergia.destroy();

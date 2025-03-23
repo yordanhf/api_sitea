@@ -10,7 +10,7 @@ class Paciente_CClinicasService {
     return await Paciente_CClinicasRepository.findAllPaciente_CClinicas();
   }
 
-  public async getPaciente_CClinicasById(id: number) {
+  public async getPaciente_CClinicasById(id: string) {
     const paciente_cclinicas = await Paciente_CClinicasRepository.findPaciente_CClinicasById(id);
     if (!paciente_cclinicas) {
       throw new Error('paciente_cclinicas no encontrado');
@@ -18,15 +18,15 @@ class Paciente_CClinicasService {
     return paciente_cclinicas;
   }
 
-  public async getPaciente_CClinicasByPacienteId(pacienteId: number) {
+  public async getPaciente_CClinicasByPacienteId(pacienteId: string) {
     return await Paciente_CClinicasRepository.findPaciente_CClinicasByPacienteId(pacienteId);
   }
 
-  public async updatePaciente_CClinicas(id: number, data: Partial<Paciente_CClinicas>) {
+  public async updatePaciente_CClinicas(id: string, data: Partial<Paciente_CClinicas>) {
     return await Paciente_CClinicasRepository.updatePaciente_CClinicas(id, data);
   }
 
-  public async deletePaciente_CClinicas(id: number) {
+  public async deletePaciente_CClinicas(id: string) {
     const deleted = await Paciente_CClinicasRepository.deletePaciente_CClinicas(id);
     if (deleted === 0) {
       throw new Error('paciente_cclinicas no encontrado');

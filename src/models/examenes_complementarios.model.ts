@@ -5,8 +5,8 @@ import Paciente from './paciente.model';
 import Examen from './examen.model';
 
 class ExamenComplementario extends Model {
-  public id!: number; // Auto-incremental
-  public pacienteId!: number; // Foreign key
+  public id!: string; // GUID
+  public pacienteId!: string; // Foreign key
   public examenId!: string;
   public fecha!: string;
   public resultado?: string;
@@ -15,12 +15,12 @@ class ExamenComplementario extends Model {
 ExamenComplementario.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     pacienteId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: Paciente,
@@ -30,7 +30,7 @@ ExamenComplementario.init(
       onUpdate: 'CASCADE',
     },
     examenId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: Examen,

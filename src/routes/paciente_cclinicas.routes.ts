@@ -13,13 +13,13 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *          type: integer
- *          description: ID autoincremental del paciente_cclinica
+ *          type: string
+ *          description: ID del paciente_cclinica
  *         pacienteId:
- *           type: integer
+ *           type: string
  *           description: ID del paciente
  *         cClinicaId:     
- *           type: integer
+ *           type: string
  *           description: ID de la caracteristica clinica
  *       required:
  *         - pacienteId
@@ -55,7 +55,7 @@ router.get('/', Paciente_CClinicasController.getAllPaciente_CClinicas);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del Paciente_cclinica
  *     responses:
  *       200:
@@ -80,7 +80,7 @@ router.get('/:id', Paciente_CClinicasController.getPaciente_CClinicasById);
  *         name: pacienteId
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del paciente
  *     responses:
  *       200:
@@ -129,7 +129,7 @@ router.post('/', authMiddleware, Paciente_CClinicasController.createPaciente_CCl
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del Paciente_cclinica
  *     requestBody:
  *       required: true
@@ -160,7 +160,7 @@ router.put('/:id', authMiddleware, Paciente_CClinicasController.updatePaciente_C
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del Paciente_cclinica a eliminar
  *     responses:
  *       200:

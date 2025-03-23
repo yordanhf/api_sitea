@@ -9,11 +9,11 @@ class ComorbilidadRepository {
     return await Comorbilidad.findAll();
   }
 
-  public async findComorbilidadById(id: number) {
+  public async findComorbilidadById(id: string) {
     return await Comorbilidad.findByPk(id);
   }
 
-  public async updateComorbilidad(id: number, data: Partial<Comorbilidad>) {
+  public async updateComorbilidad(id: string, data: Partial<Comorbilidad>) {
     const comorbilidad = await Comorbilidad.findByPk(id);
     if (comorbilidad) {
       return await comorbilidad.update(data);
@@ -22,7 +22,7 @@ class ComorbilidadRepository {
   }
 
 
-  public async deleteComorbilidad(id: number) {
+  public async deleteComorbilidad(id: string) {
     const deleted = await Comorbilidad.destroy({ where: { id } });
     if (deleted) {
       return deleted;

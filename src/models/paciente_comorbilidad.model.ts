@@ -5,20 +5,20 @@ import Paciente from './paciente.model';
 import Comorbilidad from './comorbilidad.model';
 
 class PacienteComorbilidad extends Model {
-  public id!: number;
-  public pacienteId!: number; // Foreign key
-  public comorbilidadId!: number; // Foreign key
+  public id!: string;
+  public pacienteId!: string; // Foreign key
+  public comorbilidadId!: string; // Foreign key
 }
 
 PacienteComorbilidad.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     pacienteId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: Paciente,
@@ -28,7 +28,7 @@ PacienteComorbilidad.init(
       onUpdate: 'CASCADE',
     },
     comorbilidadId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: Comorbilidad,

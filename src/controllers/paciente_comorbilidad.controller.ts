@@ -24,7 +24,7 @@ class Paciente_ComorbilidadController {
   public async getPaciente_ComorbilidadById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const Paciente_comorbilidad = await Paciente_ComorbilidadService.getPaciente_ComorbilidadById(Number(id));
+      const Paciente_comorbilidad = await Paciente_ComorbilidadService.getPaciente_ComorbilidadById(String(id));
       res.status(200).json(Paciente_comorbilidad);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -34,7 +34,7 @@ class Paciente_ComorbilidadController {
   public async getPaciente_ComorbilidadByPacienteId(req: Request, res: Response) {
     try {
       const { pacienteId } = req.params;
-      const Paciente_comorbilidad = await Paciente_ComorbilidadService.getPaciente_ComorbilidadByPacienteId(Number(pacienteId));
+      const Paciente_comorbilidad = await Paciente_ComorbilidadService.getPaciente_ComorbilidadByPacienteId(String(pacienteId));
       res.status(200).json(Paciente_comorbilidad);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -45,7 +45,7 @@ class Paciente_ComorbilidadController {
     try {
       const { id } = req.params;
       const data = req.body;
-      const updatedPaciente_comorbilidad = await Paciente_ComorbilidadService.updatePaciente_Comorbilidad(Number(id), data);
+      const updatedPaciente_comorbilidad = await Paciente_ComorbilidadService.updatePaciente_Comorbilidad(String(id), data);
       res.status(200).json(updatedPaciente_comorbilidad);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -55,7 +55,7 @@ class Paciente_ComorbilidadController {
   public async deletePaciente_Comorbilidad(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      await Paciente_ComorbilidadService.deletePaciente_Comorbilidad(Number(id));
+      await Paciente_ComorbilidadService.deletePaciente_Comorbilidad(String(id));
       res.status(200).send('Paciente_comorbilidad eliminado');
     } catch (error) {
       const errorMessage = (error as Error).message;

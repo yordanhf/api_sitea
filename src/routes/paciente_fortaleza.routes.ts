@@ -13,13 +13,13 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
- *           description: ID autoincremental del paciente_fortaleza
+ *           type: string
+ *           description: ID del paciente_fortaleza
  *         pacienteId:
- *           type: integer
+ *           type: string
  *           description: ID del paciente
  *         fortalezaId:
- *           type: integer
+ *           type: string
  *           description: ID de la fortaleza
  *       required:
  *         - pacienteId
@@ -55,7 +55,7 @@ router.get('/', Paciente_FortalezaController.getAllPaciente_Fortaleza);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del Paciente_fortaleza
  *     responses:
  *       200:
@@ -80,7 +80,7 @@ router.get('/:id', Paciente_FortalezaController.getPaciente_FortalezaById);
  *         name: pacienteId
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del paciente
  *     responses:
  *       200:
@@ -129,7 +129,7 @@ router.post('/', authMiddleware, Paciente_FortalezaController.createPaciente_For
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del Paciente_fortaleza
  *     requestBody:
  *       required: true
@@ -160,7 +160,7 @@ router.put('/:id', authMiddleware, Paciente_FortalezaController.updatePaciente_F
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: ID del Paciente_fortaleza a eliminar
  *     responses:
  *       200:

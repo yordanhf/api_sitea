@@ -25,7 +25,7 @@ class MedicamentoController {
   public async getMedicamentoById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const medicamento = await MedicamentoService.getMedicamentoById(Number(id));
+      const medicamento = await MedicamentoService.getMedicamentoById(String(id));
       res.status(200).json(medicamento);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -36,7 +36,7 @@ class MedicamentoController {
     try {
       const { id } = req.params;
       const data = req.body;
-      const updatedMedicamento = await MedicamentoService.updateMedicamento(Number(id), data);
+      const updatedMedicamento = await MedicamentoService.updateMedicamento(String(id), data);
       res.status(200).json(updatedMedicamento);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -46,7 +46,7 @@ class MedicamentoController {
   public async deleteMedicamento(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      await MedicamentoService.deleteMedicamento(Number(id));
+      await MedicamentoService.deleteMedicamento(String(id));
       res.status(200).send('Medicamento eliminado');
     } catch (error) {
       const errorMessage = (error as Error).message;

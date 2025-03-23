@@ -12,7 +12,7 @@ class InterconsultaService {
     return await InterconsultaRepository.findAllInterconsultas();
   }
 
-  public async getInterconsultaById(id: number) {
+  public async getInterconsultaById(id: string) {
     const interconsulta = await InterconsultaRepository.findInterconsultaById(id);
     if (!interconsulta) {
       throw new Error('Interconsulta no encontrada');
@@ -20,15 +20,15 @@ class InterconsultaService {
     return interconsulta;
   }
 
-  public async updateInterconsulta(id: number, data: Partial<Interconsulta>) {
+  public async updateInterconsulta(id: string, data: Partial<Interconsulta>) {
     return await InterconsultaRepository.updateInterconsulta(id, data);
   }
 
-  public async deleteInterconsulta(id: number) {
+  public async deleteInterconsulta(id: string) {
     return await InterconsultaRepository.deleteInterconsulta(id);
   }
   //otras consultas 
-  public async getInterconsultasByPacienteId(pacienteId: number) {
+  public async getInterconsultasByPacienteId(pacienteId: string) {
     const paciente = await Paciente.findByPk(pacienteId);
     if (!paciente) {
       throw new Error('Paciente no encontrado');

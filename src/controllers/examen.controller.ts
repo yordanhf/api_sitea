@@ -24,7 +24,7 @@ class ExamenController {
   public async getExamenById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const examen = await ExamenService.getExamenById(Number(id));
+      const examen = await ExamenService.getExamenById(String(id));
       res.status(200).json(examen);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -35,7 +35,7 @@ class ExamenController {
     try {
       const { id } = req.params;
       const data = req.body;
-      const updatedExamen = await ExamenService.updateExamen(Number(id), data);
+      const updatedExamen = await ExamenService.updateExamen(String(id), data);
       res.status(200).json(updatedExamen);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -45,7 +45,7 @@ class ExamenController {
   public async deleteExamen(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      await ExamenService.deleteExamen(Number(id));
+      await ExamenService.deleteExamen(String(id));
       res.status(200).send('Examen eliminado');
     } catch (error) {
       const errorMessage = (error as Error).message;

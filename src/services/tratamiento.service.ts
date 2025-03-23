@@ -10,7 +10,7 @@ class TratamientoService {
     return await TratamientoRepository.findAllTratamiento();
   }
 
-  public async getTratamientoById(id: number) {
+  public async getTratamientoById(id: string) {
     const tratamiento = await TratamientoRepository.findTratamientoById(id);
     if (!tratamiento) {
       throw new Error('Tratamiento no encontrado');
@@ -18,15 +18,15 @@ class TratamientoService {
     return tratamiento;
   }
 
-  public async getTratamientoByPacienteId(pacienteId: number) {
+  public async getTratamientoByPacienteId(pacienteId: string) {
     return await TratamientoRepository.findTratamientoByPacienteId(pacienteId);
   }
 
-  public async updateTratamiento(id: number, data: Partial<Tratamiento>) {
+  public async updateTratamiento(id: string, data: Partial<Tratamiento>) {
     return await TratamientoRepository.updateTratamiento(id, data);
   }
 
-  public async deleteTratamiento(id: number) {
+  public async deleteTratamiento(id: string) {
     const deleted = await TratamientoRepository.deleteTratamiento(id);
     if (deleted === 0) {
       throw new Error('Tratamiento no encontrado');

@@ -24,7 +24,7 @@ class CClinicaController {
   public async getCClinicaById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const cclinica = await CClinicaService.getCClinicaById(Number(id));
+      const cclinica = await CClinicaService.getCClinicaById(String(id));
       res.status(200).json(cclinica);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -35,7 +35,7 @@ class CClinicaController {
     try {
       const { id } = req.params;
       const data = req.body;
-      const updatedCClinica = await CClinicaService.updateCClinica(Number(id), data);
+      const updatedCClinica = await CClinicaService.updateCClinica(String(id), data);
       res.status(200).json(updatedCClinica);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -45,7 +45,7 @@ class CClinicaController {
   public async deleteCClinica(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      await CClinicaService.deleteCClinica(Number(id));
+      await CClinicaService.deleteCClinica(String(id));
       res.status(200).send('CClinica eliminada');
     } catch (error) {
       const errorMessage = (error as Error).message;

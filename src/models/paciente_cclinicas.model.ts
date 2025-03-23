@@ -5,20 +5,20 @@ import Paciente from './paciente.model';
 import CClinica from './cclinica.model';
 
 class PacienteCClinica extends Model {
-  public id!: number;
-  public pacienteId!: number; // Foreign key
-  public cClinicaId!: number; // Foreign key
+  public id!: string;
+  public pacienteId!: string; // Foreign key
+  public cClinicaId!: string; // Foreign key
 }
 
 PacienteCClinica.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     pacienteId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: Paciente,
@@ -28,7 +28,7 @@ PacienteCClinica.init(
       onUpdate: 'CASCADE',
     },
     cClinicaId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: CClinica,

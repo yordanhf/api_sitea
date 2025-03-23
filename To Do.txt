@@ -1,0 +1,27 @@
+- cambiar ID autoincrement por GUID   ---terminado
+
+- adicionar provincial a paciente     ---terminado
+
+- adicionar endpoint en usuario para chequear pregunta e seguridad   ---terminado
+
+-------terminar de chequear si todo esta terminado
+
+--- crear entidades para todo en el swagger...
+
+- revisar la autenticacion y adicionar roles por provincias
+
+-  endpoint que faltan para las estadisticas
+
+
+
+
+Endpoints:
+2 arrays, uno con el nombre de todos los medicamentos y otro 
+con la cantidad de paciente que se trastan con cada uno
+
+1 array con la cantidad de pacientes en terapia segun su edad,
+de 0 a 3, de 4 a 7, de 8 a 10, de 11 a 15 y de 15 a 18
+
+1 array con todos los pacientes diagnosticados en el utimo mes
+
+1 array con las cantidades de pacientes diagnosticados por mes

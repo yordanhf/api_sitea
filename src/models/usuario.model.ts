@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 
 
 class Usuario extends Model {
-  public id!: number;
+  public id!: string;
   public nombre!: string;  
   public password!: string;
   public preguntaSeguridad!: string; 
@@ -14,9 +14,9 @@ class Usuario extends Model {
 Usuario.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     nombre: {
       type: DataTypes.STRING,

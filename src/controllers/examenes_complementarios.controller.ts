@@ -24,7 +24,7 @@ class Examenes_complementariosController {
   public async getExamenes_complementariosById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const examen_complementario = await Examenes_complementariosService.getExamenes_complementariosById(Number(id));
+      const examen_complementario = await Examenes_complementariosService.getExamenes_complementariosById(String(id));
       res.status(200).json(examen_complementario);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -34,7 +34,7 @@ class Examenes_complementariosController {
   public async getExamenes_complementariosByPacienteId(req: Request, res: Response) {
     try {
       const { pacienteId } = req.params;
-      const examen_complementario = await Examenes_complementariosService.getExamenes_complementariosByPacienteId(Number(pacienteId));
+      const examen_complementario = await Examenes_complementariosService.getExamenes_complementariosByPacienteId(String(pacienteId));
       res.status(200).json(examen_complementario);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -45,7 +45,7 @@ class Examenes_complementariosController {
     try {
       const { id } = req.params;
       const data = req.body;
-      const updatedExamenes_complementarios = await Examenes_complementariosService.updateExamen(Number(id), data);
+      const updatedExamenes_complementarios = await Examenes_complementariosService.updateExamen(String(id), data);
       res.status(200).json(updatedExamenes_complementarios);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -55,7 +55,7 @@ class Examenes_complementariosController {
   public async deleteExamenes_complementarios(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      await Examenes_complementariosService.deleteExamenes_complementarios(Number(id));
+      await Examenes_complementariosService.deleteExamenes_complementarios(String(id));
       res.status(200).send('Examen complementario eliminado');
     } catch (error) {
       const errorMessage = (error as Error).message;

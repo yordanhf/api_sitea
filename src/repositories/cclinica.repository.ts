@@ -9,11 +9,11 @@ class CClinicaRepository {
     return await CClinica.findAll();
   }
 
-  public async findCClinicaById(id: number) {
+  public async findCClinicaById(id: string) {
     return await CClinica.findByPk(id);
   }
 
-  public async updateCClinica(id: number, data: Partial<CClinica>) {
+  public async updateCClinica(id: string, data: Partial<CClinica>) {
     const cclinica = await CClinica.findByPk(id);
     if (cclinica) {
       return await cclinica.update(data);
@@ -22,7 +22,7 @@ class CClinicaRepository {
   }
 
 
-  public async deleteCClinica(id: number) {
+  public async deleteCClinica(id: string) {
     const deleted = await CClinica.destroy({ where: { id } });
     if (deleted) {
       return deleted;

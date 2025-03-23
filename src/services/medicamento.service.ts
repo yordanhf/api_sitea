@@ -11,7 +11,7 @@ class MedicamentoService {
     return await MedicamentoRepository.findAllMedicamento();
   }
 
-  public async getMedicamentoById(id: number) {
+  public async getMedicamentoById(id: string) {
     const medicamento = await MedicamentoRepository.findMedicamentoById(id);
     if (!medicamento) {
       throw new Error('Medicamento no encontrado');
@@ -19,11 +19,11 @@ class MedicamentoService {
     return medicamento;
   }
 
-  public async updateMedicamento(id: number, data: Partial<Medicamento>) {
+  public async updateMedicamento(id: string, data: Partial<Medicamento>) {
     return await MedicamentoRepository.updateMedicamento(id, data);
   }
 
-  public async deleteMedicamento(id: number) {
+  public async deleteMedicamento(id: string) {
     const deleted = await MedicamentoRepository.deleteMedicamento(id);
     if (deleted === 0) {
       throw new Error('Medicamento no encontrado');

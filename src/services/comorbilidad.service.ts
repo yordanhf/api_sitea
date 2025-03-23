@@ -10,7 +10,7 @@ class ComorbilidadService {
     return await ComorbilidadRepository.findAllComorbilidad();
   }
 
-  public async getComorbilidadById(id: number) {
+  public async getComorbilidadById(id: string) {
     const comorbilidad = await ComorbilidadRepository.findComorbilidadById(id);
     if (!comorbilidad) {
       throw new Error('Comorbilidad no encontrada');
@@ -18,11 +18,11 @@ class ComorbilidadService {
     return comorbilidad;
   }
 
-  public async updateComorbilidad(id: number, data: Partial<Comorbilidad>) {
+  public async updateComorbilidad(id: string, data: Partial<Comorbilidad>) {
     return await ComorbilidadRepository.updateComorbilidad(id, data);
   }
 
-  public async deleteComorbilidad(id: number) {
+  public async deleteComorbilidad(id: string) {
     const deleted = await ComorbilidadRepository.deleteComorbilidad(id);
     if (deleted === 0) {
       throw new Error('Comorbilidad no encontrada');
