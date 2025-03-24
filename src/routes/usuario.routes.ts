@@ -2,7 +2,6 @@
 import { Router } from 'express';
 import UsuarioController from '../controllers/usuario.controller';
 import authMiddleware from '../middlewares/auth.middleware';
-import pacienteController from '../controllers/paciente.controller';
 
 const router = Router();
 
@@ -86,6 +85,73 @@ router.post('/login', UsuarioController.login);
  *         description: Usuario no autenticado
  */
 router.get('/perfil', authMiddleware, UsuarioController.perfil);
+
+
+/**
+ * @swagger
+ * /api/usuarios/chequear-respuesta:
+ *   post:
+ *     summary: Chequea la respuesta a la pregunta de seguridad
+ *     tags: [Usuarios]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nombre:
+ *                 type: string
+ *                 example: usuario1
+ *               preguntaSeguridad:
+ *                 type: string
+ *                 example: ¿Cuál es el nombre de tu primera mascota?
+ *               respuestaSeguridad:
+ *                 type: string
+ *                 example: Firulais
+ *     responses:
+ *       200:
+ *         description: Respuesta de seguridad correcta
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Respuesta de seguridad correcta
+ *       404:
+ *         description: Usuario no encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Usuario no encontrado
+ *       403:
+ *         description: Pregunta o respuesta de seguridad incorrecta
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Pregunta o respuesta de seguridad incorrecta
+ *       500:
+ *         description: Error en el servidor al intentar chequear la pregunta de seguridad
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Error en el servidor al intentar chequear la pregunta de seguridad
+ */
+router.post('/chequear-respuesta', UsuarioController.chequearRespuesta);
 
 /**
  * @swagger
