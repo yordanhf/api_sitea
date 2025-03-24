@@ -33,6 +33,26 @@ class UsuarioController {
     }
   }
 
+  public async chequearRespuesta(req: Request, res: Response) {
+    try {
+      const { nombre, preguntaSeguridad, respuestaSeguridad } = req.body;  
+      const answerOK = await UsuarioService.chequearRespuesta(nombre, preguntaSeguridad, respuestaSeguridad);  
+
+      if (answerOK) {
+        res.status(200).json({ message: 'Respuesta de seguridad correcta' });
+      } else {
+        res.status(403).json({ error: 'Pregunta o respuesta de seguridad incorrecta' });
+      }
+    } catch (error) {
+      if ((error as Error).message === 'Usuario no encontrado') {
+        res.status(404).json({ error: (error as Error).message });
+      } else {
+        // Manejo general de errores
+        res.status(500).json({ error: 'Error interno del servidor' });
+      }
+    }
+  }
+
   public async recuperarContrasena(req: Request, res: Response) {
     try {
       const { nombre, preguntaSeguridad, respuestaSeguridad, nuevaContrasena } = req.body;  
