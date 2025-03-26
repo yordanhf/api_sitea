@@ -5,8 +5,9 @@ import PacienteService from '../services/paciente.service';
 class PacienteController {
   public async createPaciente(req: Request, res: Response) {
     try {
+      const usuarioToken = (req as any)['user'];
       const data = req.body;
-      const paciente = await PacienteService.createPaciente(data);
+      const paciente = await PacienteService.createPaciente(data, usuarioToken.id);
       res.status(201).json(paciente);
     } catch (error) {
       res.status(500).json( (error as Error).message);
@@ -54,9 +55,10 @@ class PacienteController {
 
   public async updatePaciente(req: Request, res: Response) {
     try {
+      const usuarioToken = (req as any)['user'];
       const { id } = req.params;
       const data = req.body;
-      const updatedPaciente = await PacienteService.updatePaciente(String(id), data);
+      const updatedPaciente = await PacienteService.updatePaciente(String(id), data, usuarioToken.id);
       res.status(200).json(updatedPaciente);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -74,8 +76,9 @@ class PacienteController {
 
   public async deletePaciente(req: Request, res: Response) {
     try {
+      const usuarioToken = (req as any)['user'];
       const { id } = req.params;
-      await PacienteService.deletePaciente(String(id));
+      await PacienteService.deletePaciente(String(id), usuarioToken.id );
       res.status(200).json({ message: 'Paciente eliminado con éxito' });
     } catch (error) {
       res.status(404).json((error as Error).message);

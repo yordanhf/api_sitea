@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import ConsultaController from '../controllers/consulta.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -58,7 +58,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Consulta'
  */
-router.get('/all', ConsultaController.getAllConsultas);
+router.get('/all', authMiddleware, ConsultaController.getAllConsultas);
 
 /**
  * @swagger
@@ -83,7 +83,7 @@ router.get('/all', ConsultaController.getAllConsultas);
  *       404:
  *         description: Consulta no encontrada
  */
-router.get('/:id', ConsultaController.getConsultaById);
+router.get('/:id', authMiddleware, ConsultaController.getConsultaById);
 
 /**
  * @swagger
@@ -105,7 +105,7 @@ router.get('/:id', ConsultaController.getConsultaById);
  *             schema:
  *               $ref: '#/components/schemas/Consulta'
  */
-router.post('/', authMiddleware, ConsultaController.createConsulta);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), ConsultaController.createConsulta);
 
 /**
  * @swagger
@@ -132,7 +132,7 @@ router.post('/', authMiddleware, ConsultaController.createConsulta);
  *       404:
  *         description: Paciente no existe
  */
-router.get('/paciente/:pacienteId', ConsultaController.getConsultaByPacienteId);
+router.get('/paciente/:pacienteId', authMiddleware, ConsultaController.getConsultaByPacienteId);
 
 /**
  * @swagger
@@ -163,7 +163,7 @@ router.get('/paciente/:pacienteId', ConsultaController.getConsultaByPacienteId);
  *       404:
  *         description: Consulta no encontrada
  */
-router.put('/:id', authMiddleware, ConsultaController.updateConsulta);
+router.put('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), ConsultaController.updateConsulta);
 
 /**
  * @swagger
@@ -184,7 +184,7 @@ router.put('/:id', authMiddleware, ConsultaController.updateConsulta);
  *       404:
  *         description: Consulta no encontrada
  */
-router.delete('/:id', authMiddleware, ConsultaController.deleteConsulta);
+router.delete('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), ConsultaController.deleteConsulta);
 
 /**
  * @swagger
@@ -220,6 +220,6 @@ router.delete('/:id', authMiddleware, ConsultaController.deleteConsulta);
  *               items:
  *                 $ref: '#/components/schemas/Consulta'
  */
-router.get('/', ConsultaController.getConsultasParametrizadas);
+router.get('/', authMiddleware, ConsultaController.getConsultasParametrizadas);
 
 export default router;

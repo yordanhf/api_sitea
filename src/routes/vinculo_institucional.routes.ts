@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import VinculoInstitucionalController from '../controllers/vinculo_institucional.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -45,7 +45,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Vinculo Institucional'
  */
-router.get('/', VinculoInstitucionalController.getAllVinculoInstitucional);
+router.get('/', authMiddleware, VinculoInstitucionalController.getAllVinculoInstitucional);
 
 /**
  * @swagger
@@ -70,7 +70,7 @@ router.get('/', VinculoInstitucionalController.getAllVinculoInstitucional);
  *       404:
  *         description: Vinculo Institucional no encontrado
  */
-router.get('/:id', VinculoInstitucionalController.getVinculoInstitucionalById);
+router.get('/:id', authMiddleware, VinculoInstitucionalController.getVinculoInstitucionalById);
 
 /**
  * @swagger
@@ -92,7 +92,7 @@ router.get('/:id', VinculoInstitucionalController.getVinculoInstitucionalById);
  *             schema:
  *               $ref: '#/components/schemas/Vinculo Institucional'
  */
-router.post('/', authMiddleware, VinculoInstitucionalController.createVinculoInstitucional);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), VinculoInstitucionalController.createVinculoInstitucional);
 
 /**
  * @swagger
@@ -123,7 +123,7 @@ router.post('/', authMiddleware, VinculoInstitucionalController.createVinculoIns
  *       404:
  *         description: VinculoInstitucional no encontrado
  */
-router.put('/:id', authMiddleware, VinculoInstitucionalController.updateVinculoInstitucional);
+router.put('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), VinculoInstitucionalController.updateVinculoInstitucional);
 
 /**
  * @swagger
@@ -144,6 +144,6 @@ router.put('/:id', authMiddleware, VinculoInstitucionalController.updateVinculoI
  *       404:
  *         description: Vinculo Institucional no encontrado
  */
-router.delete('/:id', authMiddleware, VinculoInstitucionalController.deleteVinculoInstitucional);
+router.delete('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), VinculoInstitucionalController.deleteVinculoInstitucional);
 
 export default router;

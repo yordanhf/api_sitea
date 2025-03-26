@@ -1,7 +1,7 @@
 // Definir las Rutas (interconsulta.routes.ts)
 import { Router } from 'express';
 import InterconsultaController from '../controllers/interconsulta.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -46,7 +46,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Interconsulta'
  */
-router.get('/', InterconsultaController.getAllInterconsultas);
+router.get('/', authMiddleware, InterconsultaController.getAllInterconsultas);
 
 /**
  * @swagger
@@ -71,7 +71,7 @@ router.get('/', InterconsultaController.getAllInterconsultas);
  *       404:
  *         description: Interconsulta no encontrada
  */
-router.get('/:id', InterconsultaController.getInterconsultaById);
+router.get('/:id', authMiddleware, InterconsultaController.getInterconsultaById);
 
 /**
  * @swagger
@@ -93,7 +93,7 @@ router.get('/:id', InterconsultaController.getInterconsultaById);
  *             schema:
  *               $ref: '#/components/schemas/Interconsulta'
  */
-router.post('/', authMiddleware, InterconsultaController.createInterconsulta);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), InterconsultaController.createInterconsulta);
 
 /**
  * @swagger
@@ -124,7 +124,7 @@ router.post('/', authMiddleware, InterconsultaController.createInterconsulta);
  *       404:
  *         description: Interconsulta no encontrada
  */
-router.put('/:id', authMiddleware, InterconsultaController.updateInterconsulta);
+router.put('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), InterconsultaController.updateInterconsulta);
 
 /**
  * @swagger
@@ -145,7 +145,7 @@ router.put('/:id', authMiddleware, InterconsultaController.updateInterconsulta);
  *       404:
  *         description: Interconsulta no encontrada
  */
-router.delete('/:id', authMiddleware, InterconsultaController.deleteInterconsulta);
+router.delete('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), InterconsultaController.deleteInterconsulta);
 
 //Otras rutas
 
@@ -172,7 +172,7 @@ router.delete('/:id', authMiddleware, InterconsultaController.deleteInterconsult
  *               items:
  *                 $ref: '#/components/schemas/Interconsulta'
  */
-router.get('/paciente/:pacienteId', InterconsultaController.getInterconsultasByPacienteId);
+router.get('/paciente/:pacienteId', authMiddleware, InterconsultaController.getInterconsultasByPacienteId);
 
 
 export default router;

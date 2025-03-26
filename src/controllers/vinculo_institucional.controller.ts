@@ -4,8 +4,9 @@ import VinculoInstitucionalService from '../services/vinculo_institucional.servi
 class VinculoInstitucionalController {
   public async createVinculoInstitucional(req: Request, res: Response) {
     try {
+      const usuarioToken = (req as any)['user'];
       const { nombre } = req.body;
-      const vinculo_institucional = await VinculoInstitucionalService.createVinculoInstitucional(nombre);
+      const vinculo_institucional = await VinculoInstitucionalService.createVinculoInstitucional(nombre, usuarioToken.id);
       res.status(201).json(vinculo_institucional);
     } catch (error) {
       res.status(500).send('Error al crear el vinculo institucional');
@@ -33,9 +34,10 @@ class VinculoInstitucionalController {
 
   public async updateVinculoInstitucional(req: Request, res: Response) {
     try {
+      const usuarioToken = (req as any)['user'];
       const { id } = req.params;
       const data = req.body;
-      const updatedVinculoInstitucional = await VinculoInstitucionalService.updateVinculoInstitucional(String(id), data);
+      const updatedVinculoInstitucional = await VinculoInstitucionalService.updateVinculoInstitucional(String(id), data, usuarioToken.id);
       res.status(200).json(updatedVinculoInstitucional);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -44,8 +46,9 @@ class VinculoInstitucionalController {
 
   public async deleteVinculoInstitucional(req: Request, res: Response) {
     try {
+      const usuarioToken = (req as any)['user'];
       const { id } = req.params;
-      await VinculoInstitucionalService.deleteVinculoInstitucional(String(id));
+      await VinculoInstitucionalService.deleteVinculoInstitucional(String(id), usuarioToken.id);
       res.status(200).send('Vinculo Institucional eliminado');
     } catch (error) {
       const errorMessage = (error as Error).message;

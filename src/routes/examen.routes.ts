@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import ExamenController from '../controllers/examen.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -37,7 +37,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/examenes'
  */
-router.get('/', ExamenController.getAllExamen);
+router.get('/', authMiddleware, ExamenController.getAllExamen);
 
 /**
  * @swagger
@@ -62,7 +62,7 @@ router.get('/', ExamenController.getAllExamen);
  *       404:
  *         description: examen no encontrado
  */
-router.get('/:id', ExamenController.getExamenById);
+router.get('/:id', authMiddleware, ExamenController.getExamenById);
 
 /**
  * @swagger
@@ -84,7 +84,7 @@ router.get('/:id', ExamenController.getExamenById);
  *             schema:
  *               $ref: '#/components/schemas/examenes'
  */
-router.post('/', authMiddleware, ExamenController.createExamen);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), ExamenController.createExamen);
 
 /**
  * @swagger
@@ -115,7 +115,7 @@ router.post('/', authMiddleware, ExamenController.createExamen);
  *       404:
  *         description: examen no encontrado
  */
-router.put('/:id', authMiddleware, ExamenController.updateExamen);
+router.put('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), ExamenController.updateExamen);
 
 /**
  * @swagger
@@ -136,6 +136,6 @@ router.put('/:id', authMiddleware, ExamenController.updateExamen);
  *       404:
  *         description: Examen no encontrado
  */
-router.delete('/:id', authMiddleware, ExamenController.deleteExamen);
+router.delete('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), ExamenController.deleteExamen);
 
 export default router;

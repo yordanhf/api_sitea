@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import ComorbilidadController from '../controllers/comorbilidad.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -37,7 +37,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Comorbilidades'
  */
-router.get('/', ComorbilidadController.getAllComorbilidad);
+router.get('/', authMiddleware, ComorbilidadController.getAllComorbilidad);
 
 /**
  * @swagger
@@ -62,7 +62,7 @@ router.get('/', ComorbilidadController.getAllComorbilidad);
  *       404:
  *         description: comorbilidad no encontrada
  */
-router.get('/:id', ComorbilidadController.getComorbilidadById);
+router.get('/:id', authMiddleware, ComorbilidadController.getComorbilidadById);
 
 /**
  * @swagger
@@ -84,7 +84,7 @@ router.get('/:id', ComorbilidadController.getComorbilidadById);
  *             schema:
  *               $ref: '#/components/schemas/Comorbilidades'
  */
-router.post('/', authMiddleware, ComorbilidadController.createComorbilidad);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), ComorbilidadController.createComorbilidad);
 
 /**
  * @swagger
@@ -115,7 +115,7 @@ router.post('/', authMiddleware, ComorbilidadController.createComorbilidad);
  *       404:
  *         description: comorbilidad no encontrada
  */
-router.put('/:id', authMiddleware, ComorbilidadController.updateComorbilidad);
+router.put('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), ComorbilidadController.updateComorbilidad);
 
 /**
  * @swagger
@@ -136,6 +136,6 @@ router.put('/:id', authMiddleware, ComorbilidadController.updateComorbilidad);
  *       404:
  *         description: comorbilidad no encontrada
  */
-router.delete('/:id', authMiddleware, ComorbilidadController.deleteComorbilidad);
+router.delete('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), ComorbilidadController.deleteComorbilidad);
 
 export default router;

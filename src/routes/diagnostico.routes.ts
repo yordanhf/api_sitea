@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import DiagnosticoController from '../controllers/diagnostico.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -37,7 +37,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Diagnosticos'
  */
-router.get('/', DiagnosticoController.getAllDiagnostico);
+router.get('/', authMiddleware, DiagnosticoController.getAllDiagnostico);
 
 /**
  * @swagger
@@ -62,7 +62,7 @@ router.get('/', DiagnosticoController.getAllDiagnostico);
  *       404:
  *         description: Diagnostico no encontrado
  */
-router.get('/:id', DiagnosticoController.getDiagnosticoById);
+router.get('/:id', authMiddleware, DiagnosticoController.getDiagnosticoById);
 
 /**
  * @swagger
@@ -84,7 +84,7 @@ router.get('/:id', DiagnosticoController.getDiagnosticoById);
  *             schema:
  *               $ref: '#/components/schemas/Diagnosticos'
  */
-router.post('/', authMiddleware, DiagnosticoController.createDiagnostico);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), DiagnosticoController.createDiagnostico);
 
 /**
  * @swagger
@@ -115,7 +115,7 @@ router.post('/', authMiddleware, DiagnosticoController.createDiagnostico);
  *       404:
  *         description: Diagnostico no encontrado
  */
-router.put('/:id', authMiddleware, DiagnosticoController.updateDiagnostico);
+router.put('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), DiagnosticoController.updateDiagnostico);
 
 /**
  * @swagger
@@ -136,6 +136,6 @@ router.put('/:id', authMiddleware, DiagnosticoController.updateDiagnostico);
  *       404:
  *         description: Diagnostico no encontrado
  */
-router.delete('/:id', authMiddleware, DiagnosticoController.deleteDiagnostico);
+router.delete('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), DiagnosticoController.deleteDiagnostico);
 
 export default router;

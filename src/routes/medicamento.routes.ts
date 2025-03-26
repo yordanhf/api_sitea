@@ -1,7 +1,7 @@
 // src/routes/medicamento.routes.ts
 import { Router } from 'express';
 import MedicamentoController from '../controllers/medicamento.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -38,7 +38,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Medicamento'
  */
-router.get('/', MedicamentoController.getAllMedicamento);
+router.get('/', authMiddleware, MedicamentoController.getAllMedicamento);
 
 /**
  * @swagger
@@ -63,7 +63,7 @@ router.get('/', MedicamentoController.getAllMedicamento);
  *       404:
  *         description: Medicamento no encontrado
  */
-router.get('/:id', MedicamentoController.getMedicamentoById);
+router.get('/:id', authMiddleware, MedicamentoController.getMedicamentoById);
 
 /**
  * @swagger
@@ -85,7 +85,7 @@ router.get('/:id', MedicamentoController.getMedicamentoById);
  *             schema:
  *               $ref: '#/components/schemas/Medicamento'
  */
-router.post('/', authMiddleware, MedicamentoController.createMedicamento);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), MedicamentoController.createMedicamento);
 
 /**
  * @swagger
@@ -116,7 +116,7 @@ router.post('/', authMiddleware, MedicamentoController.createMedicamento);
  *       404:
  *         description: Medicamento no encontrado
  */
-router.put('/:id', authMiddleware, MedicamentoController.updateMedicamento);
+router.put('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), MedicamentoController.updateMedicamento);
 
 /**
  * @swagger
@@ -137,6 +137,6 @@ router.put('/:id', authMiddleware, MedicamentoController.updateMedicamento);
  *       404:
  *         description: Medicamento no encontrado
  */
-router.delete('/:id', authMiddleware, MedicamentoController.deleteMedicamento);
+router.delete('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), MedicamentoController.deleteMedicamento);
 
 export default router;

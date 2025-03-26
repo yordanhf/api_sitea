@@ -1,10 +1,14 @@
 // 2. Paciente Service (paciente.service.ts)
 import Paciente from '../models/paciente.model';
 import PacienteRepository from '../repositories/paciente.repository';
+import LogService from './log.service';
 
 class PacienteService {
-  public async createPaciente(data: Partial<Paciente>) {
-    return await PacienteRepository.createPaciente(data);
+  public async createPaciente(data: Partial<Paciente>, usuarioId: string) {
+    const paciente =  await PacienteRepository.createPaciente(data);
+    await LogService.createLog(usuarioId, 'Paciente', 'CREATE', `Creado paciente: ${paciente.ci}`);
+    return paciente;
+
   }
 
   public async getAllPacientes() {
@@ -32,15 +36,20 @@ class PacienteService {
     return await PacienteRepository.getPacientesCountByMunicipio();
   }
 
-  public async updatePaciente(id: string, data: Partial<Paciente>) {
-    return await PacienteRepository.updatePaciente(id, data);
+  public async updatePaciente(id: string, data: Partial<Paciente>, usuarioId: string) {
+    const paciente =  await PacienteRepository.updatePaciente(id, data);    
+    await LogService.createLog(usuarioId, 'Paciente', 'UPDATE', `Actualizado paciente: ${paciente.ci}`);
+    return paciente;
   }  
 
-  public async deletePaciente(id: string) {
+  public async deletePaciente(id: string, usuarioId: string) {
+    const for_delete = await this.getPacienteById(id);
+    const deleted_ci = for_delete.ci;
     const deleted = await PacienteRepository.deletePaciente(id);
     if (deleted === 0) {
       throw new Error('Paciente no encontrado');
     }
+    await LogService.createLog(usuarioId, 'Paciente', 'DELETE', `Borrado paciente: ${deleted_ci}`);
     return deleted;
   }
 }

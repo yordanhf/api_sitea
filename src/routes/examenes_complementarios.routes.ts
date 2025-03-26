@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import Examenes_complementariosController from '../controllers/examenes_complementarios.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -50,7 +50,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/examenes_complementarios'
  */
-router.get('/', Examenes_complementariosController.getAllExamenes_complementarios);
+router.get('/', authMiddleware, Examenes_complementariosController.getAllExamenes_complementarios);
 
 /**
  * @swagger
@@ -75,7 +75,7 @@ router.get('/', Examenes_complementariosController.getAllExamenes_complementario
  *       404:
  *         description: examen complementario no encontrado
  */
-router.get('/:id', Examenes_complementariosController.getExamenes_complementariosById);
+router.get('/:id', authMiddleware, Examenes_complementariosController.getExamenes_complementariosById);
 
 /**
  * @swagger
@@ -102,7 +102,7 @@ router.get('/:id', Examenes_complementariosController.getExamenes_complementario
  *       404:
  *         description: Paciente no existe
  */
-router.get('/paciente/:pacienteId', Examenes_complementariosController.getExamenes_complementariosByPacienteId);
+router.get('/paciente/:pacienteId', authMiddleware, Examenes_complementariosController.getExamenes_complementariosByPacienteId);
 
 /**
  * @swagger
@@ -124,7 +124,7 @@ router.get('/paciente/:pacienteId', Examenes_complementariosController.getExamen
  *             schema:
  *               $ref: '#/components/schemas/examenes_complementarios'
  */
-router.post('/', authMiddleware, Examenes_complementariosController.createExamenes_complementarios);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), Examenes_complementariosController.createExamenes_complementarios);
 
 /**
  * @swagger
@@ -155,7 +155,7 @@ router.post('/', authMiddleware, Examenes_complementariosController.createExamen
  *       404:
  *         description: examen complementario no encontrado
  */
-router.put('/:id', authMiddleware, Examenes_complementariosController.updateExamenes_complementarios);
+router.put('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), Examenes_complementariosController.updateExamenes_complementarios);
 
 /**
  * @swagger
@@ -176,6 +176,6 @@ router.put('/:id', authMiddleware, Examenes_complementariosController.updateExam
  *       404:
  *         description: Examen complementario no encontrado
  */
-router.delete('/:id', authMiddleware, Examenes_complementariosController.deleteExamenes_complementarios);
+router.delete('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), Examenes_complementariosController.deleteExamenes_complementarios);
 
 export default router;

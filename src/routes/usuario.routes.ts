@@ -1,9 +1,47 @@
 // Rutas para Usuario (usuario.routes.ts)
 import { Router } from 'express';
 import UsuarioController from '../controllers/usuario.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
+
+/**
+ * @swagger
+ * /api/usuarios/primer-registro:
+ *   post:
+ *     summary: Crear un nuevo usuario
+ *     tags: [Usuarios]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nombre:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               preguntaSeguridad:
+ *                 type: string
+ *               respuestaSeguridad:
+ *                 type: string
+ *               rol:
+ *                 type: string
+ *               provincia:
+ *                 type: string
+ *             required:
+ *               - nombre
+ *               - password
+ *               - preguntaSeguridad
+ *               - respuestaSeguridad
+ *               - rol
+ * 
+ *     responses:
+ *       201:
+ *         description: Usuario creado correctamente
+ */
+router.post('/primer-registro', UsuarioController.createFirstUsuario);
 
 /**
  * @swagger
@@ -26,12 +64,22 @@ const router = Router();
  *                 type: string
  *               respuestaSeguridad:
  *                 type: string
+ *               rol:
+ *                 type: string
+ *               provincia:
+ *                 type: string
+ *             required:
+ *               - nombre
+ *               - password
+ *               - preguntaSeguridad
+ *               - respuestaSeguridad
+ *               - rol
  * 
  *     responses:
  *       201:
  *         description: Usuario creado correctamente
  */
-router.post('/registro', UsuarioController.createUsuario);
+router.post('/registro', authMiddleware, authorize(['admin_nac']), UsuarioController.createUsuario);
 
 /**
  * @swagger

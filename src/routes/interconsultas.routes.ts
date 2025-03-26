@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import InterconsultasController from '../controllers/interconsultas.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -37,7 +37,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Interconsultas'
  */
-router.get('/', InterconsultasController.getAllInterconsultas);
+router.get('/', authMiddleware, InterconsultasController.getAllInterconsultas);
 
 /**
  * @swagger
@@ -62,7 +62,7 @@ router.get('/', InterconsultasController.getAllInterconsultas);
  *       404:
  *         description: Interconsulta no encontrada
  */
-router.get('/:id', InterconsultasController.getInterconsultasById);
+router.get('/:id', authMiddleware, InterconsultasController.getInterconsultasById);
 
 /**
  * @swagger
@@ -84,7 +84,7 @@ router.get('/:id', InterconsultasController.getInterconsultasById);
  *             schema:
  *               $ref: '#/components/schemas/Interconsultas'
  */
-router.post('/', authMiddleware, InterconsultasController.createInterconsultas);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), InterconsultasController.createInterconsultas);
 
 /**
  * @swagger
@@ -115,7 +115,7 @@ router.post('/', authMiddleware, InterconsultasController.createInterconsultas);
  *       404:
  *         description: interconsulta no encontrada
  */
-router.put('/:id', authMiddleware, InterconsultasController.updateInterconsultas);
+router.put('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), InterconsultasController.updateInterconsultas);
 
 /**
  * @swagger
@@ -136,6 +136,6 @@ router.put('/:id', authMiddleware, InterconsultasController.updateInterconsultas
  *       404:
  *         description: interconsulta no encontrada
  */
-router.delete('/:id', authMiddleware, InterconsultasController.deleteInterconsultas);
+router.delete('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), InterconsultasController.deleteInterconsultas);
 
 export default router;
