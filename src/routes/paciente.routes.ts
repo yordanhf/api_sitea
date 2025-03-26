@@ -1,7 +1,7 @@
 // 4. Definir las Rutas (paciente.routes.ts)
 import { Router } from 'express';
 import PacienteController from '../controllers/paciente.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -117,7 +117,7 @@ const router = Router();
  *                     type: number
  *                     example: 10
  */
-router.get('/countbymunicipio', PacienteController.getPacientesCountByMunicipio);
+router.get('/countbymunicipio', authMiddleware, PacienteController.getPacientesCountByMunicipio);
 
 /**
  * @swagger
@@ -135,7 +135,7 @@ router.get('/countbymunicipio', PacienteController.getPacientesCountByMunicipio)
  *               items:
  *                 $ref: '#/components/schemas/Paciente'
  */
-router.get('/all', PacienteController.getAllPacientes);
+router.get('/all', authMiddleware, PacienteController.getAllPacientes);
 
 /**
  * @swagger
@@ -160,7 +160,7 @@ router.get('/all', PacienteController.getAllPacientes);
  *       404:
  *         description: Paciente no encontrado
  */
-router.get('/:id', PacienteController.getPacienteById);
+router.get('/:id', authMiddleware, PacienteController.getPacienteById);
 
 /**
  * @swagger
@@ -185,7 +185,7 @@ router.get('/:id', PacienteController.getPacienteById);
  *       404:
  *         description: No hay pacientes en ese municipio
  */
-router.get('/municipio/:municipioId', PacienteController.getAllPacientesByMunicipios);
+router.get('/municipio/:municipioId', authMiddleware, PacienteController.getAllPacientesByMunicipios);
 
 /**
  * @swagger
@@ -207,7 +207,7 @@ router.get('/municipio/:municipioId', PacienteController.getAllPacientesByMunici
  *             schema:
  *               $ref: '#/components/schemas/Paciente'
  */
-router.post('/', authMiddleware, PacienteController.createPaciente);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), PacienteController.createPaciente);
 
 /**
  * @swagger
@@ -238,7 +238,7 @@ router.post('/', authMiddleware, PacienteController.createPaciente);
  *       404:
  *         description: Paciente no encontrado
  */
-router.put('/:id', authMiddleware, PacienteController.updatePaciente);
+router.put('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), PacienteController.updatePaciente);
 
 /**
  * @swagger
@@ -259,7 +259,7 @@ router.put('/:id', authMiddleware, PacienteController.updatePaciente);
  *       404:
  *         description: Paciente no encontrado
  */
-router.delete('/:id', authMiddleware, PacienteController.deletePaciente);
+router.delete('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), PacienteController.deletePaciente);
 
 /**
  * @swagger
@@ -405,6 +405,6 @@ router.delete('/:id', authMiddleware, PacienteController.deletePaciente);
  *       500:
  *         description: Error al filtrar pacientes
  */
-router.get('/', PacienteController.getPacientesByParams);
+router.get('/', authMiddleware, PacienteController.getPacientesByParams);
 
 export default router;

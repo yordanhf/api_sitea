@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import FortalezaController from '../controllers/fortaleza.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -37,7 +37,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Fortaleza'
  */
-router.get('/', FortalezaController.getAllFortaleza);
+router.get('/', authMiddleware, FortalezaController.getAllFortaleza);
 
 /**
  * @swagger
@@ -62,7 +62,7 @@ router.get('/', FortalezaController.getAllFortaleza);
  *       404:
  *         description: fortaleza no encontrada
  */
-router.get('/:id', FortalezaController.getFortalezaById);
+router.get('/:id', authMiddleware, FortalezaController.getFortalezaById);
 
 /**
  * @swagger
@@ -84,7 +84,7 @@ router.get('/:id', FortalezaController.getFortalezaById);
  *             schema:
  *               $ref: '#/components/schemas/Fortaleza'
  */
-router.post('/', authMiddleware, FortalezaController.createFortaleza);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), FortalezaController.createFortaleza);
 
 /**
  * @swagger
@@ -115,7 +115,7 @@ router.post('/', authMiddleware, FortalezaController.createFortaleza);
  *       404:
  *         description: fortaleza no encontrada
  */
-router.put('/:id', authMiddleware,  FortalezaController.updateFortaleza);
+router.put('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), FortalezaController.updateFortaleza);
 
 /**
  * @swagger
@@ -136,6 +136,6 @@ router.put('/:id', authMiddleware,  FortalezaController.updateFortaleza);
  *       404:
  *         description: Fortaleza no encontrada
  */
-router.delete('/:id', authMiddleware, FortalezaController.deleteFortaleza);
+router.delete('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), FortalezaController.deleteFortaleza);
 
 export default router;

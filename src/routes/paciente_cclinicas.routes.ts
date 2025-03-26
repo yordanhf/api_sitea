@@ -1,7 +1,7 @@
 // src/routes/Paciente_cclinica.routes.ts
 import { Router } from 'express';
 import Paciente_CClinicasController from '../controllers/paciente_cclinicas.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -42,7 +42,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Paciente_CClinicas'
  */
-router.get('/', Paciente_CClinicasController.getAllPaciente_CClinicas);
+router.get('/', authMiddleware, Paciente_CClinicasController.getAllPaciente_CClinicas);
 
 /**
  * @swagger
@@ -67,7 +67,7 @@ router.get('/', Paciente_CClinicasController.getAllPaciente_CClinicas);
  *       404:
  *         description: Paciente_cclinica no encontrado
  */
-router.get('/:id', Paciente_CClinicasController.getPaciente_CClinicasById);
+router.get('/:id', authMiddleware, Paciente_CClinicasController.getPaciente_CClinicasById);
 
 /**
  * @swagger
@@ -94,7 +94,7 @@ router.get('/:id', Paciente_CClinicasController.getPaciente_CClinicasById);
  *       404:
  *         description: Paciente no encontrado
  */
-router.get('/paciente/:pacienteId', Paciente_CClinicasController.getPaciente_CClinicasByPacienteId);
+router.get('/paciente/:pacienteId', authMiddleware, Paciente_CClinicasController.getPaciente_CClinicasByPacienteId);
 
 /**
  * @swagger
@@ -116,7 +116,7 @@ router.get('/paciente/:pacienteId', Paciente_CClinicasController.getPaciente_CCl
  *             schema:
  *               $ref: '#/components/schemas/Paciente_CClinicas'
  */
-router.post('/', authMiddleware, Paciente_CClinicasController.createPaciente_CClinicas);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), Paciente_CClinicasController.createPaciente_CClinicas);
 
 /**
  * @swagger
@@ -147,7 +147,7 @@ router.post('/', authMiddleware, Paciente_CClinicasController.createPaciente_CCl
  *       404:
  *         description: Paciente_cclinica no encontrado
  */
-router.put('/:id', authMiddleware, Paciente_CClinicasController.updatePaciente_CClinicas);
+router.put('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), Paciente_CClinicasController.updatePaciente_CClinicas);
 
 /**
  * @swagger
@@ -168,6 +168,6 @@ router.put('/:id', authMiddleware, Paciente_CClinicasController.updatePaciente_C
  *       404:
  *         description: Paciente_cclinica no encontrado
  */
-router.delete('/:id', authMiddleware, Paciente_CClinicasController.deletePaciente_CClinicas);
+router.delete('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), Paciente_CClinicasController.deletePaciente_CClinicas);
 
 export default router;

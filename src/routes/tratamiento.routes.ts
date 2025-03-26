@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import TratamientoController from '../controllers/tratamiento.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -40,7 +40,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Tratamiento'
  */
-router.get('/', TratamientoController.getAllTratamiento);
+router.get('/', authMiddleware, TratamientoController.getAllTratamiento);
 
 /**
  * @swagger
@@ -65,7 +65,7 @@ router.get('/', TratamientoController.getAllTratamiento);
  *       404:
  *         description: tratamiento no encontrado
  */
-router.get('/:id', TratamientoController.getTratamientoById);
+router.get('/:id', authMiddleware, TratamientoController.getTratamientoById);
 
 /**
  * @swagger
@@ -92,7 +92,7 @@ router.get('/:id', TratamientoController.getTratamientoById);
  *       404:
  *         description: Paciente no encontrado
  */
-router.get('/paciente/:pacienteId', TratamientoController.getTratamientoByPacienteId);
+router.get('/paciente/:pacienteId', authMiddleware, TratamientoController.getTratamientoByPacienteId);
 
 /**
  * @swagger
@@ -114,7 +114,7 @@ router.get('/paciente/:pacienteId', TratamientoController.getTratamientoByPacien
  *             schema:
  *               $ref: '#/components/schemas/Tratamiento'
  */
-router.post('/', authMiddleware, TratamientoController.createTratamiento);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), TratamientoController.createTratamiento);
 
 /**
  * @swagger
@@ -145,7 +145,7 @@ router.post('/', authMiddleware, TratamientoController.createTratamiento);
  *       404:
  *         description: tratamiento no encontrado
  */
-router.put('/:id', authMiddleware, TratamientoController.updateTratamiento);
+router.put('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), TratamientoController.updateTratamiento);
 
 /**
  * @swagger
@@ -166,6 +166,6 @@ router.put('/:id', authMiddleware, TratamientoController.updateTratamiento);
  *       404:
  *         description: tratamiento no encontrado
  */
-router.delete('/:id', authMiddleware, TratamientoController.deleteTratamiento);
+router.delete('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), TratamientoController.deleteTratamiento);
 
 export default router;

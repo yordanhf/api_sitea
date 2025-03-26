@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import BackupController from '../controllers/backup.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -26,6 +26,6 @@ const router = Router();
  *       500:
  *         description: Error al crear la copia de seguridad
  */
-router.post('/', authMiddleware, BackupController.createBackup);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), BackupController.createBackup);
 
 export default router;

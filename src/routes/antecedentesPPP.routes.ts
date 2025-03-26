@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import AntecedentesPPPController from '../controllers/antecedentesPPP.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -37,7 +37,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/AntecedentesPPP'
  */
-router.get('/', AntecedentesPPPController.getAllAntecedentesPPP);
+router.get('/', authMiddleware, AntecedentesPPPController.getAllAntecedentesPPP);
 
 /**
  * @swagger
@@ -62,7 +62,7 @@ router.get('/', AntecedentesPPPController.getAllAntecedentesPPP);
  *       404:
  *         description: antecedente no encontrado
  */
-router.get('/:id', AntecedentesPPPController.getAntecedentesPPPById);
+router.get('/:id', authMiddleware, AntecedentesPPPController.getAntecedentesPPPById);
 
 /**
  * @swagger
@@ -84,7 +84,7 @@ router.get('/:id', AntecedentesPPPController.getAntecedentesPPPById);
  *             schema:
  *               $ref: '#/components/schemas/AntecedentesPPP'
  */
-router.post('/', authMiddleware, AntecedentesPPPController.createAntecedentesPPP);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), AntecedentesPPPController.createAntecedentesPPP);
 
 /**
  * @swagger
@@ -115,7 +115,7 @@ router.post('/', authMiddleware, AntecedentesPPPController.createAntecedentesPPP
  *       404:
  *         description: antecedente no encontrado
  */
-router.put('/:id', authMiddleware, AntecedentesPPPController.updateAntecedentesPPP);
+router.put('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), AntecedentesPPPController.updateAntecedentesPPP);
 
 /**
  * @swagger
@@ -136,6 +136,6 @@ router.put('/:id', authMiddleware, AntecedentesPPPController.updateAntecedentesP
  *       404:
  *         description: antecedente no encontrado
  */
-router.delete('/:id', authMiddleware, AntecedentesPPPController.deleteAntecedentesPPP);
+router.delete('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), AntecedentesPPPController.deleteAntecedentesPPP);
 
 export default router;

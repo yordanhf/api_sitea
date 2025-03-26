@@ -13,11 +13,24 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'clave_predeterminada_muy_segura');
-    (req as any)['usuario'] = decoded; // Añadir la información del usuario al objeto `req`
+    (req as any)['user'] = decoded; // Añadir la información del usuario al objeto `req`
     next(); // Continuar con el siguiente middleware o controlador
   } catch (error) {
     res.status(403).json({ message: 'Token inválido o expirado' });
   }
 };
 
-export default authMiddleware;
+const authorize = (roles: string[]) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const usuario = (req as any)['user'];
+
+    if (!usuario || !roles.includes(usuario.rol)) {
+      res.status(403).json({ message: 'Acceso denegado' });
+      return;
+    }
+
+    next(); // Continuar con el siguiente middleware o controlador
+  };
+};
+
+export { authMiddleware, authorize };

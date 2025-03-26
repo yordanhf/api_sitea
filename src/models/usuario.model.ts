@@ -9,6 +9,8 @@ class Usuario extends Model {
   public password!: string;
   public preguntaSeguridad!: string; 
   public respuestaSeguridad!: string;
+  public rol!: string;
+  public provincia?: string;
 }
 
 Usuario.init(
@@ -33,6 +35,14 @@ Usuario.init(
     respuestaSeguridad: {
       type: DataTypes.STRING,
       allowNull: false, 
+    },    
+    rol: {
+      type: DataTypes.ENUM('admin_nac', 'admin_prov', 'usuario'),
+      allowNull: false,
+    },
+    provincia: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   {

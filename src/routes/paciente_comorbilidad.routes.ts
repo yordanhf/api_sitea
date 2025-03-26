@@ -1,7 +1,7 @@
 // src/routes/Paciente_cclinica.routes.ts
 import { Router } from 'express';
 import Paciente_ComorbilidadController from '../controllers/paciente_comorbilidad.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -42,7 +42,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Paciente_Comorbilidad'
  */
-router.get('/', Paciente_ComorbilidadController.getAllPaciente_Comorbilidad);
+router.get('/', authMiddleware, Paciente_ComorbilidadController.getAllPaciente_Comorbilidad);
 
 /**
  * @swagger
@@ -67,7 +67,7 @@ router.get('/', Paciente_ComorbilidadController.getAllPaciente_Comorbilidad);
  *       404:
  *         description: Paciente_comorbilidad no encontrado
  */
-router.get('/:id', Paciente_ComorbilidadController.getPaciente_ComorbilidadById);
+router.get('/:id', authMiddleware, Paciente_ComorbilidadController.getPaciente_ComorbilidadById);
 
 /**
  * @swagger
@@ -94,7 +94,7 @@ router.get('/:id', Paciente_ComorbilidadController.getPaciente_ComorbilidadById)
  *       404:
  *         description: Paciente no encontrado
  */
-router.get('/paciente/:pacienteId', Paciente_ComorbilidadController.getPaciente_ComorbilidadByPacienteId);
+router.get('/paciente/:pacienteId', authMiddleware, Paciente_ComorbilidadController.getPaciente_ComorbilidadByPacienteId);
 
 /**
  * @swagger
@@ -116,7 +116,7 @@ router.get('/paciente/:pacienteId', Paciente_ComorbilidadController.getPaciente_
  *             schema:
  *               $ref: '#/components/schemas/Paciente_Comorbilidad'
  */
-router.post('/', authMiddleware, Paciente_ComorbilidadController.createPaciente_Comorbilidad);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), Paciente_ComorbilidadController.createPaciente_Comorbilidad);
 
 /**
  * @swagger
@@ -147,7 +147,7 @@ router.post('/', authMiddleware, Paciente_ComorbilidadController.createPaciente_
  *       404:
  *         description: Paciente_comorbilidad no encontrado
  */
-router.put('/:id', authMiddleware, Paciente_ComorbilidadController.updatePaciente_Comorbilidad);
+router.put('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), Paciente_ComorbilidadController.updatePaciente_Comorbilidad);
 
 /**
  * @swagger
@@ -168,6 +168,6 @@ router.put('/:id', authMiddleware, Paciente_ComorbilidadController.updatePacient
  *       404:
  *         description: Paciente_comorbilidad no encontrado
  */
-router.delete('/:id', authMiddleware, Paciente_ComorbilidadController.deletePaciente_Comorbilidad);
+router.delete('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), Paciente_ComorbilidadController.deletePaciente_Comorbilidad);
 
 export default router;

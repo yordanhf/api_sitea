@@ -1,7 +1,7 @@
 // src/routes/Paciente_cclinica.routes.ts
 import { Router } from 'express';
 import Paciente_FortalezaController from '../controllers/paciente_fortaleza.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -42,7 +42,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Paciente_Fortaleza'
  */
-router.get('/', Paciente_FortalezaController.getAllPaciente_Fortaleza);
+router.get('/', authMiddleware, Paciente_FortalezaController.getAllPaciente_Fortaleza);
 
 /**
  * @swagger
@@ -67,7 +67,7 @@ router.get('/', Paciente_FortalezaController.getAllPaciente_Fortaleza);
  *       404:
  *         description: Paciente_fortaleza no encontrado
  */
-router.get('/:id', Paciente_FortalezaController.getPaciente_FortalezaById);
+router.get('/:id', authMiddleware, Paciente_FortalezaController.getPaciente_FortalezaById);
 
 /**
  * @swagger
@@ -94,7 +94,7 @@ router.get('/:id', Paciente_FortalezaController.getPaciente_FortalezaById);
  *       404:
  *         description: Paciente no encontrado
  */
-router.get('/paciente/:pacienteId', Paciente_FortalezaController.getPaciente_FortalezaByPacienteId);
+router.get('/paciente/:pacienteId', authMiddleware, Paciente_FortalezaController.getPaciente_FortalezaByPacienteId);
 
 /**
  * @swagger
@@ -116,7 +116,7 @@ router.get('/paciente/:pacienteId', Paciente_FortalezaController.getPaciente_For
  *             schema:
  *               $ref: '#/components/schemas/Paciente_Fortaleza'
  */
-router.post('/', authMiddleware, Paciente_FortalezaController.createPaciente_Fortaleza);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), Paciente_FortalezaController.createPaciente_Fortaleza);
 
 /**
  * @swagger
@@ -147,7 +147,7 @@ router.post('/', authMiddleware, Paciente_FortalezaController.createPaciente_For
  *       404:
  *         description: Paciente_fortaleza no encontrado
  */
-router.put('/:id', authMiddleware, Paciente_FortalezaController.updatePaciente_Fortaleza);
+router.put('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), Paciente_FortalezaController.updatePaciente_Fortaleza);
 
 /**
  * @swagger
@@ -168,6 +168,6 @@ router.put('/:id', authMiddleware, Paciente_FortalezaController.updatePaciente_F
  *       404:
  *         description: Paciente_fortaleza no encontrado
  */
-router.delete('/:id', authMiddleware, Paciente_FortalezaController.deletePaciente_Fortaleza);
+router.delete('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), Paciente_FortalezaController.deletePaciente_Fortaleza);
 
 export default router;

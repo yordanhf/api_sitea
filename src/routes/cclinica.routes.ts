@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import CClinicaController from '../controllers/cclinica.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -37,7 +37,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/CClinicas'
  */
-router.get('/', CClinicaController.getAllCClinica);
+router.get('/', authMiddleware, CClinicaController.getAllCClinica);
 
 /**
  * @swagger
@@ -62,7 +62,7 @@ router.get('/', CClinicaController.getAllCClinica);
  *       404:
  *         description: cclinica no encontrada
  */
-router.get('/:id', CClinicaController.getCClinicaById);
+router.get('/:id', authMiddleware, CClinicaController.getCClinicaById);
 
 /**
  * @swagger
@@ -84,7 +84,7 @@ router.get('/:id', CClinicaController.getCClinicaById);
  *             schema:
  *               $ref: '#/components/schemas/CClinicas'
  */
-router.post('/', authMiddleware, CClinicaController.createCClinica);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), CClinicaController.createCClinica);
 
 /**
  * @swagger
@@ -115,7 +115,7 @@ router.post('/', authMiddleware, CClinicaController.createCClinica);
  *       404:
  *         description: CClinica no encontrada
  */
-router.put('/:id', authMiddleware, CClinicaController.updateCClinica);
+router.put('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), CClinicaController.updateCClinica);
 
 /**
  * @swagger
@@ -136,6 +136,6 @@ router.put('/:id', authMiddleware, CClinicaController.updateCClinica);
  *       404:
  *         description: CClinica no encontrada
  */
-router.delete('/:id', authMiddleware, CClinicaController.deleteCClinica);
+router.delete('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), CClinicaController.deleteCClinica);
 
 export default router;

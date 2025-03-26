@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import AlergiaController from '../controllers/alergias.controller';
-import authMiddleware from '../middlewares/auth.middleware';
+import { authMiddleware, authorize } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -41,7 +41,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Alergia'
  */
-router.get('/', AlergiaController.getAllAlergias);
+router.get('/', authMiddleware, AlergiaController.getAllAlergias);
 
 /**
  * @swagger
@@ -66,7 +66,7 @@ router.get('/', AlergiaController.getAllAlergias);
  *       404:
  *         description: Alergia no encontrada
  */
-router.get('/:id', AlergiaController.getAlergiaById);
+router.get('/:id', authMiddleware, AlergiaController.getAlergiaById);
 
 /**
  * @swagger
@@ -93,7 +93,7 @@ router.get('/:id', AlergiaController.getAlergiaById);
  *       404:
  *         description: Paciente no encontrado
  */
-router.get('/paciente/:pacienteId', AlergiaController.getAlergiasByPacienteId);
+router.get('/paciente/:pacienteId', authMiddleware, AlergiaController.getAlergiasByPacienteId);
 
 /**
  * @swagger
@@ -115,7 +115,7 @@ router.get('/paciente/:pacienteId', AlergiaController.getAlergiasByPacienteId);
  *             schema:
  *               $ref: '#/components/schemas/Alergia'
  */
-router.post('/', authMiddleware, AlergiaController.createAlergia);
+router.post('/', authMiddleware, authorize(['admin_prov', 'admin_nac']), AlergiaController.createAlergia);
 
 /**
  * @swagger
@@ -146,7 +146,7 @@ router.post('/', authMiddleware, AlergiaController.createAlergia);
  *       404:
  *         description: Alergia no encontrada
  */
-router.put('/:id', authMiddleware, AlergiaController.updateAlergia);
+router.put('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), AlergiaController.updateAlergia);
 
 /**
  * @swagger
@@ -167,7 +167,7 @@ router.put('/:id', authMiddleware, AlergiaController.updateAlergia);
  *       404:
  *         description: Alergia no encontrada
  */
-router.delete('/:id', authMiddleware, AlergiaController.deleteAlergia);
+router.delete('/:id', authMiddleware, authorize(['admin_prov', 'admin_nac']), AlergiaController.deleteAlergia);
 
 export default router;
 

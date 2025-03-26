@@ -2,34 +2,33 @@
 import { Request, Response } from 'express';
 import UsuarioService from '../services/usuario.service';
 
-
 class UsuarioController {
+
+  public async createFirstUsuario(req: Request, res: Response) {
+    try {
+      const usuarios = await UsuarioService.getAllUsuarios();
+      if (usuarios.length > 0) {
+        res.status(403).json({ message: 'Acceso Denegado' });
+        return;
+      }
+
+      const data = req.body;
+      const usuario = await UsuarioService.createUsuario(data, 'Primer_Usuario');
+      res.status(201).json(usuario);
+    } catch (error) {
+      res.status(500).json({ error: (error as Error).message });
+    }
+  }
+
+ 
   public async createUsuario(req: Request, res: Response) {
     try {
-      const usuarios = await  UsuarioService.getAllUsuarios();
+      const usuarioToken = (req as any)['user'];
       const data = req.body;
-
-      // Si no hay usuarios, permitir la creación sin autenticación
-      if (usuarios.length === 0) {        
-        const usuario = await UsuarioService.createUsuario(data);
-        res.status(201).json(usuario);
-        return;
-      }
-
-      // Si no esta autenticado deniega el permiso
-      if (!(req as any)['usuario']) {
-        res.status(403).json({ message: 'Permiso denegado' });
-        return;
-      }
-
-      // Si esta autenticado puede crear el usuario nuevo       
-        const usuario = await UsuarioService.createUsuario(data);
-        res.status(201).json(usuario);
-        return;
-      
+      const usuario = await UsuarioService.createUsuario(data, usuarioToken.id);
+      res.status(201).json(usuario);
     } catch (error) {
-      res.status(500).json({error: (error as Error).message});
-      return;
+      res.status(500).json({ error: (error as Error).message });
     }
   }
 
@@ -87,11 +86,14 @@ class UsuarioController {
 
   public async perfil(req: Request, res: Response) {
     try {
-      if (!(req as any)['usuario']) { // Utilizar notación de corchetes para evitar el error de tipo
+      if (!(req as any)['user']) { // Utilizar notación de corchetes para evitar el error de tipo
         res.status(401).json({ message: 'Usuario no autenticado' });
         return;
       }
-      res.status(200).json({ message: `Bienvenido, usuario: ${(req as any)['usuario'].nombre}` });
+      res.status(200).json({ usuario: `${(req as any)['user'].nombre}`, 
+                             rol: `${(req as any)['user'].rol}`,
+                             provincia: `${(req as any)['user'].provincia}`  
+                            });
       return;
     } catch (error) {
       res.status(500).json({ error: (error as Error).message });
