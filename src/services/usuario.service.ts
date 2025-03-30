@@ -4,12 +4,21 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import Usuario from '../models/usuario.model';
 import LogService from './log.service';
+import usuarioRepository from '../repositories/usuario.repository';
 
 
 class UsuarioService {
+
   public async createUsuario(data: Partial<Usuario>, usuarioId: string) {
     const usuario = await UsuarioRepository.createUsuario(data);
     await LogService.createLog(usuarioId, 'Usuario', 'CREATE', `Creado usuario: ${usuario.nombre}`);
+    return usuario;
+  }
+
+  public async createFirstUser(data: Partial<Usuario>) {  
+    data.rol = 'admin_nac';    
+    const usuario = await UsuarioRepository.createUsuario(data);
+    await LogService.createLog('Primer-Usuario', 'Usuario', 'CREATE', `Creado Primer Usuario: ${usuario.nombre}`);
     return usuario;
   }
 
@@ -19,6 +28,14 @@ class UsuarioService {
 
   public async getUsuarioByNombre(nombre: string) {
     return await UsuarioRepository.findByName(nombre);
+  }
+
+  public async getUsuarioById(id: string) {
+    const usuario = await UsuarioRepository.findById(id);
+    if (!usuario) {
+      throw new Error('Usuario no encontrado');
+    }
+    return usuario;
   }
 
   public async chequearRespuesta(
@@ -102,6 +119,17 @@ class UsuarioService {
     if (provincia && userProvincia !== provincia) {
       throw new Error('Acceso denegado por provincia');
     }
+  }
+
+  public async deleteUsuario(id: string, usuarioId: string) {
+    const for_delete = await this.getUsuarioById(id);
+    const deleted_nombre = for_delete.nombre;
+    const deleted = await usuarioRepository.deleteUsuario(id);
+    if (deleted === 0) {
+      throw new Error('Usuario no encontrado');
+    }
+    await LogService.createLog(usuarioId, 'Usuario', 'DELETE', `Borrado usuario: ${deleted_nombre}`);
+    return deleted;
   }
 
 }

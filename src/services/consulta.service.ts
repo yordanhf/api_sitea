@@ -2,10 +2,13 @@
 import { Op } from 'sequelize';
 import Consulta from '../models/consulta.model';
 import ConsultaRepository from '../repositories/consulta.repository';
+import LogService from './log.service';
 
 class ConsultaService {
-  public async createConsulta(data: Partial<Consulta>) {
-    return await ConsultaRepository.createConsulta(data);
+  public async createConsulta(data: Partial<Consulta>, usuarioId: string) {
+    const consulta = await ConsultaRepository.createConsulta(data);
+    await LogService.createLog(usuarioId, 'Consulta', 'CREATE', `Creada consulta: ${consulta.id}`);
+    return consulta;
   }
 
   public async getAllConsultas() {
@@ -24,15 +27,20 @@ class ConsultaService {
     return await ConsultaRepository.findConsultaByPacienteId(pacienteId);
   }
 
-  public async updateConsulta(id: string, data: Partial<Consulta>) {
-    return await ConsultaRepository.updateConsulta(id, data);
+  public async updateConsulta(id: string, data: Partial<Consulta>, usuarioId: string) {
+    const consulta = await ConsultaRepository.updateConsulta(id, data);
+    await LogService.createLog(usuarioId, 'Consulta', 'UPDATE', `Actualizada consulta: ${consulta.id}`);
+    return consulta;    
   }
 
-  public async deleteConsulta(id: string) {
+  public async deleteConsulta(id: string, usuarioId: string) {
+    const for_delete = await this.getConsultaById(id);
+    const deleted_id = for_delete.id;    
     const deleted = await ConsultaRepository.deleteConsulta(id);
     if (deleted === 0) {
       throw new Error('Consulta no encontrada');
     }
+    await LogService.createLog(usuarioId, 'Consulta', 'DELETE', `Borrada consulta: ${deleted_id}`);
     return deleted;
   }
 

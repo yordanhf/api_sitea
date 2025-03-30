@@ -4,6 +4,42 @@ import UsuarioService from '../services/usuario.service';
 
 class UsuarioController {
 
+  public async getAllUsuarios(req: Request, res: Response) {
+    try { 
+      const usuarios = await UsuarioService.getAllUsuarios();
+      res.status(201).json(usuarios);
+    } catch (error) {
+      res.status(500).json({ error: (error as Error).message });
+    }
+  }
+
+  public async getUsuarioById(req: Request, res: Response) {
+    try { 
+      const { id } = req.params;
+      const usuario = await UsuarioService.getUsuarioById(String(id));
+      if (usuario) {
+        res.status(200).json(usuario);
+      } else {
+        res.status(404).json({ message: 'Usuario no encontrado' });
+      }      
+    } catch (error) {
+      res.status(500).json({ error: (error as Error).message });
+    }
+  }
+
+  public async checkUsuarios(req: Request, res: Response) {
+    try {
+      const usuarios = await UsuarioService.getAllUsuarios();      
+      if (usuarios.length > 0) {
+        res.status(200).json({ message: 'Usuarios encontrados', exists: true });
+      } else {
+        res.status(200).json({ message: 'No se encontraron Usuarios', exists: false });
+      }
+    } catch (error) {
+      res.status(500).json({ error: (error as Error).message });
+    }
+  }
+
   public async createFirstUsuario(req: Request, res: Response) {
     try {
       const usuarios = await UsuarioService.getAllUsuarios();
@@ -13,7 +49,7 @@ class UsuarioController {
       }
 
       const data = req.body;
-      const usuario = await UsuarioService.createUsuario(data, 'Primer_Usuario');
+      const usuario = await UsuarioService.createFirstUser(data);
       res.status(201).json(usuario);
     } catch (error) {
       res.status(500).json({ error: (error as Error).message });
@@ -90,13 +126,29 @@ class UsuarioController {
         res.status(401).json({ message: 'Usuario no autenticado' });
         return;
       }
-      res.status(200).json({ usuario: `${(req as any)['user'].nombre}`, 
-                             rol: `${(req as any)['user'].rol}`,
-                             provincia: `${(req as any)['user'].provincia}`  
-                            });
+      const user = (req as any)['user'];
+      const rol = user.rol === 'admin_nac' ? 'Administrador Nacional' : 
+      user.rol === 'admin_prov' ? 'Administrador Provincial' : 'Usuario restringido';
+      const provincia = user.provincia ? user.provincia : 'Todas';
+
+      res.status(200).json({ usuario: `${user.nombre}`, 
+                             rol: rol,
+                             provincia: provincia });
       return;
     } catch (error) {
       res.status(500).json({ error: (error as Error).message });
+    }
+  }
+
+  public async deleteUsuario(req: Request, res: Response) {
+    try {
+      const usuarioToken = (req as any)['user'];
+      const { id } = req.params;
+      await UsuarioService.deleteUsuario(String(id), usuarioToken.id );
+      res.status(200).send('Usuario eliminado');
+    } catch (error) {
+      const errorMessage = (error as Error).message;
+      res.status(404).send(errorMessage);
     }
   }
   
