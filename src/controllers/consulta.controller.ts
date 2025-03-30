@@ -4,8 +4,9 @@ import ConsultaService from '../services/consulta.service';
 class ConsultaController {
   public async createConsulta(req: Request, res: Response) {
     try {
+      const usuarioToken = (req as any)['user'];
       const data = req.body;
-      const consulta = await ConsultaService.createConsulta(data);
+      const consulta = await ConsultaService.createConsulta(data, usuarioToken.id);
       res.status(201).json(consulta);
     } catch (error) {
       res.status(404).json( (error as Error).message);
@@ -43,9 +44,10 @@ class ConsultaController {
 
   public async updateConsulta(req: Request, res: Response) {
     try {
+      const usuarioToken = (req as any)['user'];
       const { id } = req.params;
       const data = req.body;
-      const updatedConsulta = await ConsultaService.updateConsulta(String(id), data);
+      const updatedConsulta = await ConsultaService.updateConsulta(String(id), data, usuarioToken.id);
       res.status(200).json(updatedConsulta);
     } catch (error) {
       res.status(404).json((error as Error).message);
@@ -54,8 +56,9 @@ class ConsultaController {
 
   public async deleteConsulta(req: Request, res: Response) {
     try {
+      const usuarioToken = (req as any)['user'];
       const { id } = req.params;
-      await ConsultaService.deleteConsulta(String(id));
+      await ConsultaService.deleteConsulta(String(id), usuarioToken.id);
       res.status(200).json({ message: 'Consulta eliminada con éxito' });
     } catch (error) {
       res.status(404).json((error as Error).message);

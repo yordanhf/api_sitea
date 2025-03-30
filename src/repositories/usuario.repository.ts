@@ -5,6 +5,10 @@ class UsuarioRepository {
     return await Usuario.findOne({ where: { nombre } });
   }
 
+  public async findById(id: string) {
+    return await Usuario.findByPk(id);
+  }
+
   public async findAllUsuarios() {
     return await Usuario.findAll();
   }
@@ -20,6 +24,14 @@ class UsuarioRepository {
 
   public async createUsuario(data: Partial<Usuario>) {
     return await Usuario.create(data);
+  }
+
+  public async deleteUsuario(id: string) {
+    const deleted = await Usuario.destroy({ where: { id } });
+    if (deleted) {
+      return deleted;
+    }
+    throw new Error('Usuario no encontrado');
   }
 }
 
