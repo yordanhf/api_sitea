@@ -11,7 +11,7 @@ class LogService {
   }
 
   public async getAllLogs() {
-    return await LogRepository.findAllLog();
+    return await LogRepository.findAllLog();    
   }
 
   public async getlogById(id:string) {
@@ -29,8 +29,9 @@ class LogService {
     fechaInicio?: Date,
     fechaFin?: Date
   }) {
-    return await LogRepository.findLogsByParams(params);
+    return await LogRepository.findLogsByParams(params);    
   }
+  
 }
 
 export default new LogService();

@@ -8,7 +8,7 @@ class UsuarioRepository {
   public async findById(id: string) {
     return await Usuario.findByPk(id);
   }
-
+  
   public async findAllUsuarios() {
     return await Usuario.findAll();
   }

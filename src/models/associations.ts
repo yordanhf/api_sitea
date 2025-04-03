@@ -17,6 +17,8 @@ import Diagnostico from './diagnostico.model';
 import VinculoInstitucional from './vinculo_institucional.model';
 import Examen from './examen.model';
 import InterconsultaSimple from './interconsultas.model';
+import Usuario from './usuario.model';
+import Log from './log.model';
 
 // Definir las relaciones
 
@@ -38,6 +40,9 @@ import InterconsultaSimple from './interconsultas.model';
 
   Examen.hasMany(ExamenComplementario, { foreignKey: 'examenId' });
   ExamenComplementario.belongsTo(Examen, { as: 'examen', foreignKey: 'examenId' });
+
+  Usuario.hasMany(Log, { foreignKey: 'usuarioId' });
+  Log.belongsTo(Usuario, { as: 'usuario', foreignKey: 'usuarioId' });
 
   
   //Mucho a Muchos
