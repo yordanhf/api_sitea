@@ -1,6 +1,4 @@
 
-- adicionar roles por provincias
-
 -  endpoint que faltan para las estadisticas
 
 
