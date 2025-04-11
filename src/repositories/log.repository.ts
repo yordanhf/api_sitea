@@ -1,5 +1,6 @@
 import { Op } from 'sequelize';
 import Log from '../models/log.model';
+import Usuario from '../models/usuario.model';
 
 class LogRepository {
   public async createLog(data: Partial<Log>) {    
@@ -7,7 +8,13 @@ class LogRepository {
   }
 
   public async findAllLog() {
-    return await Log.findAll();
+    return await Log.findAll({
+      include: [{
+        model: Usuario,
+        attributes: ['nombre'],as: 'usuario'
+      }],
+      raw: true,
+    });
   }
 
   public async findLogById(id: string) {
@@ -40,8 +47,14 @@ class LogRepository {
         [Op.lte]: fechaFin
       };
     }
-
-    return await Log.findAll({ where });
+    return await Log.findAll({
+      where,
+      include: [{
+        model: Usuario,
+        attributes: ['nombre'], as: 'usuario'
+      }],
+      raw: true,
+    });    
   }
 }
 
